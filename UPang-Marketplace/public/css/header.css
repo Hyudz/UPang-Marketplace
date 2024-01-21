@@ -1,0 +1,61 @@
+::placeholder {
+    font-family: 'Sahitya', sans-serif;
+}
+
+.item-container {
+    display: flexbox;
+    align-items: center;
+    z-index: 1;
+}
+
+  /* Style for the item */
+.item {
+    padding: 5px;
+    display: flex;
+    width: 125%;
+    cursor: pointer;
+}
+
+.items-list {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+  /* Style for the list of buttons */
+.button-list {
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+  /* Show the list of buttons when hovering over the item */
+.item-container:hover .button-list {
+    display: block;
+}
+
+  /* Style for individual buttons in the list */
+.button-list a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+  /* Hover effect for buttons in the list */
+.button-list a:hover {
+    background-color: #f2f2f2;
+}
+
+.items-list :hover {
+    background-color: red;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

@@ -1,0 +1,63 @@
+
+#mainContent{
+    width: 70%;
+    position: absolute;
+    top: 25%;
+}
+
+#header {
+    font-size:22px;
+    padding: 100px;
+    font-weight: bold; 
+    margin: auto;
+    line-height: normal;
+    text-align: center;
+}
+
+#loginForm {
+    background-color: white;
+    padding: 3px 3px 3px 3px;
+    margin: 16px;
+}
+
+#sideContent {
+    width: 30%;
+    height: 100%;
+    position: absolute;
+    right: 0px;
+    background-color: #D9D9D9;
+}
+
+#logo {
+    width: 50%;
+    margin-top: 25%;
+    margin-left: 25%;
+    margin-bottom: 5%;
+}
+
+#selector {
+    height: 0%;
+    width: 50%;
+    border: solid 1px;
+}
+
+#loginform {
+    width: 55%;
+}
+
+.form_input {
+    background-color: #D9D9D9;
+    margin: 10px;
+    border-radius: 60px;
+}
+
+#signUpbtn, #loginBtn { 
+    border-radius: 60px;
+    width: 92px;
+    height: 50px;
+}
+
+hr {
+    border-top: solid 3px;
+    width: 75%;
+}

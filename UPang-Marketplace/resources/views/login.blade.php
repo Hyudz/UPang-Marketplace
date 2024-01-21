@@ -1,32 +1,59 @@
-@extends('layout')
-@section('content')
-@section('title', 'Login')
+<!DOCTYPE html>
+    <html lang="en">
+        <head>
+            <title>UPang Marketplace</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="{{asset('css/login.css')}}" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Sahitya" rel="stylesheet">
+            <link href="https://fonts.googleapis.com/css?family=Inria+Serif" rel="stylesheet">
+            <link href="{{asset('img/icon.png')}}" rel="icon" type="image/x-icon">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        </head>
 
+        <body>  
+<div class="flex-container">
+    <div id="mainContent" class="ms-auto">
+        <h1 style="font-family: 'Sahitya';" class="text-center">Welcome to PHINMA-UPang Marketplace</h1>
+        <h5 style="font-family:'Inria Serif';" class="text-center"></h5>
 
-<div class="container" style=" height: 100%; position: absolute; right: 0px; background: rgb(2,0,36); background: linear-gradient(90deg, rgba(2,0,36,0) 0%, rgba(255,255,255,0.5) 75%, rgba(255,255,255,0.7) 100%);">
+        <div class="d-flex justify-content-center">
+            <hr>
+        </div>
+
+        <div class="d-flex flex-column justify-content-center">
+            <h5 style="font-family:'Inria Serif';" class="text-center">Login to your account</h5>
+            <div class="d-flex justify-content-center">
+                <form action="{{route('homepage')}}" method="" id="loginform" class="content-center">
+                    @csrf
+                    <div class="m-auto">
+                        <input type="email" name="email" placeholder="Email" class="form-control form_input">
+                    </div>
+                    <div class="m-auto">
+                        <input type="password" name="password" placeholder="Password" class="form-control form_input">
+                    </div>
+                    <span class="d-flex flex-row-reverse" style="cursor: pointer;">Forgot Password</span>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-secondary" id="loginBtn">Login</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="sideContent" >
+        <img src="{{asset('img/logo.png')}}" alt="Marketplace Logo" id="logo" class="rounded mx-auto d-block">
+        <h1 style="font-family: 'Sahitya';" class="mx-auto text-center">Dont have an account?</h1>
+        <h5 class="mx-auto text-center">Sign up and enjoy shopping!</h5>
+        
+        <form action="{{route('signup')}}" method="get">
+            <div class="d-flex justify-content-center">
+                <button class="btn btn-light mx-auto" type="submit" id="signUpbtn">Sign Up</button>
+            </div>
+        </form>
+    </div>
+
 </div>
-<div class="container" style="width: 500px; position: absolute; right: 0px;">
 
-    <img src='{{ asset("img/university_logo.default.png")}}' style="width: 50vmin;" class="mt-5"><br><br>
-    <span class="m-auto" style="font-size:32px; font-family: 'Open Sans'; font-weight: bold; line-height: normal; text-align: center; background-color: red;"><u>LOG IN TO MARKETPLACE</u></span>
-    <form class="ms-auto">
-        <div class="mt-3">
-            <label class="form-Label">EMAIL</label>
-            <input type="email" class="form-control" required id="form-label">
-        </div>
-
-        <div class="mt-3">
-            <label class="form-Label" style="font-weight: bold; font-family: 'Open Sans'">PASSWORD</label>
-            <input type="password" class="form-control" required id="form-label">
-        </div>
-
-        <div class="mt-3">
-            <button type="submit" class="btn" style="width: 100%; background-color: #0E7D44;"><span style="color: white;">LOGIN</span></button>
-            <span style="cursor: pointer; font-family: 'Open Sans', sans-serif;">Forgot Password</span>
-        </div>
-    </form>
-</div>
-
-
-
-@endsection
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" ></script>
+        </body>
+    </html>
