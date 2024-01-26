@@ -8,15 +8,18 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
+    <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
     <title>Likes</title>
 </head>
 <body>
-    <div class="container-fluid mt-3">
-        @include('header')
+    <div class="container-fluid">
+        @include('header2')
     </div>
-    <?php
-    echo "Here lies the likes page"
-    ?>
+    
+    <div class="container ms-auto me-auto mt-auto mb-auto">
+        <br><br><br><br><br><br>
+        <h1>0 likes</h1>
+    </div>
 </body>
 </html>

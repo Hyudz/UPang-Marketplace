@@ -64,3 +64,22 @@ Route::get("/home",function() {
     return redirect('homepage');
 }) -> name('home');
 
+Route::get("/forgotpassword",function() {
+    return view('forgotpassword');
+}) -> name('forgotpassword');
+
+Route::get("/sell",function() {
+    return view('sell');
+}) -> name('sell');
+
+Route::get("/viewproduct",function() {
+    return view('viewproduct');
+}) -> name('viewproduct');
+
+Route::get("/buy",function() {
+    return view('check-out');
+}) -> name('checkout-item');
+
+Route::get("/confirmed",function() {
+    return view('purchased');
+}) -> name('purchase');

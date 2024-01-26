@@ -6,7 +6,7 @@
             <link href="{{asset('css/login.css')}}" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Sahitya" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Inria+Serif" rel="stylesheet">
-            <link href="{{asset('img/icon.png')}}" rel="icon" type="image/x-icon">
+            <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
 
@@ -31,7 +31,9 @@
                     <div class="m-auto">
                         <input type="password" name="password" placeholder="Password" class="form-control form_input">
                     </div>
-                    <span class="d-flex flex-row-reverse" style="cursor: pointer;">Forgot Password</span>
+                    <span class="d-flex flex-row-reverse">
+                        <a href="{{route('forgotpassword')}}" class="text-decoration-none" id="forgotPassword">Forgot Password</a>
+                    </span>
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-secondary" id="loginBtn">Login</button>
                     </div>
@@ -41,7 +43,7 @@
     </div>
 
     <div id="sideContent" >
-        <img src="{{asset('img/logo.png')}}" alt="Marketplace Logo" id="logo" class="rounded mx-auto d-block">
+        <img src="{{asset('img/medyo final na logo 1.png')}}" alt="Marketplace Logo" id="logo" class="rounded mx-auto d-block">
         <h1 style="font-family: 'Sahitya';" class="mx-auto text-center">Dont have an account?</h1>
         <h5 class="mx-auto text-center">Sign up and enjoy shopping!</h5>
         

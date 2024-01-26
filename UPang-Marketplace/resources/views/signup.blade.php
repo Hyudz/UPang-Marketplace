@@ -6,13 +6,14 @@
     <title>Sign Up</title>
     <link href="{{asset('css/signup.css')}}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
 </head>
 <body>
 
     <div class="container-fluid">
         <div class="row" style="height: 100%;">
             <div id="sideContent" class="col-3 vh-100 d-inline-block" style="background-color: #D9D9D9;">
-                <img src="{{asset('img/logo.png')}}" alt="Marketplace Logo" id="logo" style="width: 50%; margin-top:50%" class="rounded mx-auto d-block">
+                <img src="{{asset('img/medyo final na logo 1.png')}}" alt="Marketplace Logo" id="logo" style="width: 50%; margin-top:50%" class="rounded mx-auto d-block">
                 <h1 style="font-family: 'Sahitya';" class="mx-auto text-center">Already have an account?</h1>
                 <h5 class="mx-auto text-center">Sign in now!</h5>
             

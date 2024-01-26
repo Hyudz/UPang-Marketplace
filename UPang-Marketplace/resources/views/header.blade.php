@@ -1,13 +1,13 @@
     <!-- This page contains the header of the marketplace  -->
     
     <div class="row">
-        <div class="mt-3 ms-3 col-2">
-            <a href="{{route('home')}}">
-                <img src="{{asset('img/logo.png')}}" alt="Marketplace Logo" id="logo" style="width: 15vmax;">
+        <div class="mt-3 ms-3 col-sm-2 container">
+            <a href="{{route('home')}}" class="ms-5">
+                <img src="{{asset('img/LOGO 2.png')}}" alt="Marketplace Logo" id="logo" style="width: 7vmax;">
             </a>
         </div>
 
-        <div class="col-5">
+        <div class="col-5 mt-4 container-fluid">
             <form>
                 <div>
                     <input type="text" name="search" placeholder="I am looking for..." class="form-control" id="searchbar">
@@ -15,7 +15,7 @@
             </form>
         </div>
 
-        <div class="col-sm d-flex">
+        <div class="col-sm-2 d-flex mt-4">
             <div class="item-container">
                 <div class="container d-flex">
                     <div class="icon">
@@ -44,25 +44,28 @@
             </div>
         </div>
 
-        <div class="container-fluid col">
+        <div class="container-fluid col mt-4">
             <nav>
                 <ul>
-                    <a href="{{route('likes')}}" style="color: red;"> 
-                        <i class="fa fa-heart"></i>
+                    <a href="{{route('likes')}}" class="nav-item"> 
+                        <i class="fa fa-heart" id="nav-icon"></i>
                     </a>
-                    <a href="{{route('cart')}}">
-                        <i class="fa fa-shopping-cart"></i>
+                    <a href="{{route('cart')}}" class="nav-item">
+                        <i class="fa fa-shopping-cart" id="nav-icon"></i>
                     </a>    
 
                     <!-- WALA YATANG SARILING PAGE TO EH JUST LIKE IN FB -->
-                    <a href="#">
-                        <i class="fa fa-bell"></i>
+                    <a href="#" class="nav-item">
+                        <i class="fa fa-bell" id="nav-icon"></i>
                     </a>
-                    <a href="#">
-                        <i class="fa fa-message"></i>
+                    <a href="#" class="nav-item">
+                        <i class="fa fa-message" id="nav-icon"></i>
                     </a>
-                    <button type="submit" style="border-radius:60px; width: 20%">SELL</button>
+                    <a href="{{route('sell')}}">
+                        <button type="submit" style="border-radius:60px; width: auto;">SELL</button>
+                    </a>
                 </ul>
             </nav>
         </div>
+        
     </div>

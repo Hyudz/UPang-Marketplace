@@ -9,14 +9,16 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
+    <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
     <title>Saved Items</title>
 </head>
 <body>
-    <div class="container-fluid mt-3">
-        @include('header')
+    <div class="container-fluid">
+        @include('header2')
     </div>
-    <?php
-    echo "Here lies the saved products page"
-    ?>
+    <div class="container ms-auto me-auto mt-auto mb-auto">
+        <br><br><br><br><br><br>
+        <h1>You have no items</h1>
+    </div>
 </body>
 </html>
