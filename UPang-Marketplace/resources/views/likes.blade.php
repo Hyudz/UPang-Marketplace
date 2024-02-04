@@ -6,7 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
@@ -17,9 +16,28 @@
         @include('header2')
     </div>
     
-    <div class="container ms-auto me-auto mt-auto mb-auto">
-        <br><br><br><br><br><br>
-        <h1>0 likes</h1>
+    
+    <div class="container min-vh-100 ms-auto me-auto mt-auto mb-auto" style="overflow: auto;">
+        <div class="container">
+            <h1>Likes</h1>
+        </div>
+    
+        <div class="container-fluid">
+            <div class="row w-auto">
+                <div class="col">
+                    <a href="{{route('viewproduct')}}">
+                        <div class="card" style="width: 18rem;">
+                            <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                            <div class="card-body">
+                                <h5 class="card-title" id="product1">Product Name</h5>
+                                <p class="card-text" style="text-align: justify;">₱100.00</p>
+                                <p class="card-text" style="text-align: justify;"> <span class="fa fa-heart"></span>10 Likes</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

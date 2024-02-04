@@ -23,26 +23,26 @@
                         <h1 class="p-4" style="font-family: 'Sahitya';" id="productname">
                             Product name
                         </h1>
-                        <span class="short desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis pariatur atque ab tempore provident tenetur expedita ea voluptatum, recusandae incidunt temporibus, minus vel libero. Aliquid voluptatibus odit error quo officiis!</span><br>
+                        <p class="short_desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis pariatur atque ab tempore provident tenetur expedita ea voluptatum, recusandae incidunt temporibus, minus vel libero. Aliquid voluptatibus odit error quo officiis!</span><br>
                         <span class="likes">0 likes</span>
-                        <div class="mt-5 me-5 mb-5 d-inline">
+                        <div class="d-flex justify-content-center">
+                            <a href="#">
+                                <button id="heartBtn"><span class="fa fa-heart"></span></span></button>
+                            </a>
+
+                            <a href="#">
+                                <button id="shoppingbtn"> <span class="fa fa-shopping-cart"></span> Add to Cart</button>
+                            </a>
+
                             <a href="{{route('checkout-item')}}">
-                                <button id="shoppingbtn">BUY</button>
-                            </a>
-
-                            <a href="#">
-                                <button id="shoppingbtn">ADD TO CART</button>
-                            </a>
-
-                            <a href="#">
-                                <button id="shoppingbtn">LIKE ITEM</button>
+                                <button id="shoppingbtn">Buy Now</button>
                             </a>
                         </div>
                     </div>
 
-                    <div class="col-md-6">
-                        <div class="mh-100" style="height: 100%;" class="model">
-                            <img src="" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
+                    <div class="col-md-6" style="height: 100vmin;">
+                        <div class="mh-100 container mt-5 mb-auto me-auto ms-auto" class="model">
+                            <img src="https://placehold.co/600x400?text=Placeholder" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
                         </div>
                     </div>
                 </div>

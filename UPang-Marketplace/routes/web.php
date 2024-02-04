@@ -83,3 +83,7 @@ Route::get("/buy",function() {
 Route::get("/confirmed",function() {
     return view('purchased');
 }) -> name('purchase');
+
+Route::get("/admin",function() {
+    return view('admin');
+}) -> name('admin');

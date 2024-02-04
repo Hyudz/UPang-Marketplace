@@ -1,5 +1,5 @@
 <header>
-    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white fixed-top">
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
     <div class="container-fluid">
 
         <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
@@ -71,7 +71,7 @@
 
             <li class="nav-item">
                 <a href="{{route('sell')}}">
-                    <button type="submit" style="border-radius:60px; width: auto;">SELL</button>
+                    <button type="submit" style="border-radius:60px; width: auto; display: none">SELL</button>
                 </a>
             </li>
         </ul>

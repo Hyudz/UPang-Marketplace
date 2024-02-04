@@ -27,8 +27,9 @@ h1 {
 #shoppingbtn {
     border-radius: 60px;
     padding: 1%;
-    display: flex;
     align-items: center;
+    width: 150px;
+    margin-left: 20px;
 }
 
 #firstHeading {
@@ -37,4 +38,14 @@ h1 {
 
 #content {
     max-height: 500%;
+}
+
+.short_desc {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+#heartBtn {
+    width: 50px;
+    border-radius: 60px;
 }

@@ -14,17 +14,13 @@
 </head>
 <body>
     <div class="container-fluid">
-        <div class="d-block bg-primary">
-            <div class="container-fluid mt-3 row">
+        <div class="d-block">
+            <div class="container-fluid row fixed-top">
                 @include('header2')
             </div>
 
             <div class="navbar container-fluid row">
                 <div class="col">
-                    <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
-                        <i class="fas fa-bars"></i>
-                    </button>
-
                     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
                         <div class="position-sticky">
                             <div class="list-group list-group-flush mx-3 mt-5">
@@ -51,25 +47,86 @@
                                 <a href="#" onclick="change('cma')" class="list-group-item list-group-item-action py-2 ripple">
                                     <span id="cma">CMA</span>
                                 </a>
-                                
-
                             </div>
                         </div>
                     </nav>
                 </div>
             </div>
-        </div>
 
-        <!-- Place the h1 below both the navbar and the sidebar -->
-        <div class="container-fluid mt-5" style="padding-left: 260px;">
-            <div class="card" style="width: 18rem;">
-                <img class="card-img-top" src="..." alt="product image">
-                <div class="card-body">
-                    <h5 class="card-title" id="product1">Product Name</h5>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos aliquid sit, ipsum obcaecati sed numquam ea quis iste nulla eum aut maiores reprehenderit quia tempora veniam. Inventore asperiores veritatis eveniet.</p>
-                    <a href="{{route('viewproduct')}}" class="btn btn-primary">View</a>
+            <div class="container" style="padding-left: 150px;">
+                <div class="row w-auto">
+                    <div class="col">
+                        <a href="{{route('viewproduct')}}">
+                            <div class="card mt-5" style="width: 18rem;">
+                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="product1">Product Name</h5>
+                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="{{route('viewproduct')}}">
+                            <div class="card mt-5" style="width: 18rem;">
+                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="product1">Product Name</h5>
+                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="{{route('viewproduct')}}">
+                            <div class="card mt-5" style="width: 18rem;">
+                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="product1">Product Name</h5>
+                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <div class="card mt-5" style="width: 18rem;">
+                            <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                            <div class="card-body">
+                                <h5 class="card-title" id="product1">Product Name</h5>
+                                <p class="card-text" style="text-align: justify;">₱100.00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col">
+                        <a href="{{route('viewproduct')}}">
+                            <div class="card mt-5" style="width: 18rem;">
+                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="product1">Product Name</h5>
+                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+
+                    <div class="col">
+                        <a href="{{route('viewproduct')}}">
+                            <div class="card mt-5" style="width: 18rem;">
+                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="product1">Product Name</h5>
+                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             </div>
+
         </div>
     </div>
 
