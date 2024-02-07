@@ -7,8 +7,15 @@
     <title>Document</title>
 </head>
 <body>
-    <?php
-    echo "Sell form ask for details";
-    ?>
+    <div>
+        <form>
+            <input type="text" placeholder="Product Name">
+            <input type="text" placeholder="Price">
+            <input type="text" placeholder="Description">
+            <input type="text" placeholder="Category">
+            <input type="file" placeholder="Image">
+            <button type="submit">Upload</button>
+        </form>
+    </div>
 </body>
 </html>

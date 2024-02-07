@@ -25,17 +25,36 @@
             </div>
 
             <div id="mainContent" class="col">
+
+            <div class="mt-5">
+            @if($errors->any())
+                <div class="col-12">
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
+            @if(session()->has('error'))
+                <div class="alert alert-danger">{{session('error')}}</div>
+            @endif
+
+            @if(session()->has('success'))
+                <div class="alert alert-success">{{session('success')}}</div>
+            @endif
+        </div>
                 <h1 style="font-family: 'Sahitya';" class="d-flex justify-content-start" id="header">Sign Up</h1>
                 <div class="d-flex flex-column">
                     <div class="container-fluid" id="signup_form">
-                        <form action="{{route('homepage')}}" method="" id="loginform" class="content-center">
+                        <form action="{{route('create-user')}}" method="POST" id="loginform" class="content-center">
                             @csrf
                             <div class="row">
                                 <div class="mt-auto col-sm">
-                                    <input type="text" name="First_Name" placeholder="First Name" class="form-control" id="form_input">
+                                    <input type="text" name="first_name" placeholder="First Name" class="form-control" id="form_input">
                                 </div>
                                 <div class="mt-auto col-sm">
-                                    <input type="text" name="Last_Name" placeholder="Last Name" class="form-control" id="form_input">
+                                    <input type="text" name="last_name" placeholder="Last Name" class="form-control" id="form_input">
                                 </div>
                             </div>
                             <div class="mt-3">
@@ -45,11 +64,12 @@
                                 <input type="password" name="password" placeholder="Password" class="form-control" id="form_input">
                             </div>
                             <div class="mt-3">
-                                <input type="password" name="password_confirm" placeholder="Confirm Password" class="form-control" id="form_input">
+                                <input type="password" name="password_confirmation" placeholder="Confirm Password" class="form-control" id="form_input">
                             </div>
                             <div>
                                 <input type="checkbox" name="terms" id="terms" class="form-check-input" onclick="checkterms()"> I have read your <a href="#">Privacy and Policy</a> and I agree on your <a href="#"> Terms and conditions. </a>
                             </div>
+
                             <button type="submit" class="btn btn-secondary" id="signUpBtn">Sign Up</button>
                         </form>
                     </div>

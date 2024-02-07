@@ -24,7 +24,7 @@
                             Welcome to PHINMA-UPang Marketplace
                         </h1>
                         <div class="mt-5 me-5 mb-5 d-inline">
-                            <a href="{{route('products')}}">
+                            <a href="{{route('product')}}">
                                 <button id="shoppingbtn">
                                     <div class="indicator col">Start shopping</div>
                                     <div class="icon-container">

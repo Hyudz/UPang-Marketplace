@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('product_price');
             $table->string('product_quantity');
             $table->string('product_category');
-            $table->string('product_image');
-            $table->string('seller_id');
-            $table->boolean('approved');
-            $table->string('product_likes');
+            $table->string('product_image')->default(asset('products/default.png'));
+            $table->string('seller_id')->default('0');
+            $table->string('approved')->default('Pending Approval');
+            $table->string('product_likes')->default('0');
             $table->timestamps();
         });
     }

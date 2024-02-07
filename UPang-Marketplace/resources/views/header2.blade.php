@@ -23,27 +23,13 @@
         <ul class="navbar-nav ms-auto d-flex flex-row">
             <li class="nav-item dropdown">
             <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-circle-user" style="margin-right: 5px;"></i>Hello user!</button>
+                <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-circle-user"></i>Hello {{$username}}!</button>
                 <div id="myDropdown" class="dropdown-content">
                     <a href="{{route('profile')}}"><i class="fa fa-circle-user"></i> Profile</a>
                     <a href="{{route('settings')}}"><i class="fa-solid fa-gear"></i> Settings</a>
                     <a href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                 </div>
             </div>
-                <div class="button-list">
-        <div class="items-list">
-            
-        </div>
-
-        <div class="items-list">
-            
-        </div>
-
-        <div class="items-list">
-            
-        </div>
-    </div>
-            </li>
 
             <li class="nav-item">
                 <a href="{{route('likes')}}" class="nav-item"> 
@@ -71,7 +57,7 @@
 
             <li class="nav-item">
                 <a href="{{route('sell')}}">
-                    <button type="submit" style="border-radius:60px; width: auto; display: none">SELL</button>
+                    <button type="submit" style="border-radius:60px; width: auto;">SELL</button>
                 </a>
             </li>
         </ul>

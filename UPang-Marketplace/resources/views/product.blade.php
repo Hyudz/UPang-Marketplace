@@ -55,75 +55,21 @@
 
             <div class="container" style="padding-left: 150px;">
                 <div class="row w-auto">
+
+                    @foreach($products as $product)
                     <div class="col">
-                        <a href="{{route('viewproduct')}}">
+                        <a href="{{route('viewproduct', $product->id)}}">
                             <div class="card mt-5" style="width: 18rem;">
-                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
+                                <img class="card-img-top" src="{{asset('products/placeholder.png')}}" alt="product image">
                                 <div class="card-body">
-                                    <h5 class="card-title" id="product1">Product Name</h5>
-                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
+                                    <h5 class="card-title" id="product1">{{$product->product_name}}</h5>
+                                    <p class="card-text" style="text-align: justify;">₱{{$product->product_price}}</p>
                                 </div>
                             </div>
                         </a>
                     </div>
-
-                    <div class="col">
-                        <a href="{{route('viewproduct')}}">
-                            <div class="card mt-5" style="width: 18rem;">
-                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="product1">Product Name</h5>
-                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="{{route('viewproduct')}}">
-                            <div class="card mt-5" style="width: 18rem;">
-                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="product1">Product Name</h5>
-                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <div class="card mt-5" style="width: 18rem;">
-                            <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
-                            <div class="card-body">
-                                <h5 class="card-title" id="product1">Product Name</h5>
-                                <p class="card-text" style="text-align: justify;">₱100.00</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="col">
-                        <a href="{{route('viewproduct')}}">
-                            <div class="card mt-5" style="width: 18rem;">
-                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="product1">Product Name</h5>
-                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-
-                    <div class="col">
-                        <a href="{{route('viewproduct')}}">
-                            <div class="card mt-5" style="width: 18rem;">
-                                <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="product1">Product Name</h5>
-                                    <p class="card-text" style="text-align: justify;">₱100.00</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
 

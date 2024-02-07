@@ -15,7 +15,7 @@
     </head>
         <body>
         
-        <div class="container-fluid mt-3 mainContent">
+        <div class="container-fluid mainContent">
         @include('header2')
             <div class="container-fluid h-100" id="content">
                 <div class="row">

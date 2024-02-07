@@ -19,21 +19,42 @@
         <div class="d-flex justify-content-center">
             <hr>
         </div>
+        <div class="mt-5" style="width: 500px;">
+            @if($errors->any())
+                <div class="col-12">
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
+            @if(session()->has('error'))
+                <div class="alert alert-danger">{{session('error')}}</div>
+            @endif
+
+            @if(session()->has('success'))
+                <div class="alert alert-success">{{session('success')}}</div>
+            @endif
+        </div>
 
         <div class="d-flex flex-column justify-content-center">
             <h5 style="font-family:'Inria Serif';" class="text-center">Login to your account</h5>
             <div class="d-flex justify-content-center">
-                <form action="{{route('homepage')}}" method="" id="loginform" class="content-center">
+                <form action="{{route('login-post')}}" method="POST" id="loginform" class="content-center">
                     @csrf
                     <div class="m-auto">
                         <input type="email" name="email" placeholder="Email" class="form-control form_input">
                     </div>
+
                     <div class="m-auto">
                         <input type="password" name="password" placeholder="Password" class="form-control form_input">
                     </div>
+
                     <span class="d-flex flex-row-reverse">
                         <a href="{{route('forgotpassword')}}" class="text-decoration-none" id="forgotPassword">Forgot Password</a>
                     </span>
+                    
                     <div class="d-flex justify-content-center">
                         <button type="submit" class="btn btn-secondary" id="loginBtn">Login</button>
                     </div>

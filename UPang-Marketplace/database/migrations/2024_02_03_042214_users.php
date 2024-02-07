@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email');
             $table->string('password');
-            $table->string('user_type');
-            $table->string('gender');
-            $table->string('age');
+            $table->string('user_type')->default('buyer');
+            $table->string('gender')->default('male');
+            $table->string('age')->default('18');
             $table->timestamps();
         });
     }

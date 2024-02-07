@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationManager;
+use App\Http\Controllers\marketplace;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,41 +21,27 @@ Route::get('/', function () {
 });
 
 
-Route::get("/signup",[AuthenticationManager::class,'signup']) -> name('signup');  
-Route::get("/homepage",[AuthenticationManager::class,'homepage']) -> name('homepage');
-Route::get("/login",[AuthenticationManager::class,'login']) -> name('login');
+Route::get("/signup",[marketplace::class,'signup']) -> name('signup');  
+Route::get("/homepage",[marketplace::class,'homepage']) -> name('homepage');
+Route::get("/login",[marketplace::class,'login']) -> name('login');
+Route::post("/login",[marketplace::class,'login_post']) -> name('login-post');
+Route::post("/create_user",[marketplace::class,'create_user']) -> name('create-user');
+Route::get("/profile",[marketplace::class,'profile']) -> name('profile');
+Route::get("/settings",[marketplace::class,'settings']) -> name('settings');
+Route::get("/endsession",[marketplace::class,'logout']) -> name('logout');
+Route::get("/cart",[marketplace::class,'cart']) -> name('cart');
+Route::get("/saved",[marketplace::class,'saved']) -> name('saved');
+Route::get("/product",[marketplace::class,'product']) -> name('product');
+Route::get("/viewproduct",[marketplace::class,'viewproduct']) -> name('viewproduct');
 
-Route::get("/products",function() {
-    return view('product');
-}) -> name('products');
-
-Route::get("/profile",function() {
-    return view('profile');
-}) -> name('profile');
-
-Route::get("/settings",function() {
-    return view('settings');
-}) -> name('settings');
-
-Route::get("/endsession",function() {
-    return redirect('login');
-}) -> name('logout');
-
-Route::get("/cart",function() {
-    return view('cart');
-}) -> name('cart');
-
-Route::get("/saved",function() {
-    return view('saved');
-}) -> name('saved');
-
-Route::get("/product",function() {
-    return view('product');
-}) -> name('product');
 
 Route::get("/editprofile",function() {
     return view('editprofile');
 }) -> name('edit-profile');
+
+Route::get("/admin/signin",function() {
+    return view('admin.signin');
+}) -> name('admin-signin');
 
 Route::get("/likes",function() {
     return view('likes');
@@ -71,10 +58,6 @@ Route::get("/forgotpassword",function() {
 Route::get("/sell",function() {
     return view('sell');
 }) -> name('sell');
-
-Route::get("/viewproduct",function() {
-    return view('viewproduct');
-}) -> name('viewproduct');
 
 Route::get("/buy",function() {
     return view('check-out');
