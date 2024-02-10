@@ -15,7 +15,8 @@
         </div>
 
         <div class="card-body">
-            <form>
+            <form method="POST" action="{{route('admin.login')}}">
+                @csrf
                 <label for="username">Username</label>
                 <input type="text" name="username" id="username" class="form-control">
 

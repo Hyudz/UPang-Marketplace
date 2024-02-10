@@ -7,13 +7,32 @@
     <title>Document</title>
 </head>
 <body>
+<div class="mt-5">
+            @if($errors->any())
+                <div class="col-12">
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
+            @if(session()->has('error'))
+                <div class="alert alert-danger">{{session('error')}}</div>
+            @endif
+
+            @if(session()->has('success'))
+                <div class="alert alert-success">{{session('success')}}</div>
+            @endif
+        </div>
     <div>
-        <form>
-            <input type="text" placeholder="Product Name">
-            <input type="text" placeholder="Price">
-            <input type="text" placeholder="Description">
-            <input type="text" placeholder="Category">
-            <input type="file" placeholder="Image">
+        <form action="{{route('sell.product')}}" method="POST">
+            @csrf
+            <input type="text" name="product_name" placeholder="Product Name">
+            <input type="text" name="product_price" placeholder="Price">
+            <input type="text" name="product_description" placeholder="Description">
+            <input type="text" name="product_category" placeholder="Category">
+            <input type="text" name="product_quantity" placeholder="Quanitity">
             <button type="submit">Upload</button>
         </form>
     </div>

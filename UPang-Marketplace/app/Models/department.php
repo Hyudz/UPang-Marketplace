@@ -5,25 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class cart_items extends Model
+class department extends Model
 {
     use HasFactory;
-
-    protected $table = 'cart_items';
+    protected $table = 'department';
     protected $fillable = [
-        'user_id',
-        'product_id',
-        'user_id',
-        'quantity'
+        'department_name',
+        'product_id'
     ];
 
     public function product()
     {
         return $this->belongsTo(products::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(user_table::class);
     }
 }

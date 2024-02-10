@@ -33,6 +33,8 @@ Route::get("/cart",[marketplace::class,'cart']) -> name('cart');
 Route::get("/saved",[marketplace::class,'saved']) -> name('saved');
 Route::get("/product",[marketplace::class,'product']) -> name('product');
 Route::get("/viewproduct",[marketplace::class,'viewproduct']) -> name('viewproduct');
+Route::post("/admin/login",[marketplace::class,'adminlogin_post']) -> name('admin.login');
+Route::post("/sell.product",[marketplace::class,'create_product']) -> name('sell.product');
 
 
 Route::get("/editprofile",function() {
@@ -42,6 +44,10 @@ Route::get("/editprofile",function() {
 Route::get("/admin/signin",function() {
     return view('admin.signin');
 }) -> name('admin-signin');
+
+Route::get("/admin/dashboard",function() {
+    return view('admin.dashboard');
+}) -> name('admin.Sdashboard');
 
 Route::get("/likes",function() {
     return view('likes');

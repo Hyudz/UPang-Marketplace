@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Http\Controllers\api;
-use App\Models\users;
-use App\Models\product;
+
+use App\Models\products;
+use App\Models\user_table;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class marketplace_api extends Controller
@@ -12,7 +14,7 @@ class marketplace_api extends Controller
     function login(Request $request) {
         $email = $request->input('email');
         $password = $request->input('password');
-        $user = users::where('email', $email)->first();
+        $user = user_table::where('email', $email)->first();
         if ($user) {
             if (Hash::check($password, $user->password)) {
                 return response()->json([
@@ -39,7 +41,10 @@ class marketplace_api extends Controller
         $data['last_name'] = $request->input('last_name');
         $data['email'] = $request->input('email');
         $data['password'] = Hash::make($request->input('password'));
-        $user = users::create($data);
+        $data['user_type'] = $request->input('user_type');
+        $data['gender'] = $request->input('gender');
+        $data['birthday'] = $request->input('birthday');
+        $user = user_table::create($data);
         if ($user) {
             return response()->json([
                 'status' => 'success',
@@ -60,7 +65,18 @@ class marketplace_api extends Controller
         $data['product_price'] = $request->input('product_price');
         $data['product_quantity'] = $request->input('product_quantity');
         $data['product_category'] = $request->input('product_category');
-        $product = product::create($data);
+
+        $user = Auth::guard('api')->user();
+
+        if (!$user) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not authenticated',
+            ], 401); // Return a 401 Unauthorized status
+        }
+        $data['seller_id'] = $user->id;
+        
+        $product = products::create($data);
         if ($product) {
             return response()->json([
                 'status' => 'success',
@@ -76,7 +92,7 @@ class marketplace_api extends Controller
     }
 
     function display_products(){
-        $products = product::all();
+        $products = products::all();
         return response()->json([
             'status' => 'success',
             'message' => 'Products retrieved successfully',

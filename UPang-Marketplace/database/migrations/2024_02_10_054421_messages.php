@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_category', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->string('department');
-            $table->string('category_description');
+            $table->unsignedBigInteger('sender_id');
+            $table->foreign('sender_id')->references('id')->on('user_table');
+            $table->unsignedBigInteger('receiver_id');
+            $table->foreign('receiver_id')->references('id')->on('user_table');
+            $table->string('message');
+            $table->string('message_type');
             $table->timestamps();
         });
     }

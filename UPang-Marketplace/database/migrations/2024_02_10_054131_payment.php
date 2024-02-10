@@ -13,10 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_inventory', function (Blueprint $table) {
+        Schema::create('payments', function (Blueprint $table) {
             $table->id();
-            $table->string('product_id');
-            $table->string('product_quantity');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user_table');
+            $table->unsignedBigInteger('order_id');
+            $table->foreign('order_id')->references('id')->on('order_items');
+            $table->string('payment_method');
+            $table->string('payment_status');
             $table->timestamps();
         });
     }

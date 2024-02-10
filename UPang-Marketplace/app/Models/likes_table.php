@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class order_item extends Model
+class likes_table extends Model
 {
     use HasFactory;
-    protected $table = 'order_item';
+    protected $table = 'likes_tables';
     protected $fillable = [
-        'product_id',
-        'quantity',
+        'user_id',
+        'product_id'
     ];
 
     public function product()
@@ -19,15 +19,8 @@ class order_item extends Model
         return $this->belongsTo(products::class);
     }
 
-    public function payment()
+    public function user()
     {
-        return $this->hasOne(payment::class);
+        return $this->belongsTo(user_table::class);
     }
-
-    public function order_history()
-    {
-        return $this->hasOne(order_history::class);
-    }
-
-
 }

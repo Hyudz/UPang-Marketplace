@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_table',function(Blueprint $table) {
+        Schema::create('order_items', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('email');
-            $table->string('password');
-            $table->string('user_type')->default('buyer');
-            $table->string('gender')->default('male');
-            $table->string('age')->default('18');
+            $table->unsignedBigInteger('product_id');
+            $table->foreign('product_id')->references('id')->on('products');
+            $table->string('quantity');
             $table->timestamps();
         });
     }

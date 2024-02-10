@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('payment_details', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->string('user_id');
-            $table->string('order_id');
-            $table->string('payment_method');
-            $table->string('payment_status');
-            $table->string('payment_date');
-            $table->string('payment_amount');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('user_table');
+            $table->string('message');
             $table->timestamps();
         });
     }
