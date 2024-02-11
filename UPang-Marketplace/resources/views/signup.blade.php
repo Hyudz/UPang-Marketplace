@@ -66,6 +66,34 @@
                             <div class="mt-3">
                                 <input type="password" name="password_confirmation" placeholder="Confirm Password" class="form-control" id="form_input">
                             </div>
+                            <div class="mt-3">
+                                <div class="container text-center">
+                                    <div class="row">
+                                        <div class="col">
+                                            <h5 class="d-flex justify-content-start col">User Type</h5>
+                                            <select name="user_type" class="form-select" id="form_input" required>
+                                                <option value="none"></option>
+                                                <option value="buyer">Buyer</option>
+                                                <option value="seller">Seller</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <h5 class="d-flex justify-content-start col">Gender</h5>
+                                            <select name="gender" class="form-select" id="form_input" required>
+                                                <option value="none"></option>
+                                                <option value="male">Male</option>
+                                                <option value="female">Female</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col">
+                                            <h5 class="d-flex justify-content-start col">Birthday</h5>
+                                            <input type="date" name="birthday" class="form-control" id="form_input" required>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div>
                                 <input type="checkbox" name="terms" id="terms" class="form-check-input" onclick="checkterms()"> I have read your <a href="#">Privacy and Policy</a> and I agree on your <a href="#"> Terms and conditions. </a>
                             </div>

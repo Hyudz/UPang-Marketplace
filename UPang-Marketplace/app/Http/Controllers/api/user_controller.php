@@ -1,25 +1,59 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\api;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\user_table;
+use Illuminate\Support\Facades\Hash;
 
 class user_controller extends Controller
 {
-    public function index()
-    {
-        
+    public function index(){
+        return user_table::with('products')->get();
     }
 
-    public function store(){
+    public function store(Request $request){
+        $data['first_name'] = $request->input('first_name');
+        $data['last_name'] = $request->input('last_name');
+        $data['email'] = $request->input('email');
+        $data['password'] = Hash::make($request->input('password'));
+        $data['user_type'] = $request->input('user_type');
+        $data['gender'] = $request->input('gender');
+        $data['birthday'] = $request->input('birthday');
+        $user = user_table::create($data);
+        if ($user) {
+            return response()->json([
+                'status' => 'success',
+                'message' => 'User created successfully',
+                'data' => $user
+            ]);
+        } else {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'User not created'
+            ]);
+        }
+    }
+
+    public function update(Request $request, $id){
+        $user = user_table::findOrFail($id);
+        $user->update($request->all());
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User updated successfully',
+            'data' => $user
+        ]);
 
     }
 
-    public function update(){
-
-    }
-
-    public function destroy(){
-
+    public function destroy($id){
+        $user = user_table::findOrFail($id);
+        $user->delete();
+        return response()->json([
+            'status' => 'success',
+            'message' => 'User deleted successfully',
+            'data' => $user
+        ]);
     }
 }

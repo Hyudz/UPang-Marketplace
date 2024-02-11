@@ -60,21 +60,12 @@ class marketplace_api extends Controller
     }
 
     function sell_product(Request $request){
-        $data['product_name'] = $request->input('product_name');
-        $data['product_description'] = $request->input('product_description');
-        $data['product_price'] = $request->input('product_price');
-        $data['product_quantity'] = $request->input('product_quantity');
-        $data['product_category'] = $request->input('product_category');
-
-        $user = Auth::guard('api')->user();
-
-        if (!$user) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'User not authenticated',
-            ], 401); // Return a 401 Unauthorized status
-        }
-        $data['seller_id'] = $user->id;
+        $data['name'] = $request->input('name');
+        $data['description'] = $request->input('description');
+        $data['price'] = $request->input('price');
+        $data['quantity'] = $request->input('quantity');
+        $data['category'] = $request->input('category');
+        $data['user_id'] = $request->input('user_id');
         
         $product = products::create($data);
         if ($product) {

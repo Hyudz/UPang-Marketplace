@@ -62,8 +62,8 @@
                             <div class="card mt-5" style="width: 18rem;">
                                 <img class="card-img-top" src="{{asset('products/placeholder.png')}}" alt="product image">
                                 <div class="card-body">
-                                    <h5 class="card-title" id="product1">{{$product->product_name}}</h5>
-                                    <p class="card-text" style="text-align: justify;">₱{{$product->product_price}}</p>
+                                    <h5 class="card-title" id="product1">{{$product->name}}</h5>
+                                    <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
                                 </div>
                             </div>
                         </a>

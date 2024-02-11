@@ -22,22 +22,24 @@
             <h1>Likes</h1>
         </div>
     
-        <div class="container-fluid">
-            <div class="row w-auto">
-                <div class="col">
-                    <a href="{{route('viewproduct')}}">
-                        <div class="card" style="width: 18rem;">
-                            <img class="card-img-top" src="https://placehold.co/600x400?text=Placeholder" alt="product image">
-                            <div class="card-body">
-                                <h5 class="card-title" id="product1">Product Name</h5>
-                                <p class="card-text" style="text-align: justify;">₱100.00</p>
-                                <p class="card-text" style="text-align: justify;"> <span class="fa fa-heart"></span>10 Likes</p>
+        <div class="container" style="padding-left: 150px;">
+                <div class="row w-auto">
+                    @foreach($likes as $like)
+                    <div class="col">
+                        <a href="{{route('viewproduct', $product->id)}}">
+                            <div class="card mt-5" style="width: 18rem;">
+                                <img class="card-img-top" src="{{asset('products/placeholder.png')}}" alt="product image">
+                                <div class="card-body">
+                                    <h5 class="card-title" id="product1">{{$like->name}}</h5>
+                                    <p class="card-text" style="text-align: justify;">₱{{$like->price}}</p>
+                                </div>
                             </div>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
+                    @endforeach
+                    
                 </div>
             </div>
-        </div>
     </div>
 </body>
 </html>

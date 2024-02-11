@@ -23,7 +23,7 @@
         <ul class="navbar-nav ms-auto d-flex flex-row">
             <li class="nav-item dropdown">
             <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-circle-user"></i>Hello {{$username}}!</button>
+                <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-circle-user"></i>Hello!</button>
                 <div id="myDropdown" class="dropdown-content">
                     <a href="{{route('profile')}}"><i class="fa fa-circle-user"></i> Profile</a>
                     <a href="{{route('settings')}}"><i class="fa-solid fa-gear"></i> Settings</a>

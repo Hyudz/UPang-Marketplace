@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationManager;
 use App\Http\Controllers\marketplace;
+use App\Http\Controllers\webpage_controller;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,24 +23,22 @@ Route::get('/', function () {
 
 
 Route::get("/signup",[marketplace::class,'signup']) -> name('signup');  
-Route::get("/homepage",[marketplace::class,'homepage']) -> name('homepage');
 Route::get("/login",[marketplace::class,'login']) -> name('login');
 Route::post("/login",[marketplace::class,'login_post']) -> name('login-post');
 Route::post("/create_user",[marketplace::class,'create_user']) -> name('create-user');
-Route::get("/profile",[marketplace::class,'profile']) -> name('profile');
-Route::get("/settings",[marketplace::class,'settings']) -> name('settings');
-Route::get("/endsession",[marketplace::class,'logout']) -> name('logout');
-Route::get("/cart",[marketplace::class,'cart']) -> name('cart');
-Route::get("/saved",[marketplace::class,'saved']) -> name('saved');
-Route::get("/product",[marketplace::class,'product']) -> name('product');
-Route::get("/viewproduct",[marketplace::class,'viewproduct']) -> name('viewproduct');
 Route::post("/admin/login",[marketplace::class,'adminlogin_post']) -> name('admin.login');
 Route::post("/sell.product",[marketplace::class,'create_product']) -> name('sell.product');
 
-
-Route::get("/editprofile",function() {
-    return view('editprofile');
-}) -> name('edit-profile');
+Route::get("/homepage",[webpage_controller::class,'homepage']) -> name('homepage') -> middleware('login');
+Route::get("/profile",[webpage_controller::class,'profile']) -> name('profile');
+Route::get("/settings",[webpage_controller::class,'settings']) -> name('settings');
+Route::get("/endsession",[webpage_controller::class,'logout']) -> name('logout');
+Route::get("/cart",[webpage_controller::class,'cart']) -> name('cart');
+Route::get("/saved",[webpage_controller::class,'saved']) -> name('saved');
+Route::get("/product",[webpage_controller::class,'product']) -> name('product');
+Route::get("/viewproduct/{id}",[webpage_controller::class,'viewproduct']) -> name('viewproduct');
+Route::get("/likes",[webpage_controller::class,'likes']) -> name('likes');
+Route::post("/viewproduct/{id}",[webpage_controller::class,'add_like']) -> name('add_like');
 
 Route::get("/admin/signin",function() {
     return view('admin.signin');
@@ -48,14 +47,6 @@ Route::get("/admin/signin",function() {
 Route::get("/admin/dashboard",function() {
     return view('admin.dashboard');
 }) -> name('admin.Sdashboard');
-
-Route::get("/likes",function() {
-    return view('likes');
-}) -> name('likes');
-
-Route::get("/home",function() {
-    return redirect('homepage');
-}) -> name('home');
 
 Route::get("/forgotpassword",function() {
     return view('forgotpassword');

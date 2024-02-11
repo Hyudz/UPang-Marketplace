@@ -19,14 +19,32 @@
         @include('header2')
             <div class="container-fluid h-100" id="content">
                 <div class="row">
+                <div class="mt-5">
+            @if($errors->any())
+                <div class="col-12">
+                    @foreach($errors->all() as $error)
+                        <div class="alert alert-danger">{{$error}}</div>
+                    @endforeach
+                </div>
+            </div>
+            @endif
+
+            @if(session()->has('error'))
+                <div class="alert alert-danger">{{session('error')}}</div>
+            @endif
+
+            @if(session()->has('success'))
+                <div class="alert alert-success">{{session('success')}}</div>
+            @endif
+        </div>
                     <div class="col-md">
                         <h1 class="p-4" style="font-family: 'Sahitya';" id="productname">
-                            Product name
+                            {{$product->name}}
                         </h1>
-                        <p class="short_desc">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perspiciatis pariatur atque ab tempore provident tenetur expedita ea voluptatum, recusandae incidunt temporibus, minus vel libero. Aliquid voluptatibus odit error quo officiis!</span><br>
-                        <span class="likes">0 likes</span>
+                        <p class="short_desc">{{$product->description}}</span><br>
+                        <span class="likes"> {{$product->user->first_name}} - 0 likes</span>
                         <div class="d-flex justify-content-center">
-                            <a href="#">
+                            <a href="{{route('add_like',$product->id)}}">
                                 <button id="heartBtn"><span class="fa fa-heart"></span></span></button>
                             </a>
 

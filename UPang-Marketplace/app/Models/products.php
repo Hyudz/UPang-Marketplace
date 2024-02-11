@@ -21,7 +21,7 @@ class products extends Model
 
     public function user()
     {
-        return $this->belongsTo(user_table::class);
+        return $this->belongsTo(user_table::class, 'user_id');
     }
 
     public function order_item()

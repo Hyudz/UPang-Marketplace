@@ -2,13 +2,18 @@
 
 namespace App\Models;
 
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Contracts\Auth\Authenticatable;
+use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
 
-class user_table extends Model
+class user_table extends Model implements Authenticatable
 {
-    use HasFactory;
+    use HasFactory, AuthenticatableTrait;
+
     protected $table = 'user_table';
+
     protected $fillable = [
         'first_name',
         'last_name',
@@ -21,7 +26,7 @@ class user_table extends Model
 
     public function products()
     {
-        return $this->hasMany(products::class);
+        return $this->hasMany(products::class, 'user_id', 'id');
     }
 
     public function order_history()
@@ -53,4 +58,6 @@ class user_table extends Model
     {
         return $this->hasMany(messages::class, 'receiver_id');
     }
+
+    
 }
