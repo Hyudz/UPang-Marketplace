@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cart_items;
+use App\Models\likes_table;
 use Illuminate\Http\Request;
 use App\Models\products;
 use Illuminate\Support\Facades\Auth;
@@ -16,15 +18,20 @@ class webpage_controller extends Controller
     }
 
     function homepage(){ 
-        return view('welcome');
+        $usertype = Auth::user()->first_name;
+        return view('welcome', ['usertype' => $usertype]);
     }
 
     function products(){
-        return view('product');
+        $usertype = Auth::user()->first_name;
+        return view('product',['usertype' => $usertype]);
     }
 
     function profile(){
-        return view('profile');
+        $usertype = Auth::user()->first_name;
+
+        $products = products::where('user_id', Auth::user()->id)->get();
+        return view('profile',['usertype' => $usertype], ['products' => $products]);
     }
 
     function settings(){
@@ -32,21 +39,47 @@ class webpage_controller extends Controller
     }
 
     function viewproduct(Request $request){
+        $usertype = Auth::user()->first_name;
         $product = products::with('user')->find($request->id);
-        return view('viewproduct', ['product' => $product]);
+        return view('viewproduct', ['product' => $product],['usertype' => $usertype]);
     }
 
     function cart(){
-        return view('cart');
+        $user_id = Auth::user()->id;
+        $usertype = Auth::user()->first_name;
+        $product = products::whereHas('cart_items', function ($query) use ($user_id) {
+            $query->where('user_id', $user_id);
+        })->get();
+        return view('cart',['products' => $product],['usertype' => $usertype]);
     }
 
-    function saved(){
-        return view('saved');
+
+    function save_item(Request $request){
+        $user_id = Auth::user()->id;
+        $product_id = $request->product_id;
+
+        $saved = cart_items::where('user_id', $user_id)
+        ->where('product_id',$product_id)
+        ->exists();
+        $usertype = Auth::user()->first_name;
+
+        if($saved) {
+            cart_items::where('user_id', $user_id)
+            ->where('product_id',$product_id)
+            ->delete();
+        } else {
+            cart_items::create([
+                'user_id'=> $user_id,
+                'product_id' => $product_id,
+            ]);
+        }
+        return redirect()->route('product',['usertype' => $usertype])->with('success', 'Product added successfully');
     }
 
     function product(){
-        $products = DB::table('products')->get();
-        return view('product', ['products' => $products]);
+        $usertype = Auth::user()->first_name;
+        $products = DB::table('products')->where('availability', 'approved')->get();
+        return view('product', ['products' => $products],['usertype' => $usertype]);
     }
 
     function editprofile(){
@@ -54,27 +87,36 @@ class webpage_controller extends Controller
     }
 
     function likes(){
-        $likes = DB::table('likes_tables')->where('user_id', Auth::user()->id)->get();
-        return view('likes',['likes'=>$likes]);
+        $usertype = Auth::user()->first_name;
+        $user_id = Auth::user()->id;
+        $product = products::whereHas('likes', function ($query) use ($user_id) {
+            $query->where('user_id', $user_id);
+        })->get();
+    
+        return view('likes', ['products' => $product],['usertype' => $usertype]);
     }
 
     function add_like(Request $request){
-        $data['user_id'] = Auth::user()->id;
-        $data['product_id'] = $request->product_id;
-        $like = DB::table('likes_tables')->create($data);
-        if ($like) {
-            return redirect()->route('product')->with('success', 'Product liked successfully');
-        } else {
-            return redirect()->route('product')->with('error', 'Product not liked');
-        }
-    }
-
-    function remove_like(Request $request){
-        $like = DB::table('likes')->where('product_id', $request->product_id)->delete();
-        if ($like) {
+        $user_id = Auth::user()->id;
+        $product_id = $request->product_id;
+    
+        $likeExists = likes_table::where('user_id', $user_id)
+            ->where('product_id', $product_id)
+            ->exists();
+    
+        if ($likeExists) {
+            likes_table::where('user_id', $user_id)
+                ->where('product_id', $product_id)
+                ->delete();
+    
             return redirect()->route('product')->with('success', 'Product unliked successfully');
         } else {
-            return redirect()->route('product')->with('error', 'Product not unliked');
+            likes_table::create([
+                'user_id' => $user_id,
+                'product_id' => $product_id,
+            ]);
+    
+            return redirect()->route('product')->with('success', 'Product liked successfully');
         }
     }
 

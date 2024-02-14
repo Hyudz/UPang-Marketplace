@@ -41,11 +41,11 @@ class products extends Model
 
     public function likes()
     {
-        return $this->hasMany(likes_table::class);
+        return $this->hasMany(likes_table::class, 'product_id');
     }
 
     public function cart_items(){
-        return $this->hasMany(cart_items::class);
+        return $this->hasMany(cart_items::class, 'product_id');
     }
 
 

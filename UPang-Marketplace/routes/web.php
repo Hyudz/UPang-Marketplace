@@ -27,18 +27,18 @@ Route::get("/login",[marketplace::class,'login']) -> name('login');
 Route::post("/login",[marketplace::class,'login_post']) -> name('login-post');
 Route::post("/create_user",[marketplace::class,'create_user']) -> name('create-user');
 Route::post("/admin/login",[marketplace::class,'adminlogin_post']) -> name('admin.login');
-Route::post("/sell.product",[marketplace::class,'create_product']) -> name('sell.product');
 
 Route::get("/homepage",[webpage_controller::class,'homepage']) -> name('homepage') -> middleware('login');
 Route::get("/profile",[webpage_controller::class,'profile']) -> name('profile');
 Route::get("/settings",[webpage_controller::class,'settings']) -> name('settings');
 Route::get("/endsession",[webpage_controller::class,'logout']) -> name('logout');
 Route::get("/cart",[webpage_controller::class,'cart']) -> name('cart');
-Route::get("/saved",[webpage_controller::class,'saved']) -> name('saved');
 Route::get("/product",[webpage_controller::class,'product']) -> name('product');
-Route::get("/viewproduct/{id}",[webpage_controller::class,'viewproduct']) -> name('viewproduct');
+Route::get("/viewproduct/{id}",[webpage_controller::class,'viewproduct'])->name('viewproduct');
 Route::get("/likes",[webpage_controller::class,'likes']) -> name('likes');
-Route::post("/viewproduct/{id}",[webpage_controller::class,'add_like']) -> name('add_like');
+Route::post("/viewproduct/{id}",[webpage_controller::class,'save_item'])->name('save_item');
+Route::post("sell_product", [webpage_controller::class,'create_product'])->name('sell.product');
+Route::post("/viewproducts/{id}",[webpage_controller::class,'add_like'])->name('add_like');
 
 Route::get("/admin/signin",function() {
     return view('admin.signin');

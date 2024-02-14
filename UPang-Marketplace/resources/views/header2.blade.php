@@ -22,14 +22,17 @@
 
         <ul class="navbar-nav ms-auto d-flex flex-row">
             <li class="nav-item dropdown">
-            <div class="dropdown">
-                <button onclick="myFunction()" class="dropbtn"> <i class="fa fa-circle-user"></i>Hello!</button>
-                <div id="myDropdown" class="dropdown-content">
-                    <a href="{{route('profile')}}"><i class="fa fa-circle-user"></i> Profile</a>
-                    <a href="{{route('settings')}}"><i class="fa-solid fa-gear"></i> Settings</a>
-                    <a href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                <div class="dropdown">
+                    <button type="button" style="border: 0px; background-color: none;" id="dropdown-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-circle-user"></i>Hello {{$usertype}}!
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdown-profile">
+                        <a class="dropdown-item" href="{{route('profile')}}"><i class="fa fa-circle-user"></i> Profile</a>
+                        <a class="dropdown-item" href="{{route('settings')}}"><i class="fa-solid fa-gear"></i> Settings</a>
+                        <a class="dropdown-item" href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
+                    </div>
                 </div>
-            </div>
 
             <li class="nav-item">
                 <a href="{{route('likes')}}" class="nav-item"> 
@@ -44,47 +47,44 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-item">
-                    <i class="fa fa-bell" id="nav-icon"></i>
-                </a>
+                <div class="dropdown">
+                    <button type="button" style="border: 0px; background-color: none;" id="dropdown-notif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-bell" id="nav-icon"></i>
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdown-notif">
+                        <span class="dropdown-item">No new notifications</span>
+                    </div>
+                </div>
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-item">
-                    <i class="fa fa-message" id="nav-icon"></i>
-                </a>
+                <div class="dropdown">
+                    <button type="button" style="border: 0px; background-color: none;" id="dropdown-msg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-message" id="nav-icon"></i>
+                    </button>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdown-msg">
+                        <span class="dropdown-item">No new messages</span>
+                    </div>
+                </div>
             </li>
 
+            @if($usertype == 'buyer')
+            <li class="nav-item" >
+                <a href="{{route('sell')}}" >
+                    <button type="submit" style="display: none;" style="border-radius:60px; width: auto;">SELL</button>
+                </a>
+            </li>
+            @elseif($usertype == 'seller')
             <li class="nav-item">
                 <a href="{{route('sell')}}">
                     <button type="submit" style="border-radius:60px; width: auto;">SELL</button>
                 </a>
             </li>
+            @endif
         </ul>
     </div>
     
-  </nav>
-  
-  
-
+    </nav>
 </header>
-
-<script>
-    function myFunction() {
-  document.getElementById("myDropdown").classList.toggle("show");
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function(event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName("dropdown-content");
-    var i;
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i];
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show');
-      }
-    }
-  }
-}
-</script>

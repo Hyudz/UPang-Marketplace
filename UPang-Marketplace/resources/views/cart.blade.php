@@ -18,23 +18,24 @@
     </div>
 
     <div class="container">
-        <div class="row align-items-start" style="border: solid 1px;">
+        @foreach($products as $product)
+        <div class="row align-items-start mb-3" style="border: solid 1px;">
             <div class="col" id="item_image">
                 <img src="https://placehold.co/120x80?text=Placeholder" alt="product image">
             </div>
             <div class="col" id="item">
                 <p>Item:</p>
-                <p>Product Name</p>
+                <p>{{$product->name}}</p>
             </div>
             <div class="col" id="price">
                 <p>Price:</p>
-                <p>₱100.00</p>
+                <p>{{$product->price}}</p>
             </div>
             <div class="col" id="quantity">
                 <p>Quantity</p>
                 <div class="d-flex">
                     <button type="button" style="width: 20px; height: 30px;" class="me-2 ms-2">-</button> 
-                    <p>1</p> 
+                    <p>{{$product->quantity}}</p> 
                     <button type="button" style="width: 20px; height: 30px;" class="me-2 ms-2">+</button>
                 </div>
             </div>
@@ -42,6 +43,7 @@
                 Delete
             </div>
         </div>
+        @endforeach
     </div>
 </body>
 </html>
