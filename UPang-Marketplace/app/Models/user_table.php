@@ -7,10 +7,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Auth\Authenticatable as AuthenticatableTrait;
+use Laravel\Sanctum\HasApiTokens;
 
 class user_table extends Model implements Authenticatable
 {
-    use HasFactory, AuthenticatableTrait;
+    use HasFactory, AuthenticatableTrait, HasApiTokens;
 
     protected $table = 'user_table';
 

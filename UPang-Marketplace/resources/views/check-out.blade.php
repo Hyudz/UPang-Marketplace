@@ -11,9 +11,6 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container-fluid">
-            @include('header2')
-    </div>
 
     <div class="container mt-5">
         <div class="container mt-5">
@@ -24,6 +21,6 @@
     </div>
 
     <h1>Payment Details here</h1>
-    <a href="{{route('purchase')}}">Place Order</a>
+    <a href="{{route('purchased',$product->id)}}">Place Order</a>
 </body>
 </html>

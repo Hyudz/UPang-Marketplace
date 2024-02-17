@@ -16,7 +16,6 @@
         @include('header2')
     </div>
     
-    
     <div class="container min-vh-100 ms-auto me-auto mt-auto mb-auto" style="overflow: auto;">
         <div class="container">
             <h1>Likes</h1>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\products;
 use Closure;
 use Illuminate\Http\Request;
 
@@ -19,7 +20,6 @@ class login_middleware
         if(auth()->guest()) {
             return redirect()->route('login');
         }
-
         return $next($request);
     }
 }

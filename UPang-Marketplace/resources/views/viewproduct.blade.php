@@ -37,7 +37,7 @@
                         <button id="shoppingbtn" type="submit"> <span class="fa fa-shopping-cart"></span> Add to Cart</button>
                     </form>
 
-                    <a href="{{route('checkout-item')}}">
+                    <a href="{{route('checkout-item',$product->id)}}">
                         <button id="shoppingbtn">Buy Now</button>
                     </a>
                 </div>

@@ -1,26 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthenticationManager;
 use App\Http\Controllers\marketplace;
+use App\Http\Controllers\seller_product;
 use App\Http\Controllers\webpage_controller;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 
 Route::get('/', function () {
     return view('login');
 });
-
 
 Route::get("/signup",[marketplace::class,'signup']) -> name('signup');  
 Route::get("/login",[marketplace::class,'login']) -> name('login');
@@ -34,11 +21,23 @@ Route::get("/settings",[webpage_controller::class,'settings']) -> name('settings
 Route::get("/endsession",[webpage_controller::class,'logout']) -> name('logout');
 Route::get("/cart",[webpage_controller::class,'cart']) -> name('cart');
 Route::get("/product",[webpage_controller::class,'product']) -> name('product');
-Route::get("/viewproduct/{id}",[webpage_controller::class,'viewproduct'])->name('viewproduct');
+Route::get("/viewproduct/{id}",[webpage_controller::class,'viewproduct'])->name('viewproduct') -> middleware('product');
 Route::get("/likes",[webpage_controller::class,'likes']) -> name('likes');
 Route::post("/viewproduct/{id}",[webpage_controller::class,'save_item'])->name('save_item');
 Route::post("sell_product", [webpage_controller::class,'create_product'])->name('sell.product');
+Route::get("/sell",[webpage_controller::class,'sell']) -> name('sell');
 Route::post("/viewproducts/{id}",[webpage_controller::class,'add_like'])->name('add_like');
+Route::get("/my_profile",[webpage_controller::class,'my_profile']) -> name('buyer_profile');
+Route::post("/confirmed/{id}",[webpage_controller::class,'purchase']) -> name('purchased');
+Route::get("/check-out/{id}",[webpage_controller::class,'purchase']) -> name('checkout-item');
+Route::get("/not_found",[webpage_controller::class,'notfound']) -> name('not_found');
+
+
+
+Route::get("/analytics/{id}",[seller_product::class,'analytics']) -> name('analytics');
+Route::post("/delete/{id}",[seller_product::class,'delete']) -> name('delete_product');
+Route::post("/update/{id}",[seller_product::class,'update']) -> name('update_product');
+Route::get("/edit/{id}",[seller_product::class,'edit']) -> name('edit_product');
 
 Route::get("/admin/signin",function() {
     return view('admin.signin');
@@ -51,18 +50,6 @@ Route::get("/admin/dashboard",function() {
 Route::get("/forgotpassword",function() {
     return view('forgotpassword');
 }) -> name('forgotpassword');
-
-Route::get("/sell",function() {
-    return view('sell');
-}) -> name('sell');
-
-Route::get("/buy",function() {
-    return view('check-out');
-}) -> name('checkout-item');
-
-Route::get("/confirmed",function() {
-    return view('purchased');
-}) -> name('purchase');
 
 Route::get("/admin",function() {
     return view('admin');

@@ -4,9 +4,16 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\products;
+use Illuminate\Support\Facades\Auth;
 
 class products_controller extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth:sanctum');
+    }
+    
     public function index(){
         $products = products::all();
         return response()->json([
@@ -17,7 +24,11 @@ class products_controller extends Controller
     }
 
     public function store(Request $request){
-        return products::create($request->all());
+        $user = Auth::user();
+
+        $data = $request->all();
+        $data['user_id'] = $user->id;
+        return products::create($data);
     }
 
     public function update(Request $request, $id){

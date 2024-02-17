@@ -40,7 +40,7 @@
                 </div>
             </div>
             <div class="col">
-                Delete
+                Actions
             </div>
         </div>
         @endforeach

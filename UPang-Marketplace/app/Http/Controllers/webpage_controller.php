@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\cart_items;
 use App\Models\likes_table;
+use App\Models\payment;
 use Illuminate\Http\Request;
 use App\Models\products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Models\order_item;
 
 class webpage_controller extends Controller
 {
@@ -20,6 +22,11 @@ class webpage_controller extends Controller
     function homepage(){ 
         $usertype = Auth::user()->first_name;
         return view('welcome', ['usertype' => $usertype]);
+    }
+
+    function my_profile(){
+        $usertype = Auth::user()->first_name;
+        return view('buyer/profile_edit', ['usertype' => $usertype]);
     }
 
     function products(){
@@ -36,6 +43,11 @@ class webpage_controller extends Controller
 
     function settings(){
         return view('settings');
+    }
+
+    function sell(){
+        $usertype = Auth::user()->first_name;
+        return view('sell',['usertype' => $usertype]);
     }
 
     function viewproduct(Request $request){
@@ -145,5 +157,45 @@ class webpage_controller extends Controller
     function logout(){
         Auth::logout();
         return redirect()->route('login');
+    }
+
+    function checkout(Request $request){
+        $product = products::find($request->id);
+        $usertype = Auth::user()->first_name;
+        return view('check-out', ['product' => $product],['usertype' => $usertype]);
+    }
+
+    function purchase(Request $request){
+        $product = products::find($request->id);
+
+        $product->update([
+            'availability' => 'sold',
+            'quantity' => '0'
+        ]);
+
+        $order = order_item::create([
+            'product_id' => $product->id,
+            'quantity' => 1
+        ]);
+
+        $payment = payment::create([
+            'user_id' => Auth::user()->id,
+            'order_id' => $order->id,
+            'payment_method' => 'cash',
+            'payment_status' => 'paid'
+        ]);
+
+        DB::table('order_histories')->insert([
+            'user_id' => Auth::user()->id,
+            'order_id' => $order->id,
+            'total_amount' => $product->price,
+            'payment_id' => $payment->id,
+            'status' => 'paid'
+        ]);
+        return redirect()->route('product')->with('success', 'Product purchased successfully');
+    }
+
+    function notfound(){
+        return view('product_not_found');
     }
 }
