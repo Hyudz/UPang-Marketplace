@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\user_controller;
 use App\Http\Controllers\api\likes_api;
+use App\Http\Controllers\api\orders_controller;
 
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -22,4 +23,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/remove_from_cart',[marketplace_api::class,'remove_from_cart']);
     Route::post('/checkout',[marketplace_api::class,'checkout']);
     Route::post('/logout',[marketplace_api::class,'logout']);
+    Route::get('/likes',[likes_api::class,'index']);
+    Route::delete('/likes/{id}',[likes_api::class,'destroy']);
+    Route::apiResource('/orders', orders_controller::class);
 });

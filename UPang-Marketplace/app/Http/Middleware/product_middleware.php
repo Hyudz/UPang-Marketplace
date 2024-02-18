@@ -17,8 +17,12 @@ class product_middleware
      */
     public function handle(Request $request, Closure $next)
     {
-        $product = products::find($request->id);
-        if($product->availability != 'approved') {
+        $product = products::findorfail($request->id);
+        
+        if (!$product) {
+            return redirect()->route('not_found');
+        }
+        else if($product->availability != 'approved') {
             return redirect()->route('not_found');
         }
         return $next($request);

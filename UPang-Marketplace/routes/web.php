@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\marketplace;
 use App\Http\Controllers\seller_product;
 use App\Http\Controllers\webpage_controller;
+use App\Http\Controllers\create_chat;
+use App\Http\Livewire\Chat\Main;
 
 Route::get('/', function () {
     return view('login');
@@ -32,7 +34,9 @@ Route::post("/confirmed/{id}",[webpage_controller::class,'purchase']) -> name('p
 Route::get("/check-out/{id}",[webpage_controller::class,'purchase']) -> name('checkout-item');
 Route::get("/not_found",[webpage_controller::class,'notfound']) -> name('not_found');
 
-
+//TODO: Add routes for the following:
+// - /admin/dashboard
+Route::get("/users", Main::class)->name('users');
 
 Route::get("/analytics/{id}",[seller_product::class,'analytics']) -> name('analytics');
 Route::post("/delete/{id}",[seller_product::class,'delete']) -> name('delete_product');

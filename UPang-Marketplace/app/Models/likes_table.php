@@ -11,7 +11,7 @@ class likes_table extends Model
     protected $table = 'likes_tables';
     protected $fillable = [
         'user_id',
-        'product_id'
+        'product_id',
     ];
 
     public function product()

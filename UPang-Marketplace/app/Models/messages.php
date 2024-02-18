@@ -13,7 +13,8 @@ class messages extends Model
         'sender_id',
         'receiver_id',
         'content',
-        'message_type'
+        'message_type',
+        'user_id'
     ];
 
     public function sender()
@@ -22,6 +23,11 @@ class messages extends Model
     }
 
     public function receiver()
+    {
+        return $this->belongsTo(user_table::class);
+    }
+
+    public function user()
     {
         return $this->belongsTo(user_table::class);
     }

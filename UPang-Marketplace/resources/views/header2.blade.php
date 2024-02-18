@@ -19,7 +19,6 @@
             </span>
         </form>
 
-
         <ul class="navbar-nav ms-auto d-flex flex-row">
             <li class="nav-item dropdown">
                 <div class="dropdown">
@@ -55,9 +54,14 @@
                     <button type="button" style="border: 0px; background-color: none;" id="dropdown-notif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell" id="nav-icon"></i>
                     </button>
-
-                    <div class="dropdown-menu" aria-labelledby="dropdown-notif">
-                        <span class="dropdown-item">No new notifications</span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-notif" style="margin-left: -150px; width: 250px;">
+                        @if($notifications->isEmpty())
+                            <span class="dropdown-item">No new notifications</span>
+                        @else
+                        @foreach($notifications as $notification)
+                            <div class="dropdown-item">{{$notification->message}}</div>
+                        @endforeach
+                        @endif
                     </div>
                 </div>
             </li>
@@ -68,8 +72,14 @@
                         <i class="fa fa-message" id="nav-icon"></i>
                     </button>
 
-                    <div class="dropdown-menu me-auto" aria-labelledby="dropdown-msg" style="margin-top: 10px; margin-left: -50px;">
-                        <span class="dropdown-item">No new messages</span>
+                    <div class="dropdown-menu me-auto" aria-labelledby="dropdown-msg" style="margin-left: -155px; width: 225px;">
+                        @if($messages->isEmpty())
+                            <span class="dropdown-item">No new message</span>
+                        @else
+                        @foreach($messages as $message)
+                            <div class="dropdown-item">{{$message}}</div>
+                        @endforeach
+                        @endif
                     </div>
                 </div>
             </li>

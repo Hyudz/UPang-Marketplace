@@ -60,5 +60,4 @@ class user_table extends Model implements Authenticatable
         return $this->hasMany(messages::class, 'receiver_id');
     }
 
-    
 }

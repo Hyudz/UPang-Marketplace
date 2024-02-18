@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\cart_items;
 use App\Models\likes_table;
+use App\Models\order_history;
 use App\Models\payment;
 use Illuminate\Http\Request;
 use App\Models\products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\order_item;
+use App\Models\messages;
 
 class webpage_controller extends Controller
 {
@@ -21,7 +23,19 @@ class webpage_controller extends Controller
 
     function homepage(){ 
         $usertype = Auth::user()->first_name;
-        return view('welcome', ['usertype' => $usertype]);
+
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        
+
+        $user = auth()->user();
+        $messages = messages::where('sender_id', $user->id)
+        ->orWhere('receiver_id', $user->id)
+        ->with(['sender'], ['receiver'])
+        ->latest()
+        ->get();
+
+        return view('welcome', ['usertype' => $usertype, 'notifications' => $notifications, 'messages' => $messages]);
+
     }
 
     function my_profile(){
@@ -165,7 +179,11 @@ class webpage_controller extends Controller
         return view('check-out', ['product' => $product],['usertype' => $usertype]);
     }
 
-    function purchase(Request $request){
+    function purchase(){
+        return view('checkout-item');
+    }
+
+    function purchased(Request $request){
         $product = products::find($request->id);
 
         $product->update([
@@ -185,7 +203,7 @@ class webpage_controller extends Controller
             'payment_status' => 'paid'
         ]);
 
-        DB::table('order_histories')->insert([
+        order_history::create([
             'user_id' => Auth::user()->id,
             'order_id' => $order->id,
             'total_amount' => $product->price,
