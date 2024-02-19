@@ -15,12 +15,52 @@
     <div class="container mt-5">
         <div class="container mt-5">
             <div class="header">
-                <h1>Checkout</h1>
+                <h3>Order Summary</h3>
             </div>
         </div>
-    </div>
 
-    <h1>Payment Details here</h1>
-    <a href="{{route('purchased',$product->id)}}">Place Order</a>
+        <div class="container-fluid">
+            <div class="row">
+                <div class="card col" style="width: 18rem;">
+                    <div class="card-header">
+                        <h3>Product Details</h3>
+                    </div>
+                    <img src="{{asset('img/medyo final na logo 2.png')}}" class="card-img-top" style="width: 10vmax;" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">{{$product->name}}</h5>
+                        <p class="card-text">{{$product->price}}</p>
+                        <p class="card-text">x{{$product->quantity}}</p>
+                    </div>
+                </div>
+
+                <div class="col">
+
+                        <h6>Payment Method</h6>
+                        <div class="d-flex">
+                            <input type="radio" name="payment" id="gcash"value="gcash">
+                            <label for="gcash" class="ms-3">GCash</label>
+                        </div>
+                        <div class="d-flex">
+                            <input type="radio" name="payment" id="paypal" class="d-flex" value="paypal">
+                            <label for="paypal" class="ms-3">Paypal</label>
+                        </div>
+
+                        <div class="mt-5"></div>
+                        <h5>{{$buyer->first_name}} {{$buyer->last_name}}</h5>
+                        <h6>{{$buyer->email}}</h6>
+
+                </div>
+
+                <div class="col">
+                    <form action = "{{route('purchased',$product->id)}}" method="post">
+                        @csrf
+                        <input type="hidden" value="{{$product->id}}">
+                        <button type="submit" >Place order</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    
 </body>
 </html>

@@ -3,18 +3,16 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
+use App\Models\notifications;
 use Illuminate\Http\Request;
 
 class notifications_api extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth:sanctum');
-    }
+
 
     public function index(){
         $user = auth()->user();
-        $notifications = $user->notifications;
+        $notifications = notifications::where('user_id', $user->id)->orderBy('created_at', 'desc')->get();
         return response()->json($notifications);
     }
 

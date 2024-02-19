@@ -16,35 +16,35 @@ class likes_api extends Controller
         $this->middleware('auth:sanctum');    
     }
 
-    public function index(Request $request){
+    public function index(){
         $likes = likes_table::where('user_id', Auth::user()->id)->get();
         return response()->json($likes);
     }
 
-    public function store($id){
+    public function store(Request $request){
         likes_table::create([
             'user_id' => Auth::user()->id,
-            'product_id' => $id
+            'product_id' => $request->id
         ]);
         return response()->json(['message' => 'Product liked']);
     }
 
-    public function destroy($id){
+    public function destroy(Request $request){
         $user = auth()->user(); // Retrieve the authenticated user object
         $user = auth('sanctum')->user();
     
         if ($user) {
-            $userId = $user->id; // Get the user ID from the user object
+            $userId = $user->id;
     
             $like = likes_table::where('user_id', $userId)
-                                ->where('product_id', $id)
+                                ->where('product_id', $request->id)
                                 ->first();
     
             if ($like) {
                 $like->delete();
                 return response()->json(['message' => 'Product unliked']);
             } else {
-                return response()->json(['message' => 'Product not liked'], 404);
+                return response()->json([$user], 404);
             }
         } else {
             Log::error("Authenticated user not found");

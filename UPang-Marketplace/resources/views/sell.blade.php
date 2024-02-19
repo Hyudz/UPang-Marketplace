@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
+    <link rel="stylesheet" href="{{asset('css/sell.css')}}">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
 </head>
 <body>
-<div class="mt-5">
+        <div class="mt-5">
             @if($errors->any())
                 <div class="col-12">
                     @foreach($errors->all() as $error)
@@ -25,7 +27,8 @@
                 <div class="alert alert-success">{{session('success')}}</div>
             @endif
         </div>
-    <div>
+
+    <div class="container" style="width: 600px;">
         <form action="{{route('sell.product')}}" method="POST">
             @csrf
             <input type="text" name="product_name" placeholder="Product Name">
@@ -33,6 +36,13 @@
             <input type="text" name="product_description" placeholder="Description">
             <input type="text" name="product_category" placeholder="Category">
             <input type="text" name="product_quantity" placeholder="Quanitity">
+            <select name="department">
+                <option value="1">CITE</option>
+                <option value="2">CCJS</option>
+                <option value="3">CAHS</option>
+                <option value="4">CEA</option>
+                <option value="5">CMA</option>
+            </select>
             <button type="submit">Upload</button>
         </form>
     </div>

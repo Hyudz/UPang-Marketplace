@@ -4,18 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\messages;
 use Illuminate\Http\Request;
+use App\Http\Livewire\Chat\Chatbox;
 
 class messages_controller extends Controller
 {
     public function index(){
-        $user = auth()->user();
-        $messages = messages::where('sender_id', $user->id)
-        ->orWhere('receiver_id', $user->id)
-        ->with(['sender'], ['receiver'])
-        ->latest()
-        ->get();
-
-        return (['messages', $messages]);
+        return view('messages.index')->with(Chatbox::class);
     }
 
     public function store(Request $request){

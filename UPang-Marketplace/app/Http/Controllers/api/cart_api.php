@@ -14,9 +14,13 @@ class cart_api extends Controller
         $this->middleware('auth:sanctum');    
     }
 
-    public function index(Request $request){
-        $likes = cart_items::where('user_id', Auth::user()->id)->get();
-        return response()->json($likes);
+    public function index(){
+        try {
+            $likes = cart_items::where('user_id', Auth::user()->id)->get();
+            return $likes;
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Something went wrong'], 500);
+        }
     }
 
     public function store(Request $request){
@@ -24,10 +28,10 @@ class cart_api extends Controller
             'user_id' => Auth::user()->id,
             'product_id' => $request->id
         ]);
-        return response()->json(['message' => 'Product liked']);
+        return response()->json(['message' => 'Product added to cart']);
     }
 
-    public function destroy($id){
+    public function destroy(Request $request){
         $user = auth()->user(); // Retrieve the authenticated user object
         $user = auth('sanctum')->user();
     
@@ -35,14 +39,14 @@ class cart_api extends Controller
             $userId = $user->id; // Get the user ID from the user object
     
             $like = cart_items::where('user_id', $userId)
-                                ->where('product_id', $id)
+                                ->where('product_id', $request->id)
                                 ->first();
     
             if ($like) {
                 $like->delete();
-                return response()->json(['message' => 'Product unliked']);
+                return response()->json(['message' => 'Product removed to cart']);
             } else {
-                return response()->json(['message' => 'Product not liked'], 404);
+                return response()->json(['message' => 'Product not found to cart'], 404);
             }
         } else {
             return response()->json(['message' => 'Unauthorized'], 401);

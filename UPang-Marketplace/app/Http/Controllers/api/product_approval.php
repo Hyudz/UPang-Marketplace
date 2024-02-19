@@ -1,19 +1,18 @@
 <?php
 
 namespace App\Http\Controllers\api;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\products;
-use Illuminate\Support\Facades\Auth;
 
-class products_controller extends Controller
+class product_approval extends Controller
 {
-
     public function __construct()
     {
         $this->middleware('auth:sanctum');
     }
-    
+
     public function index(){
         $products = products::all();
         return response()->json([
@@ -23,32 +22,26 @@ class products_controller extends Controller
         ]);
     }
 
-    public function store(Request $request){
-        $user = Auth::user();
-
-        $data = $request->all();
-        $data['user_id'] = $user->id;
-        return products::create($data);
-    }
-
-    public function update(Request $request){
-        $id = $request->id;
-        $product = products::findOrFail($id);
-        $product->update($request->all());
+    public function approve(Request $request){
+        $product = products::find($request->id);
+        $product->update([
+            'availability' => 'approved'
+        ]);
         return response()->json([
             'status' => 'success',
-            'message' => 'Product updated successfully',
+            'message' => 'Product approved successfully',
             'data' => $product
         ]);
-
     }
 
-    public function destroy($id){
-        $product = products::findOrFail($id);
-        $product->delete();
+    public function decline(Request $request){
+        $product = products::find($request->id);
+        $product->update([
+            'availability' => 'declined'
+        ]);
         return response()->json([
             'status' => 'success',
-            'message' => 'Product deleted successfully',
+            'message' => 'Product declined successfully',
             'data' => $product
         ]);
     }

@@ -11,7 +11,7 @@ use App\Models\products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\order_item;
-use App\Models\messages;
+use App\Models\notifications;
 
 class webpage_controller extends Controller
 {
@@ -22,37 +22,28 @@ class webpage_controller extends Controller
     }
 
     function homepage(){ 
-        $usertype = Auth::user()->first_name;
-
+        $usertype = Auth::user();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-        
-
-        $user = auth()->user();
-        $messages = messages::where('sender_id', $user->id)
-        ->orWhere('receiver_id', $user->id)
-        ->with(['sender'], ['receiver'])
-        ->latest()
-        ->get();
-
-        return view('welcome', ['usertype' => $usertype, 'notifications' => $notifications, 'messages' => $messages]);
-
+        return view('welcome', ['usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     function my_profile(){
-        $usertype = Auth::user()->first_name;
-        return view('buyer/profile_edit', ['usertype' => $usertype]);
+        $usertype = Auth::user();
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     function products(){
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
         return view('product',['usertype' => $usertype]);
     }
 
     function profile(){
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
 
         $products = products::where('user_id', Auth::user()->id)->get();
-        return view('profile',['usertype' => $usertype], ['products' => $products]);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        return view('profile',['usertype' => $usertype, 'products' => $products, 'notifications' => $notifications]);
     }
 
     function settings(){
@@ -60,34 +51,37 @@ class webpage_controller extends Controller
     }
 
     function sell(){
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
         return view('sell',['usertype' => $usertype]);
     }
 
     function viewproduct(Request $request){
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
         $product = products::with('user')->find($request->id);
-        return view('viewproduct', ['product' => $product],['usertype' => $usertype]);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        return view('viewproduct', ['product' => $product,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     function cart(){
         $user_id = Auth::user()->id;
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
         $product = products::whereHas('cart_items', function ($query) use ($user_id) {
             $query->where('user_id', $user_id);
         })->get();
-        return view('cart',['products' => $product],['usertype' => $usertype]);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        return view('cart',['products' => $product,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
 
     function save_item(Request $request){
         $user_id = Auth::user()->id;
         $product_id = $request->product_id;
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
 
         $saved = cart_items::where('user_id', $user_id)
         ->where('product_id',$product_id)
         ->exists();
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
 
         if($saved) {
             cart_items::where('user_id', $user_id)
@@ -99,13 +93,14 @@ class webpage_controller extends Controller
                 'product_id' => $product_id,
             ]);
         }
-        return redirect()->route('product',['usertype' => $usertype])->with('success', 'Product added successfully');
+        return redirect()->route('product',['usertype' => $usertype, 'notifications' => $notifications])->with('success', 'Product added successfully');
     }
 
     function product(){
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
         $products = DB::table('products')->where('availability', 'approved')->get();
-        return view('product', ['products' => $products],['usertype' => $usertype]);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        return view('product', ['products' => $products,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     function editprofile(){
@@ -113,13 +108,14 @@ class webpage_controller extends Controller
     }
 
     function likes(){
-        $usertype = Auth::user()->first_name;
+        $usertype = Auth::user();
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
         $user_id = Auth::user()->id;
         $product = products::whereHas('likes', function ($query) use ($user_id) {
             $query->where('user_id', $user_id);
         })->get();
     
-        return view('likes', ['products' => $product],['usertype' => $usertype]);
+        return view('likes', ['products' => $product,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     function add_like(Request $request){
@@ -175,17 +171,19 @@ class webpage_controller extends Controller
 
     function checkout(Request $request){
         $product = products::find($request->id);
-        $usertype = Auth::user()->first_name;
-        return view('check-out', ['product' => $product],['usertype' => $usertype]);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        $usertype = Auth::user();
+        return view('check-out', ['product' => $product,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
-    function purchase(){
-        return view('checkout-item');
+    function purchase(Request $request){
+        $product = products::find($request->id);
+        $buyer = Auth::user();
+        return view('check-out', ['product' => $product, 'buyer' => $buyer]);
     }
 
     function purchased(Request $request){
         $product = products::find($request->id);
-
         $product->update([
             'availability' => 'sold',
             'quantity' => '0'
@@ -209,6 +207,16 @@ class webpage_controller extends Controller
             'total_amount' => $product->price,
             'payment_id' => $payment->id,
             'status' => 'paid'
+        ]);
+
+        notifications::create([
+            'user_id' => $product->user_id,
+            'message' => 'Your product has been sold'
+        ]);
+
+        notifications::create([
+            'user_id' => Auth::user()->id,
+            'message' => 'You have successfully placed an order'
         ]);
         return redirect()->route('product')->with('success', 'Product purchased successfully');
     }

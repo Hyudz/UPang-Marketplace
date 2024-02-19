@@ -5,6 +5,8 @@ use App\Http\Controllers\marketplace;
 use App\Http\Controllers\seller_product;
 use App\Http\Controllers\webpage_controller;
 use App\Http\Controllers\create_chat;
+use App\Http\Controllers\messages_controller;
+use App\Http\Controllers\Admin_controller;
 use App\Http\Livewire\Chat\Main;
 
 Route::get('/', function () {
@@ -30,13 +32,12 @@ Route::post("sell_product", [webpage_controller::class,'create_product'])->name(
 Route::get("/sell",[webpage_controller::class,'sell']) -> name('sell');
 Route::post("/viewproducts/{id}",[webpage_controller::class,'add_like'])->name('add_like');
 Route::get("/my_profile",[webpage_controller::class,'my_profile']) -> name('buyer_profile');
-Route::post("/confirmed/{id}",[webpage_controller::class,'purchase']) -> name('purchased');
+Route::post("/purchased/{id}",[webpage_controller::class,'purchased']) -> name('purchased');
 Route::get("/check-out/{id}",[webpage_controller::class,'purchase']) -> name('checkout-item');
 Route::get("/not_found",[webpage_controller::class,'notfound']) -> name('not_found');
 
 //TODO: Add routes for the following:
 // - /admin/dashboard
-Route::get("/users", Main::class)->name('users');
 
 Route::get("/analytics/{id}",[seller_product::class,'analytics']) -> name('analytics');
 Route::post("/delete/{id}",[seller_product::class,'delete']) -> name('delete_product');
@@ -58,3 +59,12 @@ Route::get("/forgotpassword",function() {
 Route::get("/admin",function() {
     return view('admin');
 }) -> name('admin');
+
+Route::get("/product_details",function() {
+    return view('notif');
+}) -> name('product_details');
+
+Route::post("/approve/{id}",[Admin_controller::class,'approve']) -> name('approve_product');
+Route::post("/decline/{id}",[Admin_controller::class,'decline']) -> name('decline_product');
+Route::get("/admin/dashboard",[Admin_controller::class,'dashboard']) -> name('admin.dashboard');
+Route::post("admin/logout",[Admin_controller::class,'logout']) -> name('admin.logout');

@@ -6,6 +6,7 @@ use App\Models\user_table;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\products;
 
 
 class marketplace extends Controller
@@ -67,17 +68,20 @@ class marketplace extends Controller
     }
 
     function adminlogin_post(Request $request){
-        $request -> validate([
-            'username' => 'required',
-            'password' => 'required'
-        ]);
+        $credentials = [
+            'email' => $request->input('username'),
+            'password' => $request->input('password'),
+        ];
 
-        $credentials = $request->only('username', 'password');
-        if (Auth::attempt($credentials)) {
-            return redirect()->intended(route('admin-dashboard'));
+        if (Auth::attempt($credentials)){
+            $product = products::all()->where('availability', 'under_review');
+            $all_products = products::all();
+            return view('admin.dashboard', ['products' => $product, 'all_products' => $all_products]);
         }
 
-        return redirect()->route('admin-signin')->with(['error' => 'Invalid credentials']);
+        
+
+        return redirect()->route('admin-signin')->with(['error' => $credentials['password']]);
     }
 
     function admin_dashboard(){

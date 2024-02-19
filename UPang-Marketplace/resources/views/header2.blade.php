@@ -23,13 +23,13 @@
             <li class="nav-item dropdown">
                 <div class="dropdown">
                     <button type="button" style="border: 0px; background-color: none;" id="dropdown-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-circle-user"></i>Hello {{$usertype}}!
+                        <i class="fa fa-circle-user"></i>Hello {{$usertype->first_name}}!
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="dropdown-profile">
-                        @if($usertype == 'buyer')
+                        @if($usertype->user_type == 'buyer')
                         <a class="dropdown-item" href="{{route('buyer_profile')}}"><i class="fa fa-circle-user"></i> Profile</a>
-                        @elseif($usertype == 'seller')
+                        @elseif($usertype->user_type == 'seller')
                         <a class="dropdown-item" href="{{route('profile')}}"><i class="fa fa-circle-user"></i> Profile</a>
                         @endif
                         <a class="dropdown-item" href="{{route('settings')}}"><i class="fa-solid fa-gear"></i> Settings</a>
@@ -54,13 +54,15 @@
                     <button type="button" style="border: 0px; background-color: none;" id="dropdown-notif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell" id="nav-icon"></i>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-notif" style="margin-left: -150px; width: 250px;">
-                        @if($notifications->isEmpty())
-                            <span class="dropdown-item">No new notifications</span>
+                    <div class="dropdown-menu" aria-labelledby="dropdown-notif" style="margin-left: -150px; width: 270px; max-height: 300px; overflow-y: auto;">
+                        @if($notifications->count() == 0)
+                            <span class="dropdown-item">No notifications</span>
                         @else
-                        @foreach($notifications as $notification)
-                            <div class="dropdown-item">{{$notification->message}}</div>
-                        @endforeach
+                            @foreach($notifications as $notification)
+                                <div class="dropdown-item text-wrap" style=" overflow: hidden; text-overflow: ellipsis; height: 50px;">
+                                    <span>{{$notification->message}}</span>
+                                </div>
+                            @endforeach
                         @endif
                     </div>
                 </div>
@@ -72,25 +74,19 @@
                         <i class="fa fa-message" id="nav-icon"></i>
                     </button>
 
-                    <div class="dropdown-menu me-auto" aria-labelledby="dropdown-msg" style="margin-left: -155px; width: 225px;">
-                        @if($messages->isEmpty())
-                            <span class="dropdown-item">No new message</span>
-                        @else
-                        @foreach($messages as $message)
-                            <div class="dropdown-item">{{$message}}</div>
-                        @endforeach
-                        @endif
+                    <div class="dropdown-menu me-auto" aria-labelledby="dropdown-msg" style="margin-left: -155px; max-width: 220px;">                        
+                        <span class="dropdown-item" style="margin-right: 100px;">Messages are disabled</span>
                     </div>
                 </div>
             </li>
 
-            @if($usertype == 'buyer')
+            @if($usertype->user_type == 'buyer')
             <li class="nav-item" >
                 <a href="{{route('sell')}}" >
                     <button type="submit" style="display: none;">SELL</button>
                 </a>
             </li>
-            @elseif($usertype == 'seller')
+            @elseif($usertype->user_type == 'seller')
             <li class="nav-item">
                 <a href="{{route('sell')}}">
                     <button type="submit" style="border-radius:60px; width: auto;">SELL</button>
