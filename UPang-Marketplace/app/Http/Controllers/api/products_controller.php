@@ -31,17 +31,38 @@ class products_controller extends Controller
         return products::create($data);
     }
 
-    public function update(Request $request){
-        $id = $request->id;
-        $product = products::findOrFail($id);
-        $product->update($request->all());
+    public function update(Request $request, $id){
+        $product = products::where('id', $id)
+                            ->first();
+    
+        if(!$product){
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Product not found'
+            ]);
+        }
+    
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+        ]);
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity
+        ]);
+    
         return response()->json([
             'status' => 'success',
             'message' => 'Product updated successfully',
             'data' => $product
         ]);
-
     }
+    
 
     public function destroy($id){
         $product = products::findOrFail($id);

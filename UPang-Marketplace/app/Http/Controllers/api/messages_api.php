@@ -4,6 +4,8 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\messages;
+use Illuminate\Support\Facades\Auth;
 
 class messages_api extends Controller
 {
@@ -12,36 +14,54 @@ class messages_api extends Controller
         $this->middleware('auth:sanctum');
     }
 
-    public function index(){
-        $user = auth()->user();
-        $messages = $user->messages;
-        return response()->json($messages);
-    }
+    public function index()
+    {
+        $user = Auth::user();
+        $messages = messages::where('receiver_id', $user->id)
+            ->orWhere('sender_id', $user->id)
+            ->with(['sender', 'receiver'])
+            ->latest()
+            ->get();
 
-    public function markAsRead(){
-        $user = auth()->user();
-        $user->unreadMessages->markAsRead();
-        return response()->json(['message' => 'All messages marked as read']);
-    }
-
-    public function markAsReadOne($id){
-        $user = auth()->user();
-        $user->unreadMessages->where('id', $id)->markAsRead();
-        return response()->json(['message' => 'Message marked as read']);
+        return response()->json(['messages' => $messages]);
     }
 
     public function destroy($id){
         $user = auth()->user();
-        $user->messages->where('id', $id)->delete();
-        return response()->json(['message' => 'Message deleted']);
+        $message_id = messages::where('id', $id)->first();
+        if (!$message_id) {
+            return response()->json(['message' => 'Message not found'], 404);
+        } else {
+            $message_id->delete();
+            return response()->json(['message' => 'Message deleted']);
+        }
+        
+        // Check if the user has messages
+        if ($user->messages) {
+            $user->messages::where('id', $id)->delete();
+            return response()->json(['message' => 'Message deleted']);
+        } else {
+            return response()->json(['message' => 'No messages found for the user'], 404);
+        }
     }
+    
 
     public function store(Request $request){
-        $user = auth()->user();
-        $user->messages->create([
-            'user_id' => $user->id,
-            'message' => $request->message
+        $request->validate([
+            'receiver_id' => 'required|exists:user_table,id',
+            'text_message' => 'required',
+            'message_type' => 'required'
         ]);
-        return response()->json(['message' => 'Message sent']);
+    
+        $message = messages::create([
+            'sender_id' => Auth::id(),
+            'receiver_id' => $request->receiver_id,
+            'user_id' => Auth::id(), // Added 'user_id' to the fillable array in the messages model
+            'message' => $request->text_message, // Updated to use 'text_message'
+            'message_type' => $request->message_type
+        ]);
+    
+        return response()->json(['message' => $message], 201);
     }
+    
 }

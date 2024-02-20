@@ -5,12 +5,14 @@ use App\Http\Controllers\api\cart_api;
 use App\Http\Controllers\api\marketplace_api;
 use App\Http\Controllers\api\products_controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\user_controller;
 use App\Http\Controllers\api\likes_api;
 use App\Http\Controllers\api\notifications_api;
 use App\Http\Controllers\api\orders_controller;
 use App\Http\Controllers\api\product_approval;
+use App\Http\Controllers\api\messages_api;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -18,7 +20,7 @@ use App\Http\Controllers\api\product_approval;
 Route::post('/login',[marketplace_api::class,'login']);
 Route::post('/register',[marketplace_api::class,'signup']);
 Route::apiResource('users', user_controller::class);
-Route::apiResource('products', products_controller::class);
+Route::apiResource('/products', products_controller::class);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/add_to_cart',[marketplace_api::class,'add_to_cart']);
@@ -35,6 +37,9 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("/dashboard",[product_approval::class,'index']);
     Route::post("/approve",[product_approval::class,'approve']);
     Route::post("/decline",[product_approval::class,'decline']);
+    Route::get("/message",[messages_api::class,'index']);
+    Route::post("/message_send",[messages_api::class,'store']);
+    Route::delete("/message_delete/{id}",[messages_api::class,'destroy']);
 });
 
 Route::post('/admin/signin',[Admin_api_controller::class,'signin']);

@@ -38,7 +38,27 @@ class user_controller extends Controller
 
     public function update(Request $request, $id){
         $user = user_table::findOrFail($id);
-        $user->update($request->all());
+
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required',
+            'user_type' => 'required',
+            'gender' => 'required',
+            'birthday' => 'required'
+        ]);
+
+
+        $user->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => Hash::make($request->password), // Added password update
+            'user_type' => $request->user_type,
+            'gender' => $request->gender,
+            'birthday' => $request->birthday
+
+        ]);
         return response()->json([
             'status' => 'success',
             'message' => 'User updated successfully',
