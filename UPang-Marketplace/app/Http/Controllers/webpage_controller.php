@@ -148,15 +148,27 @@ class webpage_controller extends Controller
             'product_description' => 'required',
             'product_price' => 'required',
             'product_quantity' => 'required',
+            'product_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-    
+
         $data['name'] = $request->product_name;
         $data['description'] = $request->product_description;
         $data['price'] = $request->product_price;
         $data['quantity'] = $request->product_quantity;
         $data['user_id'] = Auth::user()->id;
+
+        $file = $request->file('product_image');
+        $filename = time() . '.' . $file->getClientOriginalExtension();
+        $file->move('uploads/products/', $filename);
+        $data['product_image'] = $filename;
     
         $product = products::create($data);
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Product created successfully',
+            'data' => $product,
+            'filename' => $filename,
+        ]);
         if ($product) {
             return redirect()->route('product')->with('success', 'Product created successfully');
         } else {

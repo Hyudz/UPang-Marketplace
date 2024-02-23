@@ -29,7 +29,7 @@
         </div>
 
     <div class="container" style="width: 600px;">
-        <form action="{{route('sell.product')}}" method="POST">
+        <form action="{{route('sell.product')}}" method="POST" enctype="multipart/form-data">
             @csrf
             <input type="text" name="product_name" placeholder="Product Name">
             <input type="text" name="product_price" placeholder="Price">
@@ -43,6 +43,7 @@
                 <option value="4">CEA</option>
                 <option value="5">CMA</option>
             </select>
+            <input type="file" name="product_image" required>
             <button type="submit">Upload</button>
         </form>
     </div>

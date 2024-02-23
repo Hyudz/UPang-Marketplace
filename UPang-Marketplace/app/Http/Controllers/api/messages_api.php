@@ -27,21 +27,12 @@ class messages_api extends Controller
     }
 
     public function destroy($id){
-        $user = auth()->user();
         $message_id = messages::where('id', $id)->first();
         if (!$message_id) {
             return response()->json(['message' => 'Message not found'], 404);
         } else {
             $message_id->delete();
             return response()->json(['message' => 'Message deleted']);
-        }
-        
-        // Check if the user has messages
-        if ($user->messages) {
-            $user->messages::where('id', $id)->delete();
-            return response()->json(['message' => 'Message deleted']);
-        } else {
-            return response()->json(['message' => 'No messages found for the user'], 404);
         }
     }
     

@@ -37,6 +37,13 @@
                         <button id="shoppingbtn" type="submit"> <span class="fa fa-shopping-cart"></span> Add to Cart</button>
                     </form>
 
+
+                    <a href="#" id="messagebtn">
+                        <button type="submit" id="messagebtn" style="border-radius: 60px;">
+                            <span class="fa fa-envelope"></span> Message Seller
+                        </button>
+                    </a>
+
                     <a href="{{route('checkout-item',$product->id)}}">
                         <button id="shoppingbtn">Buy Now</button>
                     </a>

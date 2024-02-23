@@ -36,7 +36,6 @@ his/her uploaded products and if he/she wants to edit his/her details -->
                         </a>
                     </div>
                     @endforeach
-                    
                 </div>
             </div>
 

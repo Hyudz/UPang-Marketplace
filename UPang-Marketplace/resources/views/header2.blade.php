@@ -69,15 +69,9 @@
             </li>
 
             <li class="nav-item">
-                <div class="dropdown">
-                    <button type="button" style="border: 0px; background-color: none;" id="dropdown-msg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-message" id="nav-icon"></i>
-                    </button>
-
-                    <div class="dropdown-menu me-auto" aria-labelledby="dropdown-msg" style="margin-left: -155px; max-width: 220px;">                        
-                        <span class="dropdown-item" style="margin-right: 100px;">Messages are disabled</span>
-                    </div>
-                </div>
+                <a href="{{route('messages')}}" class="nav-item">
+                    <i class="fa fa-message" id="nav-icon"></i>
+                </a>
             </li>
 
             @if($usertype->user_type == 'buyer')

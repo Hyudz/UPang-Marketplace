@@ -35,6 +35,8 @@ Route::get("/my_profile",[webpage_controller::class,'my_profile']) -> name('buye
 Route::post("/purchased/{id}",[webpage_controller::class,'purchased']) -> name('purchased');
 Route::get("/check-out/{id}",[webpage_controller::class,'purchase']) -> name('checkout-item');
 Route::get("/not_found",[webpage_controller::class,'notfound']) -> name('not_found');
+Route::get("/messages",[messages_controller::class,'index']) -> name('messages');
+Route::get("/chat/{id}",[messages_controller::class,'chats']) -> name('chats');
 
 //TODO: Add routes for the following:
 // - /admin/dashboard
