@@ -13,6 +13,7 @@ use App\Http\Controllers\api\notifications_api;
 use App\Http\Controllers\api\orders_controller;
 use App\Http\Controllers\api\product_approval;
 use App\Http\Controllers\api\messages_api;
+use App\Http\Controllers\webpage_controller;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -28,7 +29,8 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/checkout',[marketplace_api::class,'checkout']);
     Route::post('/logout',[marketplace_api::class,'logout']);
     Route::get('/likes',[likes_api::class,'index']);
-    Route::delete('/likes',[likes_api::class,'destroy']);
+    Route::post('/likes/add',[likes_api::class,'store']);
+    Route::delete('/likes/remove',[likes_api::class,'destroy']);
     Route::get("/cart", [cart_api::class,'index']);
     Route::delete("/cart", [cart_api::class,'destroy']);
     Route::post("/cart", [cart_api::class,'store']);
@@ -41,6 +43,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("/message_send",[messages_api::class,'store']);
     Route::delete("/message_delete/{id}",[messages_api::class,'destroy']);
 });
-
+Route::get('/product',[products_controller::class,'show'])->middleware('auth:sanctum');
 Route::post('/admin/signin',[Admin_api_controller::class,'signin']);
 Route::get('/admin/dashboard',[Admin_api_controller::class,'index']);
+Route::get('/getData',[user_controller::class,'getData']);

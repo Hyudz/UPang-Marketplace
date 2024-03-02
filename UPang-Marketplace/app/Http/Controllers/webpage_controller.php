@@ -98,7 +98,9 @@ class webpage_controller extends Controller
 
     function product(){
         $usertype = Auth::user();
-        $products = DB::table('products')->where('availability', 'approved')->get();
+        $products = DB::table('products')->where('availability', 'approved')
+        ->where('user_id', '!='  ,Auth::user()->id)
+        ->get();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
         return view('product', ['products' => $products,'usertype' => $usertype, 'notifications' => $notifications]);
     }
@@ -160,20 +162,15 @@ class webpage_controller extends Controller
         $file = $request->file('product_image');
         $filename = time() . '.' . $file->getClientOriginalExtension();
         $file->move('uploads/products/', $filename);
-        $data['product_image'] = $filename;
+        $data['image'] = $filename;
     
-        $product = products::create($data);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product created successfully',
-            'data' => $product,
-            'filename' => $filename,
-        ]);
-        if ($product) {
-            return redirect()->route('product')->with('success', 'Product created successfully');
-        } else {
-            return redirect()->route('product')->with('error', 'Product not created');
-        }
+        products::create($data);
+
+        $product = products::find($request->id);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        $usertype = Auth::user();
+
+        return redirect()->route('homepage', ['product' => $product,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     function logout(){

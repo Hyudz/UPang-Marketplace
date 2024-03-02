@@ -76,4 +76,14 @@ class user_controller extends Controller
             'data' => $user
         ]);
     }
+
+    public function getData(Request $request)
+    {
+        // Ensure the request is authenticated (using Sanctum)
+        $user = $request->user();
+    
+        $data = ['user' => $user];
+
+        return response()->json($data);
+    }
 }

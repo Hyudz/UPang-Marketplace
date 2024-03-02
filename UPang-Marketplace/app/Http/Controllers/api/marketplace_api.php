@@ -23,6 +23,8 @@ class marketplace_api extends Controller
                 'message' => 'Bad credentials'
             ], 401);
         }
+        
+        if($user->user_type != 'admin') {
 
         $token = $user->createToken('myapptoken')->plainTextToken;
         $response = [
@@ -30,7 +32,13 @@ class marketplace_api extends Controller
             'token' => $token
         ];
 
-        return response($response, 201);
+        return response($response);
+        } else {
+            return response()-> json([
+                'status' => 'suppressed',
+                'message' => 'Admin account should not be allowed in client login'
+                ]);
+        }
     }
 
     function signup(Request $request) {

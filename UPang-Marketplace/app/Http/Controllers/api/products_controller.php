@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\products;
+use App\Models\user_table;
 use Illuminate\Support\Facades\Auth;
 
 class products_controller extends Controller
@@ -23,10 +24,21 @@ class products_controller extends Controller
         ]);
     }
 
+    public function getSeller(Request $request){
+        $sellerId = products::where('id', $request->id)->first()->user_id;
+        $sellerName = user_table::where('id', $sellerId)->first()->first_name;
+        return response()->json(['data' => $sellerName]);
+    }
+
     public function store(Request $request){
         $user = Auth::user();
 
-        $data = $request->all();
+        $data = $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+        ]);
         $data['user_id'] = $user->id;
         return products::create($data);
     }
@@ -72,5 +84,13 @@ class products_controller extends Controller
             'message' => 'Product deleted successfully',
             'data' => $product
         ]);
+    }
+
+    public function show(){
+        $product = products::all()->where('availability', 'approved')
+        ->where('user_id', '!=' ,Auth::user()->id)
+        ->values();
+        
+        return response()->json($product);
     }
 }

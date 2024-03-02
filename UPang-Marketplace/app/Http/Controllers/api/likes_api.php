@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\likes_table;
+use App\Models\products;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
@@ -18,19 +19,42 @@ class likes_api extends Controller
 
     public function index(){
         $likes = likes_table::where('user_id', Auth::user()->id)->get();
-        return response()->json($likes);
+        $products = products::whereIn('id', $likes->pluck('product_id'))
+        ->where('availability', '=', 'approved')
+        ->get();
+        return response()->json($products);
     }
 
     public function store(Request $request){
-        likes_table::create([
-            'user_id' => Auth::user()->id,
-            'product_id' => $request->id
-        ]);
-        return response()->json(['message' => 'Product liked']);
+        // likes_table::create([
+        //     'user_id' => Auth::user()->id,
+        //     'product_id' => $request->id
+        // ]);
+        // return response()->json(['message' => 'Product liked']);
+
+        $user_id = Auth::user()->id;
+        $product_id = $request->id;
+
+        $likeExists = likes_table::where('user_id', $user_id)
+                                ->where('product_id', $product_id)
+                                ->first();
+
+        if ($likeExists) {
+            likes_table::where('user_id', $user_id)
+                ->where('product_id', $product_id)
+                ->delete();
+            return response()->json(['message' => 'Product unliked']);
+        } else {
+            likes_table::create([
+                'user_id' => $user_id,
+                'product_id' => $product_id
+            ]);
+            return response()->json(['message' => 'Product liked']);
+        }
     }
 
     public function destroy(Request $request){
-        $user = auth()->user(); // Retrieve the authenticated user object
+        $user = auth()->user();
         $user = auth('sanctum')->user();
     
         if ($user) {

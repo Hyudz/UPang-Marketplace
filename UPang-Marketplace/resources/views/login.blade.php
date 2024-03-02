@@ -44,11 +44,11 @@
                 <form action="{{route('login-post')}}" method="POST" id="loginform" class="content-center">
                     @csrf
                     <div class="m-auto">
-                        <input type="email" name="email" placeholder="Email" class="form-control form_input">
+                        <input type="email" name="email" placeholder="Email" required class="form-control form_input">
                     </div>
 
                     <div class="m-auto">
-                        <input type="password" name="password" placeholder="Password" class="form-control form_input">
+                        <input type="password" name="password" placeholder="Password" required class="form-control form_input">
                     </div>
 
                     <span class="d-flex flex-row-reverse">

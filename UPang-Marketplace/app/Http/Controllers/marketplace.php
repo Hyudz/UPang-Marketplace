@@ -7,6 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\products;
+use Illuminate\Support\Facades\DB;
+
 
 
 class marketplace extends Controller
@@ -19,6 +21,12 @@ class marketplace extends Controller
         return view('login');
     }
 
+    function landing(){
+        $products = DB::table('products')->where('availability', 'approved')
+        ->get();
+        return view('landing', ['products' => $products]);
+    }
+
     function login_post(Request $request){
         $credentials = [
             'email' => $request->input('email'),
@@ -27,10 +35,15 @@ class marketplace extends Controller
 
         if (Auth::attempt($credentials)) {
             // Authentication successful
-            return redirect()->intended(route('homepage'));
+            if (Auth::user()->user_type != 'admin') {
+                return redirect()->intended(route('homepage'));
+            } else {
+                return redirect()->route('login')->with('error', 'Admin account should not be allowed in client login');
+            }
+    
         }
 
-        return redirect()->route('login')->with(['error' => $credentials['password']]);
+        return redirect()->route('login')->with(['error' => 'Invalid email or password']);
     }
 
     function create_user(Request $request){
@@ -41,8 +54,8 @@ class marketplace extends Controller
             'password' => 'required|confirmed',
             'user_type' => 'required',
             'birthday' => 'required',
-            "user_type" => "required|in:admin,seller,buyer",
-            "gender" => "required",
+            "user_type" => "required|in:seller,buyer",
+            "gender" => "required|in:male,female",
             "birthday" => "required|date"
 
         ]);

@@ -95,6 +95,7 @@
                 <table class="table table-dark table-striped">
                     <thead>
                         <tr>
+                            <!-- Include the total products here -->
                             <th colspan="7">
                             All Products
                             </th>
@@ -122,6 +123,23 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <!-- Total number of users -->
+            </div>
+
+            <div class="col">
+                <!-- Total number of male users-->
+                <!-- Total number of female user-->
+            </div>
+
+            <div class="col">
+                <!-- Total number of sellers user-->
+                <!-- Total number of buyers user-->
+            </div>
+
         </div>
     </div>
 

@@ -17,7 +17,7 @@ return new class extends Migration
                 $table->id();
                 $table->string('name');
                 $table->string('description');
-                $table->string('image')->default('products/default.png');
+                $table->string('image');
                 $table->string('price');
                 $table->string('availability')->default('under_review');
                 $table->string('quantity');

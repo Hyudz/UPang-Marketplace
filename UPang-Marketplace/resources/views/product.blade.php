@@ -60,7 +60,7 @@
                     <div class="col">
                         <a href="{{route('viewproduct', $product->id)}}">
                             <div class="card mt-5" style="width: 18rem;">
-                                <img class="card-img-top" src="{{asset('products/placeholder.png')}}" alt="product image">
+                                <img class="card-img-top" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                                 <div class="card-body">
                                     <h5 class="card-title" id="product1">{{$product->name}}</h5>
                                     <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>

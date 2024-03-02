@@ -52,7 +52,7 @@
 
             <div class="col-md" style="height: 100vmin;">
                 <div class="mh-100 container mt-5 mb-auto me-auto ms-auto" class="model">
-                    <img src="https://placehold.co/600x400?text=Placeholder" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
+                    <img src="{{asset('uploads/products/'.$product->image)}}" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
                 </div>
             </div>
             </div>

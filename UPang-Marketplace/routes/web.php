@@ -9,10 +9,7 @@ use App\Http\Controllers\messages_controller;
 use App\Http\Controllers\Admin_controller;
 use App\Http\Livewire\Chat\Main;
 
-Route::get('/', function () {
-    return view('login');
-});
-
+Route::get('/',[marketplace::class,'landing']) -> name('landing');
 Route::get("/signup",[marketplace::class,'signup']) -> name('signup');  
 Route::get("/login",[marketplace::class,'login']) -> name('login');
 Route::post("/login",[marketplace::class,'login_post']) -> name('login-post');

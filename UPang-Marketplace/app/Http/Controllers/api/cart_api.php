@@ -24,11 +24,31 @@ class cart_api extends Controller
     }
 
     public function store(Request $request){
-        cart_items::create([
-            'user_id' => Auth::user()->id,
-            'product_id' => $request->id
-        ]);
-        return response()->json(['message' => 'Product added to cart']);
+        // cart_items::create([
+        //     'user_id' => Auth::user()->id,
+        //     'product_id' => $request->id
+        // ]);
+        // return response()->json(['message' => 'Product added to cart']);
+
+        $user_id = Auth::user()->id;
+        $product_id = $request->id;
+
+        $itemExists = cart_items::where('user_id', $user_id)
+                                ->where('product_id', $product_id)
+                                ->first();
+
+        if ($itemExists) {
+            cart_items::where('user_id', $user_id)
+                ->where('product_id', $product_id)
+                ->delete();
+            return response()->json(['message' => 'Product removed to cart']);
+        } else {
+            cart_items::create([
+                'user_id' => $user_id,
+                'product_id' => $product_id
+            ]);
+            return response()->json(['message' => 'Product added to cart']);
+        }
     }
 
     public function destroy(Request $request){

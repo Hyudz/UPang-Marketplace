@@ -32,12 +32,12 @@
                         @elseif($usertype->user_type == 'seller')
                         <a class="dropdown-item" href="{{route('profile')}}"><i class="fa fa-circle-user"></i> Profile</a>
                         @endif
-                        <a class="dropdown-item" href="{{route('settings')}}"><i class="fa-solid fa-gear"></i> Settings</a>
+                        <a class="dropdown-item" style="display: none;" href="{{route('settings')}}"><i class="fa-solid fa-gear"></i> Settings</a>
                         <a class="dropdown-item" href="{{route('logout')}}"><i class="fa-solid fa-right-from-bracket"></i>Log Out</a>
                     </div>
                 </div>
 
-            <li class="nav-item">
+            <li class="nav-item" style="display: none;">
                 <a href="{{route('likes')}}" class="nav-item"> 
                     <i class="fa fa-heart" id="nav-icon"></i>
                 </a>
@@ -68,7 +68,7 @@
                 </div>
             </li>
 
-            <li class="nav-item">
+            <li class="nav-item" style="display: none;">
                 <a href="{{route('messages')}}" class="nav-item">
                     <i class="fa fa-message" id="nav-icon"></i>
                 </a>

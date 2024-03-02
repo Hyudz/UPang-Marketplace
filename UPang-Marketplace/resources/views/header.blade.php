@@ -1,71 +1,29 @@
-    <!-- This page contains the header of the marketplace  -->
-    
-    <div class="row">
-        <div class="mt-3 ms-3 col-sm-2 container">
-            <a href="{{route('home')}}" class="ms-5">
-                <img src="{{asset('img/LOGO 2.png')}}" alt="Marketplace Logo" id="logo" style="width: 7vmax;">
-            </a>
-        </div>
+<header>
+    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: #23713E;">
+    <div class="container-fluid">
+        <img src="{{asset('img/medyo final na logo 1.png')}}" style="height: 10vmin;" alt="" loading="lazy" class="m-2"/>
 
-        <div class="col-5 mt-4 container-fluid">
-            <form>
-                <div>
-                    <input type="text" name="search" placeholder="I am looking for..." class="form-control" id="searchbar">
-                </div>
+        <form class="d-none d-md-flex input-group w-auto my-auto">
+            <input type="search" class="form-control" placeholder='I am looking for...' style="min-width: 300px; border-radius: 60px 0px 0px 60px"/>
+            <span class="input-group-text">
+                <a href="#">
+                    <i class="fas fa-search"></i>
+                </a>
+            </span>
+        </form>
+    
+
+    <ul class="navbar-nav ms-auto">
+        <div class="container">
+            <span style="color: white;">Log in or</span> <a href="{{route('signup')}}" style="text-decoration: underline; color: #D3B306;"> Create Your Marketplace Account!</a>
+            <form class="d-flex me-5" action="{{route('login-post')}}" method="POST">
+                @csrf
+                <input class="form-controll me-2" type="email" name="email" placeholder="Email">
+                <input class="form-controll me-2" type="password" name="password" placeholder="Password">
+                <button class="btn btn-outline-warning" type="submit">Login</button>
             </form>
         </div>
-
-        <div class="col-sm-2 d-flex mt-4">
-            <div class="item-container">
-                <div class="container d-flex">
-                    <div class="icon">
-                        <i class="fa fa-circle-user"></i>
-                    </div>
-                    <div class="text ms-1">
-                        <h6 class="ms-1">Hello, {name}</h6>
-                    </div>
-                </div>
-                <div class="button-list">
-                    <div class="items-list">
-                        <i class="fa fa-circle-user"></i>
-                        <a href="{{route('profile')}}">Profile</a>
-                    </div>
-
-                    <div class="items-list">
-                        <i class="fa-solid fa-gear"></i>
-                        <a href="{{route('settings')}}">Settings</a>
-                    </div>
-
-                    <div class="items-list">
-                        <i class="fa-solid fa-right-from-bracket"></i>
-                        <a href="{{route('logout')}}">Log Out</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container-fluid col mt-4">
-            <nav>
-                <ul>
-                    <a href="{{route('likes')}}" class="nav-item"> 
-                        <i class="fa fa-heart" id="nav-icon"></i>
-                    </a>
-                    <a href="{{route('cart')}}" class="nav-item">
-                        <i class="fa fa-shopping-cart" id="nav-icon"></i>
-                    </a>    
-
-                    <!-- WALA YATANG SARILING PAGE TO EH JUST LIKE IN FB -->
-                    <a href="#" class="nav-item">
-                        <i class="fa fa-bell" id="nav-icon"></i>
-                    </a>
-                    <a href="#" class="nav-item">
-                        <i class="fa fa-message" id="nav-icon"></i>
-                    </a>
-                    <a href="{{route('sell')}}">
-                        <button type="submit" style="border-radius:60px; width: auto;">SELL</button>
-                    </a>
-                </ul>
-            </nav>
-        </div>
-        
+    </ul>
     </div>
+    </nav>
+</header>
