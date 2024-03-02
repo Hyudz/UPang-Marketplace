@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\cart_items;
+use App\Models\products;
 use Illuminate\Support\Facades\Auth;
 
 class cart_api extends Controller
@@ -15,12 +16,9 @@ class cart_api extends Controller
     }
 
     public function index(){
-        try {
-            $likes = cart_items::where('user_id', Auth::user()->id)->get();
-            return $likes;
-        } catch (\Exception $e) {
-            return response()->json(['error' => 'Something went wrong'], 500);
-        }
+        $likes = cart_items::where('user_id', Auth::user()->id)->get();
+        $product_details = products::whereIn('id', $likes->pluck('product_id'))->get();
+        return response()->json($product_details);
     }
 
     public function store(Request $request){
