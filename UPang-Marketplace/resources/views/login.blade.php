@@ -6,7 +6,7 @@
             <link href="{{asset('css/login.css')}}" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Sahitya" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Inria+Serif" rel="stylesheet">
-            <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
+            <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
 
@@ -19,7 +19,7 @@
         <div class="d-flex justify-content-center">
             <hr>
         </div>
-        <div class="mt-5" style="width: 500px;">
+        <div class="mt-5 d-flex justify-content-center">
             @if($errors->any())
                 <div class="col-12">
                     @foreach($errors->all() as $error)
@@ -65,8 +65,8 @@
 
     <div id="sideContent" >
         <img src="{{asset('img/medyo final na logo 1.png')}}" alt="Marketplace Logo" id="logo" class="rounded mx-auto d-block">
-        <h1 style="font-family: 'Sahitya';" class="mx-auto text-center">Dont have an account?</h1>
-        <h5 class="mx-auto text-center">Sign up and enjoy shopping!</h5>
+        <h1 style="font-family: 'Sahitya';" class="mx-auto text-center">Don't have an account?</h1>
+        <h5 class="mx-auto text-center">Sign up now and enjoy shopping with a Student Discount!</h5>
         
         <form action="{{route('signup')}}" method="get">
             <div class="d-flex justify-content-center">

@@ -26,9 +26,7 @@ h1 {
 
 #shoppingbtn {
     border-radius: 60px;
-    padding: 1%;
-    display: flex;
-    align-items: center;
+    background-color: #F2D000;
 }
 
 #firstHeading {

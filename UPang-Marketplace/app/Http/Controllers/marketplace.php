@@ -21,6 +21,11 @@ class marketplace extends Controller
         return view('login');
     }
 
+    function preview(Request $request){
+        $product = products::where('id', '=', $request->id);
+        return view('viewproduct2', ['product' => $product]);
+    }
+
     function landing(){
         $products = DB::table('products')->where('availability', 'approved')
         ->get();
@@ -34,16 +39,20 @@ class marketplace extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            // Authentication successful
             if (Auth::user()->user_type != 'admin') {
-                return redirect()->intended(route('homepage'));
+                $products = DB::table('products')->where('availability', 'approved')
+                ->where('user_id', '!='  ,Auth::user()->id)
+                ->get();
+                $usertype = Auth::user();
+                $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+                return view('welcome',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
             } else {
                 return redirect()->route('login')->with('error', 'Admin account should not be allowed in client login');
+                $products = collect();
             }
-    
         }
-
         return redirect()->route('login')->with(['error' => 'Invalid email or password']);
+        $products = collect();
     }
 
     function create_user(Request $request){
@@ -91,8 +100,6 @@ class marketplace extends Controller
             $all_products = products::all();
             return view('admin.dashboard', ['products' => $product, 'all_products' => $all_products]);
         }
-
-        
 
         return redirect()->route('admin-signin')->with(['error' => $credentials['password']]);
     }

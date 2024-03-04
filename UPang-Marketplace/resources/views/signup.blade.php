@@ -6,7 +6,7 @@
     <title>Sign Up</title>
     <link href="{{asset('css/signup.css')}}" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
+    <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
 </head>
 <body>
 

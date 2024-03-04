@@ -23,8 +23,18 @@ class webpage_controller extends Controller
 
     function homepage(){ 
         $usertype = Auth::user();
+        $products = DB::table('products')->where('availability', 'approved')
+        ->where('user_id', '!='  ,Auth::user()->id)
+        ->get();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-        return view('welcome', ['usertype' => $usertype, 'notifications' => $notifications]);
+        return view('welcome', ['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
+    }
+
+    function notifDetails(Request $request){
+        $usertype = Auth::user();
+        $notification = notifications::find($request->id);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        return view('notif', ['notification' => $notification,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     function my_profile(){
@@ -96,6 +106,21 @@ class webpage_controller extends Controller
         return redirect()->route('product',['usertype' => $usertype, 'notifications' => $notifications])->with('success', 'Product added successfully');
     }
 
+    function removeItem(Request $request){
+
+        $product = $request->validate([
+            'product_id' => 'required|exists:products,id',
+        ]);
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        $usertype = Auth::user();
+
+        cart_items::where('user_id', Auth::user()->id)
+        ->where('product_id', $product['product_id'])
+        ->delete();
+
+        return redirect()->route('cart',['usertype' => $usertype, 'notifications' => $notifications])->with('success', 'Product removed successfully');
+    }
+
     function product(){
         $usertype = Auth::user();
         $products = DB::table('products')->where('availability', 'approved')
@@ -108,6 +133,25 @@ class webpage_controller extends Controller
     function editprofile(){
         return view('editprofile');
     }
+
+    function searchItem(Request $request){
+        $usertype = Auth::user();
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+
+        $request->validate([
+            'search' => 'required|string|max:255',
+        ]);
+    
+        $search = $request->input('search');
+
+        $products = products::where('name', 'like', '%' . $search . '%')
+            ->where('availability', 'approved')
+            ->paginate(10);
+
+        return view('product',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
+        }
+    
+    
 
     function likes(){
         $usertype = Auth::user();
@@ -233,4 +277,6 @@ class webpage_controller extends Controller
     function notfound(){
         return view('product_not_found');
     }
+
 }
+

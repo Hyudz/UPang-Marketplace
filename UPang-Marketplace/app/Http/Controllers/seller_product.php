@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\products;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class seller_product extends Controller
 {
@@ -15,8 +16,9 @@ class seller_product extends Controller
 
     public function analytics(Request $request){
         $product = products::find($request->id);
-        $usertype = Auth::user()->first_name;
-        return view('seller/analytics', ['product' => $product], ['usertype' => $usertype]);
+        $usertype = Auth::user();
+        $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        return view('seller/analytics', ['product' => $product, 'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
     public function delete(Request $request){

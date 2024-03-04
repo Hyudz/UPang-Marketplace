@@ -1,29 +1,30 @@
 <header>
-    <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light bg-white">
+    <nav id="main-navbar" class="navbar navbar-expand-lg" style="background-color: #23713E;">
     <div class="container-fluid">
 
-        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler" style="display: none;" type="button" data-mdb-toggle="collapse" data-mdb-target="#sidebarMenu" aria-controls="sidebarMenu" aria-expanded="false" aria-label="Toggle navigation">
             <i class="fas fa-bars"></i>
         </button>
 
         <a class="navbar-brand" href="{{route('homepage')}}">
-            <img  src="{{asset('img/medyo final na logo 2.png')}}" style="height: 10vmin;" alt="" loading="lazy"/>
+            <img  src="{{asset('img/medyo final na logo 1.png')}}" style="height: 10vmin;" alt="" loading="lazy"/>
         </a>
 
-        <form class="d-none d-md-flex input-group w-auto my-auto">
-            <input type="search" class="form-control" placeholder='I am looking for...' style="min-width: 300px; border-radius: 60px"/>
-            <span class="input-group-text border-0 ms-3">
-                <a href="#">
+        <form class="d-none d-md-flex input-group w-auto my-auto" method="POST" action="{{route('search')}}">
+            @csrf
+            <input type="search" name="search" class="form-control" placeholder='I am looking for...' style="min-width: 300px; border-radius: 60px 0px 0px 60px"/>
+            <span class="input-group-text border-0">
+                <button type="submit" style="background-color: transparent; border: 0px;">
                     <i class="fas fa-search"></i>
-                </a>
+                </button>
             </span>
         </form>
 
         <ul class="navbar-nav ms-auto d-flex flex-row">
             <li class="nav-item dropdown">
                 <div class="dropdown">
-                    <button type="button" style="border: 0px; background-color: none;" id="dropdown-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fa fa-circle-user"></i>Hello {{$usertype->first_name}}!
+                    <button type="button" style="border: 0px; background-color: transparent; color: white;" id="dropdown-profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fa fa-circle-user"></i> <span class="ms-1">Hello {{$usertype->first_name}}!</span>
                     </button>
 
                     <div class="dropdown-menu" aria-labelledby="dropdown-profile">
@@ -44,23 +45,25 @@
             </li>
 
             <li class="nav-item">
-                <a href="{{route('cart')}}" class="nav-item">
+                <a href="{{route('cart')}}" style="color: white;" class="nav-item">
                     <i class="fa fa-shopping-cart" id="nav-icon"></i>
                 </a>
             </li>
 
             <li class="nav-item">
                 <div class="dropdown">
-                    <button type="button" style="border: 0px; background-color: none;" id="dropdown-notif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <button type="button" style="border: 0px; background-color: transparent; color: white;" id="dropdown-notif" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <i class="fa fa-bell" id="nav-icon"></i>
                     </button>
-                    <div class="dropdown-menu" aria-labelledby="dropdown-notif" style="margin-left: -150px; width: 270px; max-height: 300px; overflow-y: auto;">
+                    <div class="dropdown-menu" aria-labelledby="dropdown-notif" style="margin-left: -230px; width: 270px; max-height: 300px; overflow-y: auto;">
                         @if($notifications->count() == 0)
                             <span class="dropdown-item">No notifications</span>
                         @else
                             @foreach($notifications as $notification)
                                 <div class="dropdown-item text-wrap" style=" overflow: hidden; text-overflow: ellipsis; height: 50px;">
+                                <a href="{{route('notifDetails', $notification->id)}}">
                                     <span>{{$notification->message}}</span>
+                                </a>
                                 </div>
                             @endforeach
                         @endif

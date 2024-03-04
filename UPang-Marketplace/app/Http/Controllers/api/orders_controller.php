@@ -20,7 +20,8 @@ class orders_controller extends Controller
     
     public function index(){
         $orders = order_history::where('user_id', Auth::user()->id)->get();
-        return response()->json($orders);
+        $productDescription = products::whereIn('id', $orders->pluck('order_id'))->get();
+        return response()->json(['order' => $orders, 'descriptions' => $productDescription]);
     }
 
     public function store(Request $request){

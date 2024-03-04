@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin_controller;
 use App\Http\Livewire\Chat\Main;
 
 Route::get('/',[marketplace::class,'landing']) -> name('landing');
+Route::get('/preview/{id}',[marketplace::class,'preview']) -> name('preview');
 Route::get("/signup",[marketplace::class,'signup']) -> name('signup');  
 Route::get("/login",[marketplace::class,'login']) -> name('login');
 Route::post("/login",[marketplace::class,'login_post']) -> name('login-post');
@@ -25,6 +26,7 @@ Route::get("/product",[webpage_controller::class,'product']) -> name('product');
 Route::get("/viewproduct/{id}",[webpage_controller::class,'viewproduct'])->name('viewproduct') -> middleware('product');
 Route::get("/likes",[webpage_controller::class,'likes']) -> name('likes');
 Route::post("/viewproduct/{id}",[webpage_controller::class,'save_item'])->name('save_item');
+Route::delete("/cart/{id}",[webpage_controller::class,'removeItem'])->name('delete_item');
 Route::post("sell_product", [webpage_controller::class,'create_product'])->name('sell.product');
 Route::get("/sell",[webpage_controller::class,'sell']) -> name('sell');
 Route::post("/viewproducts/{id}",[webpage_controller::class,'add_like'])->name('add_like');
@@ -34,6 +36,8 @@ Route::get("/check-out/{id}",[webpage_controller::class,'purchase']) -> name('ch
 Route::get("/not_found",[webpage_controller::class,'notfound']) -> name('not_found');
 Route::get("/messages",[messages_controller::class,'index']) -> name('messages');
 Route::get("/chat/{id}",[messages_controller::class,'chats']) -> name('chats');
+Route::post("/product_results", [webpage_controller::class,'searchItem']) -> name('search');
+Route::get("/notifDetails/{id}",[webpage_controller::class,'notifDetails']) -> name('notifDetails');
 
 //TODO: Add routes for the following:
 // - /admin/dashboard

@@ -10,10 +10,7 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container-fluid">
         @include('header2')
-    </div>
-
     <div>
         <h1>Analytics</h1>
         <h1>Product Name: {{$product->name}}</h1>

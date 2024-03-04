@@ -4,45 +4,37 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Homepage</title>
+        <title>{{$product->name}}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Sahitya" rel="stylesheet">
         <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{asset('css/viewproduct.css')}}">
         <link rel="stylesheet" href="{{asset('css/header.css')}}">
-        <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
+        <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
+
+        <style>
+            body {
+                background-color: #EEF6FF;
+            }
+        </style>
     </head>
     <body>
-        
+    @include('header2')
         <div class="container-fluid mainContent">
-            @include('header2')
+            
             <div class="d-flex">
             <div class="col-md">
                 <h1 class="p-4" style="font-family: 'Sahitya';" id="productname">
                     {{$product->name}}
                 </h1>
-                <p class="short_desc">{{$product->description}}</span><br>
-                <span class="likes"> {{$product->user->first_name}} - 0 likes</span>
+                <h5 class="short_desc ms-4">{{$product->description}}</h5><br>
                 <div class="d-flex justify-content-center">
-                    <form method="POST" action="{{route('add_like',$product->id)}}">
-                        @csrf
-                        <input type="hidden" name="product_id" value="{{ $product->id }}">
-                        <button id="heartBtn" type="submit"><span class="fa fa-heart"></span></button>
-                    </form>
-
                     <form method="POST" action="{{route('save_item',$product->id)}}">
                         @csrf
                         <input type="hidden" name="product_id" value="{{$product->id}}">
                         <button id="shoppingbtn" type="submit"> <span class="fa fa-shopping-cart"></span> Add to Cart</button>
                     </form>
-
-
-                    <a href="#" id="messagebtn">
-                        <button type="submit" id="messagebtn" style="border-radius: 60px;">
-                            <span class="fa fa-envelope"></span> Message Seller
-                        </button>
-                    </a>
 
                     <a href="{{route('checkout-item',$product->id)}}">
                         <button id="shoppingbtn">Buy Now</button>

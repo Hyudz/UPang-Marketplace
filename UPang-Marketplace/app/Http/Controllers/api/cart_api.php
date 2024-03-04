@@ -37,9 +37,8 @@ class cart_api extends Controller
 
         if ($itemExists) {
             cart_items::where('user_id', $user_id)
-                ->where('product_id', $product_id)
-                ->delete();
-            return response()->json(['message' => 'Product removed to cart']);
+                ->where('product_id', $product_id);
+            return response()->json(['message' => 'Product already in cart']);
         } else {
             cart_items::create([
                 'user_id' => $user_id,
@@ -50,24 +49,39 @@ class cart_api extends Controller
     }
 
     public function destroy(Request $request){
-        $user = auth()->user(); // Retrieve the authenticated user object
-        $user = auth('sanctum')->user();
-    
-        if ($user) {
-            $userId = $user->id; // Get the user ID from the user object
-    
-            $like = cart_items::where('user_id', $userId)
-                                ->where('product_id', $request->id)
-                                ->first();
-    
-            if ($like) {
-                $like->delete();
-                return response()->json(['message' => 'Product removed to cart']);
-            } else {
-                return response()->json(['message' => 'Product not found to cart'], 404);
-            }
+
+        $user_id = Auth::user()->id;
+        $product_id = $request->id;
+
+        $cartRemove = cart_items::where('user_id', $user_id)
+                    ->where('product_id', $product_id)
+                    ->delete();
+
+        if ($cartRemove) {
+            return response()->json(['message' => 'Product removed to cart']);
         } else {
-            return response()->json(['message' => 'Unauthorized'], 401);
+            return response()->json(['message' => 'Product not found to cart'], 404);
         }
+        // $user = auth()->user(); // Retrieve the authenticated user object
+        // $user = auth('sanctum')->user();
+
+        
+    
+        // if ($user) {
+        //     $userId = $user->id; // Get the user ID from the user object
+    
+        //     $like = cart_items::where('user_id', $userId)
+        //                         ->where('product_id', $request->id)
+        //                         ->first();
+    
+        //     if ($like) {
+        //         $like->delete();
+        //         return response()->json(['message' => 'Product removed to cart']);
+        //     } else {
+        //         return response()->json(['message' => 'Product not found to cart'], 404);
+        //     }
+        // } else {
+        //     return response()->json(['message' => 'Unauthorized'], 401);
+        // }
     }
 }

@@ -7,19 +7,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <link rel="stylesheet" href="{{asset('css/products.css')}}">
-    <link href="{{asset('img/medyo final na logo 2.png')}}" rel="icon" type="image/x-icon">
+    <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
     
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
-    <title>Document</title>
+    <title>Browse Products</title>
+    <style>
+            body {
+                background-color: #EEF6FF;
+            }
+        </style>
 </head>
 <body>
+    <div class="fixed-top">
+        @include('header2')
+    </div>
+
     <div class="container-fluid">
         <div class="d-block">
-            <div class="container-fluid row fixed-top">
-                @include('header2')
-            </div>
-
-            <div class="navbar container-fluid row">
+            <!-- <div class="navbar container-fluid row">
                 <div class="col">
                     <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
                         <div class="position-sticky">
@@ -27,7 +32,7 @@
                                 <a href="#" onclick="change('cite')" class="list-group-item list-group-item-action py-2 ripple">
                                     <span id="cite">CITE</span>
                                 </a>
-                                <!-- CEA CCJE CAHS CELA CMA -->
+
                                 <a href="#" onclick="change('ccje')" class="list-group-item list-group-item-action py-2 ripple">
                                     <span id="ccje">CCJE</span>
                                 </a>
@@ -51,16 +56,23 @@
                         </div>
                     </nav>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="container" style="padding-left: 150px;">
+            <div class="container">
+                <div class="mt-5"></div>
+                <div class="mt-5"></div>
+                <div class="mt-5"></div>
                 <div class="row w-auto">
-
+                    @if($products->isEmpty())
+                    <div class="d-flex justify-content-center align-items-center min-vh-100">
+                        <h1>We couldn't find the product you searched for.</h1>
+                    </div>
+                    @endif
                     @foreach($products as $product)
-                    <div class="col">
+                    <div class="col mt-5">
                         <a href="{{route('viewproduct', $product->id)}}">
-                            <div class="card mt-5" style="width: 18rem;">
-                                <img class="card-img-top" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                            <div class="card" style="width: 18rem;">
+                                    <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                                 <div class="card-body">
                                     <h5 class="card-title" id="product1">{{$product->name}}</h5>
                                     <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
