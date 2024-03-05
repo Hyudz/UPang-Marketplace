@@ -7,3 +7,7 @@ input {
     box-sizing: border-box;
     border-radius: 60px;
 }
+
+body {
+    background-color: #EEF6FF;
+}

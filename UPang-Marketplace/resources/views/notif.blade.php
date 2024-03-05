@@ -6,32 +6,22 @@
     <title>Notification</title>
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"> 
     <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
 </head>
 <body>
     @include('header2')
     <div class="container-fluid mainContent">
-        <div class="d-flex">
-            <div class="col-md">
+        <div class="d-flex ">
                 <h1>YOUR PRODUCT WAS DECLINED</h1>
                 <h1 class="p-4" style="font-family: 'Sahitya';" id="productname">
-                    Product Name: RGB Keyboard
+                    Product Name: {{$product->name}}
                 </h1>
-                <p class="short_desc"> Second hand kineme</p>
-                <p class="quantity"> Quantity: 1</p>
-                <p class="price"> Price: 1000</p>
-                <p class="likes"> Seller: John Doe</p>
+                <p class="short_desc"> {{$product->description}}</p>
+                <p class="price"> {{$product->price}} </p>
 
                 <h3>Reason for Decline</h3>
-                <p class="short_desc"> The product is not in good condition</p>
-            </div>
-
-            <div class="col-md" style="height: 100vmin;">
-                <div class="mh-100 container mt-5 mb-auto me-auto ms-auto" class="model">
-                    <img src="https://placehold.co/600x400?text=Placeholder" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
-                </div>
-            </div>
+                <p class="short_desc"> {{$product->message}}</p>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

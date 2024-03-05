@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\order_item;
 use App\Models\notifications;
+use App\Models\user_table;
+use Illuminate\Support\Facades\Hash;
 
 class webpage_controller extends Controller
 {
@@ -30,6 +32,12 @@ class webpage_controller extends Controller
         return view('welcome', ['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
     }
 
+    function deleteProfile(Request $request, $id){
+        $user = user_table::find($id);
+        $user->delete();
+        return redirect()->route('login');
+    }
+
     function notifDetails(Request $request){
         $usertype = Auth::user();
         $notification = notifications::find($request->id);
@@ -40,7 +48,40 @@ class webpage_controller extends Controller
     function my_profile(){
         $usertype = Auth::user();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-        return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications]);
+
+        $productDetails = DB::table('order_histories')
+        ->join('order_items', 'order_histories.order_id', '=', 'order_items.id')
+        ->join('products', 'order_items.product_id', '=', 'products.id')
+        ->where('order_histories.user_id', $usertype->id)
+        ->select('products.*', 'order_histories.status', 'order_histories.id')
+        ->get();  
+
+        return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications, 'productDetails' => $productDetails]);
+    }
+
+    function updateProfile(Request $request, $id){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required',
+            'new_password' => 'required|confirmed',
+        ]);
+
+        $userProfile = user_table::find($id);
+    
+        if (!Hash::check($request->password, Auth::user()->password)) {
+            return redirect()->back()->with('error', 'Incorrect current password');
+        }
+    
+        $userProfile->update([
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+            'password' => bcrypt($request->new_password),
+        ]);
+    
+        return redirect()->route('buyer_profile')->with('success', 'Profile updated successfully');
     }
 
     function products(){
@@ -76,7 +117,8 @@ class webpage_controller extends Controller
         $user_id = Auth::user()->id;
         $usertype = Auth::user();
         $product = products::whereHas('cart_items', function ($query) use ($user_id) {
-            $query->where('user_id', $user_id);
+            $query->where('user_id', $user_id)
+            ->where('availability', 'approved');
         })->get();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
         return view('cart',['products' => $product,'usertype' => $usertype, 'notifications' => $notifications]);
@@ -130,8 +172,10 @@ class webpage_controller extends Controller
         return view('product', ['products' => $products,'usertype' => $usertype, 'notifications' => $notifications]);
     }
 
-    function editprofile(){
-        return view('editprofile');
+    function editProfile(){
+        $userDetails = Auth::user();
+
+        return view('editprofile', ['userDetails' => $userDetails]);
     }
 
     function searchItem(Request $request){
@@ -149,9 +193,7 @@ class webpage_controller extends Controller
             ->paginate(10);
 
         return view('product',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
-        }
-    
-    
+        }    
 
     function likes(){
         $usertype = Auth::user();
@@ -194,6 +236,7 @@ class webpage_controller extends Controller
             'product_description' => 'required',
             'product_price' => 'required',
             'product_quantity' => 'required',
+            'product_category' => 'required',
             'product_image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
 
@@ -201,6 +244,7 @@ class webpage_controller extends Controller
         $data['description'] = $request->product_description;
         $data['price'] = $request->product_price;
         $data['quantity'] = $request->product_quantity;
+        $data['category'] = $request->product_category;
         $data['user_id'] = Auth::user()->id;
 
         $file = $request->file('product_image');
@@ -232,14 +276,22 @@ class webpage_controller extends Controller
     function purchase(Request $request){
         $product = products::find($request->id);
         $buyer = Auth::user();
-        return view('check-out', ['product' => $product, 'buyer' => $buyer]);
+        $seller = user_table::find($product->user_id);
+        return view('check-out', ['product' => $product, 'buyer' => $buyer, 'seller' => $seller]);
     }
 
     function purchased(Request $request){
         $product = products::find($request->id);
+
+        $request->validate([
+            'message'
+        ]);
+
         $product->update([
-            'availability' => 'sold',
-            'quantity' => '0'
+            'availability' => 'to ship',
+            'quantity' => $product->quantity - 1,
+            'message' => $request->input('message')
+
         ]);
 
         $order = order_item::create([
@@ -247,11 +299,16 @@ class webpage_controller extends Controller
             'quantity' => 1
         ]);
 
+        $request -> validate([
+            'payment' => 'required'
+        ]);
+        $payment_method = $request->input('payment');
+
         $payment = payment::create([
             'user_id' => Auth::user()->id,
             'order_id' => $order->id,
-            'payment_method' => 'cash',
-            'payment_status' => 'paid'
+            'payment_method' => $payment_method,
+            'payment_status' => 'to be paid'
         ]);
 
         order_history::create([
@@ -259,7 +316,7 @@ class webpage_controller extends Controller
             'order_id' => $order->id,
             'total_amount' => $product->price,
             'payment_id' => $payment->id,
-            'status' => 'paid'
+            'status' => 'to ship'
         ]);
 
         notifications::create([
@@ -274,8 +331,115 @@ class webpage_controller extends Controller
         return redirect()->route('product')->with('success', 'Product purchased successfully');
     }
 
+    function cancelOrder(Request $request){
+        $order = order_history::find($request->order_id);
+        $orderItem = order_item::find($order->id);
+        $products = products::find($orderItem->product_id);
+    
+        $order->update([
+            'status' => 'cancelled'
+        ]);
+    
+        $product = products::find($products->id);
+    
+        $product->update([
+            'availability' => 'approved',
+            'quantity' => $product->quantity + 1
+        ]);
+    
+        notifications::create([
+            'user_id' => $product->user_id,
+            'message' => 'Your product order has been cancelled'
+        ]);
+    
+        notifications::create([
+            'user_id' => Auth::user()->id,
+            'message' => 'You have successfully cancelled an order'
+        ]);
+    
+        return redirect()->route('buyer_profile')->with('success', 'Order cancelled successfully');
+
+    }
+
+    function orderSettled(Request $request){
+        $product = products::find($request->product_id);
+        $orderItem = order_item::where('product_id', $product->id)->first();
+        $order = order_history::where('order_id', $orderItem->id)->first();
+
+        $order->update([
+            'status' => 'paid'
+        ]);
+    
+        $product->update([
+            'availability' => 'sold',
+        ]);
+
+        notifications::create([
+            'user_id' => $product->user_id,
+            'message' => 'Your product order has been settled'
+        ]);
+
+        notifications::create([
+            'user_id' => Auth::user()->id,
+            'message' => 'You have successfully settled an order'
+        ]);
+
+        return redirect()->route('profile')->with('success', 'Order settled successfully');
+
+    }
+
     function notfound(){
         return view('product_not_found');
+    }
+
+    function editProduct(Request $request){
+        $product = products::find($request->id);
+        return view('seller/update_product', ['product' => $product]);
+    }
+
+    function updateProduct(Request $request) {
+        $product = products::find($request->id);
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'quantity' => 'required',
+            'category' => 'required'
+        ]);
+
+        $product->update([
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'quantity' => $request->quantity,
+            'category' => $request->category,
+        ]);
+        return redirect()->route('profile')->with('success', 'Product updated successfully');
+
+    }
+
+    function deleteProduct($id){
+        $product = products::find($id);
+        $product->delete();
+        return redirect()->route('profile')->with('success', 'Product deleted successfully');
+    }
+
+    function userProfile(Request $request){
+        $user = user_table::where('id', '=', $request->id)->first();
+        if($user->user_type == 'buyer'){
+            $productDetails = DB::table('order_histories')
+            ->join('order_items', 'order_histories.order_id', '=', 'order_items.id')
+            ->join('products', 'order_items.product_id', '=', 'products.id')
+            ->where('order_histories.user_id', $user->id)
+            ->select('products.*', 'order_histories.status', 'order_histories.id')
+            ->get();  
+            
+            return view('admin/viewprofile', ['productDetails' => $productDetails, 'user' => $user]);
+        } else {
+            $products = products::where('user_id', $request->id)->get();
+            return view('admin/viewprofile', ['products' => $products, 'user' => $user]);
+        }
     }
 
 }

@@ -61,9 +61,7 @@
                         @else
                             @foreach($notifications as $notification)
                                 <div class="dropdown-item text-wrap" style=" overflow: hidden; text-overflow: ellipsis; height: 50px;">
-                                <a href="{{route('notifDetails', $notification->id)}}">
                                     <span>{{$notification->message}}</span>
-                                </a>
                                 </div>
                             @endforeach
                         @endif

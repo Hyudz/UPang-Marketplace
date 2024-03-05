@@ -16,6 +16,7 @@ Route::get("/login",[marketplace::class,'login']) -> name('login');
 Route::post("/login",[marketplace::class,'login_post']) -> name('login-post');
 Route::post("/create_user",[marketplace::class,'create_user']) -> name('create-user');
 Route::post("/admin/login",[marketplace::class,'adminlogin_post']) -> name('admin.login');
+Route::get("/user/{id}",[webpage_controller::class,'userProfile']) -> name('viewprofile');
 
 Route::get("/homepage",[webpage_controller::class,'homepage']) -> name('homepage') -> middleware('login');
 Route::get("/profile",[webpage_controller::class,'profile']) -> name('profile');
@@ -36,8 +37,17 @@ Route::get("/check-out/{id}",[webpage_controller::class,'purchase']) -> name('ch
 Route::get("/not_found",[webpage_controller::class,'notfound']) -> name('not_found');
 Route::get("/messages",[messages_controller::class,'index']) -> name('messages');
 Route::get("/chat/{id}",[messages_controller::class,'chats']) -> name('chats');
-Route::post("/product_results", [webpage_controller::class,'searchItem']) -> name('search');
+Route::post("/product_result", [webpage_controller::class,'searchItem']) -> name('search');
+Route::post("/product_results", [marketplace::class,'searchItem2']) -> name('search2');
 Route::get("/notifDetails/{id}",[webpage_controller::class,'notifDetails']) -> name('notifDetails');
+Route::post("/cancelOrder", [webpage_controller::class, 'cancelOrder'])->name('cancelOrder');
+Route::post("/orderSettled", [webpage_controller::class, 'orderSettled'])->name('orderSettled');
+Route::get("/editProfile",[webpage_controller::class,'editProfile']) -> name('editProfile');
+Route::put("/updateProfile/{id}",[webpage_controller::class,'updateProfile']) -> name('updateProfile');
+Route::delete("/deleteProfile/{id}",[webpage_controller::class,'deleteProfile']) -> name('deleteProfile');
+Route::delete("/deleteProduct/{id}",[webpage_controller::class,'deleteProduct']) -> name('deleteProduct');
+Route::get("/editProduct/{id}",[webpage_controller::class,'editProduct']) -> name('editProduct');
+Route::put("/updateProduct/{id}",[webpage_controller::class,'updateProduct']) -> name('updateProduct');
 
 //TODO: Add routes for the following:
 // - /admin/dashboard

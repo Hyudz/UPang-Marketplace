@@ -25,9 +25,10 @@
             
             <div class="d-flex">
             <div class="col-md">
-                <h1 class="p-4" style="font-family: 'Sahitya';" id="productname">
+                <h1 class="ms-4 mt-5" style="font-family: 'Sahitya';" id="productname">
                     {{$product->name}}
                 </h1>
+                <h5 class="ms-4">₱{{$product->price}}.00</h5>
                 <h5 class="short_desc ms-4">{{$product->description}}</h5><br>
                 <div class="d-flex justify-content-center">
                     <form method="POST" action="{{route('save_item',$product->id)}}">

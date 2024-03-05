@@ -6,6 +6,8 @@ use App\Models\products;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\notifications;
+use App\Models\order_history;
+use App\Models\user_table;
 use Illuminate\Support\Facades\Auth;
 
 class Admin_controller extends Controller
@@ -18,8 +20,9 @@ class Admin_controller extends Controller
     public function dashboard(){
         $product = products::all()->where('availability', 'under_review');
         $all_products = products::all();
-
-        return view('admin.dashboard',['products' => $product, 'all_products' => $all_products]);
+        $users = user_table::all();
+        $historyStatus = order_history::all();
+        return view('admin.dashboard',['products' => $product, 'all_products' => $all_products, 'users' => $users, 'historyStatus' => $historyStatus]);
     }
 
     public function signin(){
@@ -49,15 +52,14 @@ class Admin_controller extends Controller
     public function decline(Request $request){
         $product_id = $request->id;
         products::where('id', $product_id)->update([
-            'availability' => 'declined',
-            'message' => 'Your product has been declined'
+            'availability' => 'declined'
         ]);
 
         $product = products::all()->where('availability', 'under_review');
         $products = products::find($product_id);
         notifications::create([
             'user_id' => $products->user_id,
-            'message' => "Your product {$products->name} was not approved"
+            'message' => "Your product {$products->name} was not approved."
         ]);
 
         $all_products = products::all();

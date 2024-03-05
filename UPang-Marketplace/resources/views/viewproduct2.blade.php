@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Doc</title>
+        <title>{{$product->name}}</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <link href="https://fonts.googleapis.com/css?family=Sahitya" rel="stylesheet">
@@ -26,17 +26,18 @@
             <div class="d-flex">
             <div class="col-md">
                 <h1 class="p-4" style="font-family: 'Sahitya';" id="productname">
-                    Name
+                    {{$product->name}}
                 </h1>
-                <h5 class="short_desc ms-4">Description</h5><br>
+                <h5 class="ms-4">₱{{$product->price}}.00</h5>
+                <h5 class="short_desc ms-4">{{$product->description}}</h5><br>
                 <div class="d-flex justify-content-center">
-                    <form method="POST" action="{{route('save_item',0)}}">
+                    <form method="POST" action="{{route('save_item',$product->id)}}">
                         @csrf
-                        <input type="hidden" name="product_id" value="0">
+                        <input type="hidden" name="product_id" value="$product->id">
                         <button id="shoppingbtn" type="submit"> <span class="fa fa-shopping-cart"></span> Add to Cart</button>
                     </form>
 
-                    <a href="{{route('checkout-item',0)}}">
+                    <a href="{{route('checkout-item',$product->id)}}">
                         <button id="shoppingbtn">Buy Now</button>
                     </a>
                 </div>
@@ -44,7 +45,7 @@
 
             <div class="col-md" style="height: 100vmin;">
                 <div class="mh-100 container mt-5 mb-auto me-auto ms-auto" class="model">
-                    <img src="{{asset('uploads/products/placeholder.png')}}" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
+                    <img src="{{asset('uploads/products/'.$product->image)}}" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
                 </div>
             </div>
             </div>

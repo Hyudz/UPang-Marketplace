@@ -24,86 +24,132 @@
 
     <div class="container-fluid">
         <div class="d-block">
-            <!-- <div class="navbar container-fluid row">
-                <div class="col">
-                    <nav id="sidebarMenu" class="collapse d-lg-block sidebar collapse">
-                        <div class="position-sticky">
-                            <div class="list-group list-group-flush mx-3 mt-5">
-                                <a href="#" onclick="change('cite')" class="list-group-item list-group-item-action py-2 ripple">
-                                    <span id="cite">CITE</span>
-                                </a>
-
-                                <a href="#" onclick="change('ccje')" class="list-group-item list-group-item-action py-2 ripple">
-                                    <span id="ccje">CCJE</span>
-                                </a>
-
-                                <a href="#" onclick="change('cahs')" class="list-group-item list-group-item-action py-2 ripple">
-                                    <span id="cahs">CAHS</span>
-                                </a>
-
-                                <a href="#" onclick="change('cela')" class="list-group-item list-group-item-action py-2 ripple">
-                                    <span id="cela">CELA</span>
-                                </a>
-
-                                <a href="#" onclick="change('cea')" class="list-group-item list-group-item-action py-2 ripple">
-                                    <span id="cea">CEA</span>
-                                </a>
-
-                                <a href="#" onclick="change('cma')" class="list-group-item list-group-item-action py-2 ripple">
-                                    <span id="cma">CMA</span>
-                                </a>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div> -->
-
             <div class="container">
                 <div class="mt-5"></div>
                 <div class="mt-5"></div>
                 <div class="mt-5"></div>
-                <div class="row w-auto">
-                    @if($products->isEmpty())
-                    <div class="d-flex justify-content-center align-items-center min-vh-100">
-                        <h1>We couldn't find the product you searched for.</h1>
-                    </div>
-                    @endif
-                    @foreach($products as $product)
-                    <div class="col mt-5">
-                        <a href="{{route('viewproduct', $product->id)}}">
-                            <div class="card" style="width: 18rem;">
-                                    <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="product1">{{$product->name}}</h5>
-                                    <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
-                                </div>
+                <br>
+                <ul class="nav nav-pills mt-5 mb-3">
+                    <div class="mt-3"></div>
+                    <li class="nav-item">
+                        <a class="nav-link active" id="all-tab" data-toggle="pill" href="#all">All</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="academic-tab" data-toggle="pill" href="#academic">Academic Supply</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="study-tab" data-toggle="pill" href="#study">Study Materials</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="electronics-tab" data-toggle="pill" href="#electronic">Electronics and Gadgets</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" id="clothing-tab" data-toggle="pill" href="#clothing">Clothing</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane fade show active" id="all">
+                        <div class="row w-auto ">
+                            @foreach($products as $product)
+                            <div class="col mt-5">
+                                <a href="{{route('viewproduct', $product->id)}}">
+                                    <div class="card" style="width: 18rem;">
+                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                        <div class="card-body">
+                                            <h5 class="card-title" id="product1">{{$product->name}}</h5>
+                                            <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                            @endforeach 
+                        </div>
                     </div>
-                    @endforeach 
+
+                    <div class="tab-pane fade" id="academic">
+                        <div class="row w-auto ">
+                            @foreach($products as $product)
+                            @if($product->category == "Supply")
+                            <div class="col mt-5">
+                                <a href="{{route('viewproduct', $product->id)}}">
+                                    <div class="card" style="width: 18rem;">
+                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                        <div class="card-body">
+                                            <h5 class="card-title" id="product1">{{$product->name}}</h5>
+                                            <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @endif
+                            @endforeach 
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="study">
+                        <div class="row w-auto">
+                            @foreach($products as $product)
+                            @if($product->category == "Materials")
+                            <div class="col mt-5">
+                                <a href="{{route('viewproduct', $product->id)}}">
+                                    <div class="card" style="width: 18rem;">
+                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                        <div class="card-body">
+                                            <h5 class="card-title" id="product1">{{$product->name}}</h5>
+                                            <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @endif
+                            @endforeach 
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="electronics">
+                        <div class="row w-auto ">
+                            @foreach($products as $product)
+                            @if($product->category == "Electronics")
+                            <div class="col mt-5">
+                                <a href="{{route('viewproduct', $product->id)}}">
+                                    <div class="card" style="width: 18rem;">
+                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                        <div class="card-body">
+                                            <h5 class="card-title" id="product1">{{$product->name}}</h5>
+                                            <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @endif
+                            @endforeach 
+                        </div>
+                    </div>
+
+                    <div class="tab-pane fade" id="clothing">
+                        <div class="row w-auto ">
+                            @foreach($products as $product)
+                            @if($product->category == "Uniform")
+                            <div class="col mt-5">
+                                <a href="{{route('viewproduct', $product->id)}}">
+                                    <div class="card" style="width: 18rem;">
+                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                        <div class="card-body">
+                                            <h5 class="card-title" id="product1">{{$product->name}}</h5>
+                                            <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                            @endif
+                            @endforeach 
+                        </div>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
-
-    <script>
-        function change(id){
-            if (id == "cite") {
-                document.getElementById("product1").innerHTML = "CITE";
-            } else if (id == "ccje") {
-                document.getElementById("product1").innerHTML = "CCJE";
-            } else if (id == "cahs") {
-                document.getElementById("product1").innerHTML = "CAHS";
-            } else if (id == "cela") {
-                document.getElementById("product1").innerHTML = "CELA";
-            } else if (id == "cea") {
-                document.getElementById("product1").innerHTML = "CEA";
-            } else if (id == "cma") {
-                document.getElementById("product1").innerHTML = "CMA";
-            }
-        }
-    </script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

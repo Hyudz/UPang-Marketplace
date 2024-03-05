@@ -21,7 +21,10 @@
         @include('header2')
 
     <div class="container mt-5" style="background-color: white; border-radius: 30px; overflow-y: auto; max-height: 500px;">
-        <div class="mt-5"></div>
+        <div class="mt-3"></div>
+        @if($products->isEmpty())
+            <h1 class="text-center">No items in cart</h1>
+        @endif
         <div class="mt-3"></div>
         @foreach($products as $product)
             <hr>

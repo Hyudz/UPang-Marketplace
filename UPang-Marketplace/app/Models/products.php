@@ -16,7 +16,9 @@ class products extends Model
         'price',
         'availability',
         'quantity',
-        'user_id'
+        'category',
+        'user_id',
+        'message'
     ];
 
     public function user()
@@ -26,7 +28,7 @@ class products extends Model
 
     public function order_item()
     {
-        return $this->hasMany(order_item::class);
+        return $this->hasMany(order_item::class, 'product_id');
     }
 
     public function categories()

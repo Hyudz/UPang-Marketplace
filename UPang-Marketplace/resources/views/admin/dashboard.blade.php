@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Admin</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <style>
         body {
@@ -11,15 +11,15 @@
         }
 
         .scrollable-table-container {
-        max-height: 300px;
+        max-height: 350px;
         overflow-y: auto;
         }
     </style>
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
+    <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
 </head>
 <body>
     <div>
-        <h1 style="color: white;">Welcome to the Admin Dashboard</h1>
         <a href="{{route('logout')}}">
             <button type="Submit" class="btn btn-primary">
                 <i class="fa fa-sign-out"></i>Logout
@@ -125,21 +125,98 @@
             </div>
         </div>
 
-        <div class="row">
-            <div class="col">
-                <!-- Total number of users -->
+        <div class="row mt-5" style="height: 200px;">
+            <div class="col mb-3 me-3 scrollable-table-container">
+                <div class="d-flex justify-content-center">
+                    <h3 style="color:white;">Users</h3>
+                </div>
+                <table class="table">
+                    <tr>
+                        <td>All Users</td>
+                        <td>{{ $users->count()}}</td>
+                    </tr>
+                    <tr>
+                        <td>Buyers</td>
+                        <td>{{ $users->where('user_type', 'buyer')->count()}}</td>
+                    </tr>
+                    <tr>
+                        <td>Sellers</td>
+                        <td>{{ $users->where('user_type', 'seller')->count()}}</td>
+                    </tr>
+                    <tr>
+                        <td>Male</td>
+                        <td>{{ $users->where('gender', 'male')->count()}}</td>
+                    </tr>
+                    <tr>
+                        <td>Female</td>
+                        <td>{{ $users->where('gender', 'female')->count()}}</td>
+                    </tr>
+                </table>
             </div>
 
-            <div class="col">
-                <!-- Total number of male users-->
-                <!-- Total number of female user-->
+            <div class="col mb-3 me-3 scrollable-table-container">
+                <div class="d-flex justify-content-center">
+                    <h3 style="color:white;">Products</h3>
+                </div>
+                <div class="container">
+                    <table class="table">
+                        <tr>
+                            <td>All Products</td>
+                            <td>{{ $product->count()}}</td>
+                        </tr>
+                        <tr>
+                            <td>Approved Products</td>
+                            <td>{{ $product->where('availability', 'approved')->count()}}</td>
+                        </tr>
+                        <tr>
+                            <td>To be Shipped Products</td>
+                            <td>{{ $historyStatus->where('status', 'to ship')->count()}}</td>
+                        </tr>
+                        <tr>
+                            <td>Declined Products</td>
+                            <td>{{ $product->where('availability', 'declined')->count()}}</td>
+                        </tr>
+                        <tr>
+                            <td>Sold Products</td>
+                            <td>{{ $product->where('availability', 'sold')->count()}}</td>
+                        </tr>
+                        <tr>
+                            <td>Cancelled Orders</td>
+                            <td>{{ $historyStatus->where('status', 'cancelled')->count()}}</td>
+                        </tr>
+                    </table>
+                </div>
             </div>
 
-            <div class="col">
-                <!-- Total number of sellers user-->
-                <!-- Total number of buyers user-->
-            </div>
+            <div class="col me-3 scrollable-table-container">
+                <form action="" method="POST">
+                    @csrf
+                    <input type="text" name="name" class="form-control" placeholder="Search User">
+                </form>
 
+                <div class="container mt-3">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Usertype</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach($users as $user)
+                            @if($user->user_type != 'admin')
+                            
+                            <tr>
+                                <td>{{$user->id}}</td>
+                                <td> <a href="{{route('viewprofile', $user->id)}}"> {{$user->first_name}} {{$user->last_name}} </a></td>
+                                <td>{{$user->user_type}}</td>
+                            </tr>
+                            @endif
+                            @endforeach
+                    </table>
+                </div>
+            </div>
         </div>
     </div>
 

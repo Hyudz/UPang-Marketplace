@@ -20,9 +20,10 @@ return new class extends Migration
                 $table->string('image');
                 $table->string('price');
                 $table->string('availability')->default('under_review');
+                $table->string('category');
                 $table->string('quantity');
                 $table->unsignedBigInteger('user_id');
-                $table->foreign('user_id')->references('id')->on('user_table');
+                $table->foreign('user_id')->references('id')->on('user_table')->onDelete('cascade');
                 $table->string('message')->nullable();
                 $table->timestamps();
             });

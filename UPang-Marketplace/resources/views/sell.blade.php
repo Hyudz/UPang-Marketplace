@@ -6,14 +6,13 @@
     <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
     <link rel="stylesheet" href="{{asset('css/sell.css')}}">
     <title>Sell Item</title>
-    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-
     <style>
         body {
             background-color: #EEF6FF;
         }
     </style>
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body class="d-flex align-items-center justify-content-center min-vh-100">
 
@@ -46,7 +45,15 @@
             <input class="mt-2" type="text" name="product_name" placeholder="Product Name">
             <input class="mt-2" type="text" name="product_price" placeholder="Price">
             <input class="mt-2" type="text" name="product_description" placeholder="Description">
-            <input class="mt-2" type="text" name="product_category" placeholder="Category">
+            <!-- <input class="mt-2" type="text" name="product_category" placeholder="Category"> -->
+            <select class="form-select mt-2" name="product_category" required>
+                <option value="none">Category</option>
+                <option value="Supply" title="Binders, Pens, Papers, Yellow Pad Paper, Rulers, Calculator,etc">Academic Supply</option>
+                <option value="Materials" title="Textbooks, Reviewers">Study Materials</option>
+                <option value="Electronics" title="Laptop, Tablet, Storage Drivers, Digital Products">Electronics and Gadgets</option>
+                <option value="Uniform" title="PE Uniform, Jogging Pants, RSO Uniform, University Uniform">Clothing</option>
+                <option value="Others">Others</option>
+            </select>
             <input class="mt-2" type="text" name="product_quantity" placeholder="Quanitity">
             <!-- <select name="department">
                 <option value="1">CITE</option>

@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Models\products;
 use Illuminate\Support\Facades\DB;
+use App\Models\order_history;
 
 
 
@@ -22,7 +23,7 @@ class marketplace extends Controller
     }
 
     function preview(Request $request){
-        $product = products::where('id', '=', $request->id);
+        $product = products::where('id', '=', $request->id)->first();
         return view('viewproduct2', ['product' => $product]);
     }
 
@@ -45,7 +46,7 @@ class marketplace extends Controller
                 ->get();
                 $usertype = Auth::user();
                 $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-                return view('welcome',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
+                return redirect()->route('homepage',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
             } else {
                 return redirect()->route('login')->with('error', 'Admin account should not be allowed in client login');
                 $products = collect();
@@ -54,6 +55,20 @@ class marketplace extends Controller
         return redirect()->route('login')->with(['error' => 'Invalid email or password']);
         $products = collect();
     }
+
+    function searchItem2(Request $request){
+        $request->validate([
+            'search' => 'required|string|max:255',
+        ]);
+    
+        $search = $request->input('search');
+
+        $products = products::where('name', 'like', '%' . $search . '%')
+            ->where('availability', 'approved')
+            ->paginate(10);
+
+        return view('landing',['products' => $products]);
+        }
 
     function create_user(Request $request){
         $request->validate([
@@ -98,7 +113,9 @@ class marketplace extends Controller
         if (Auth::attempt($credentials)){
             $product = products::all()->where('availability', 'under_review');
             $all_products = products::all();
-            return view('admin.dashboard', ['products' => $product, 'all_products' => $all_products]);
+            $users = user_table::all();
+            $historyStatus = order_history::all();
+            return redirect()->route('admin.dashboard', ['products' => $product, 'all_products' => $all_products, 'users' => $users, 'historyStatus' => $historyStatus]);
         }
 
         return redirect()->route('admin-signin')->with(['error' => $credentials['password']]);

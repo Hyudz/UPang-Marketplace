@@ -1,14 +1,16 @@
 <header>
     <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: #23713E;">
     <div class="container-fluid">
-        <img src="{{asset('img/medyo final na logo 1.png')}}" style="height: 10vmin;" alt="" loading="lazy" class="m-2"/>
-
-        <form class="d-none d-md-flex input-group w-auto my-auto">
-            <input type="search" class="form-control" placeholder='I am looking for...' style="min-width: 300px; border-radius: 60px 0px 0px 60px"/>
-            <span class="input-group-text">
-                <a href="#">
+        <a href="{{route('landing')}}">
+            <img src="{{asset('img/medyo final na logo 1.png')}}" style="height: 10vmin;" alt="" loading="lazy" class="m-2"/>
+        </a>
+        <form class="d-none d-md-flex input-group w-auto my-auto" method="POST" action="{{route('search2')}}">
+            @csrf
+            <input type="search" name="search" class="form-control" placeholder='I am looking for...' style="min-width: 300px; border-radius: 60px 0px 0px 60px"/>
+            <span class="input-group-text border-0">
+                <button type="submit" style="background-color: transparent; border: 0px;">
                     <i class="fas fa-search"></i>
-                </a>
+                </button>
             </span>
         </form>
     

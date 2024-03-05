@@ -34,7 +34,7 @@
                         </div> 
                         <div class="d-flex">
                             @foreach($products->take(3) as $product)
-                            <a href="#">
+                            <a href="{{route('viewproduct', $product->id)}}">
                                 <div class="card mt-2 ms-1" style="width: 15rem;">
                                     <img class="card-img-top" style="width: auto; height : 200px;" src="{{ asset('uploads/products/'.$product->image) }}" alt="product image">
                                     <div class="card-body">
@@ -47,11 +47,7 @@
                         </div>
                         
                         <div class="mt-5 me-5 mb-5 container-fluid d-flex justify-content-center">
-                            <a href="{{route('product')}}">
-                                <button id="shoppingbtn">
-                                    Browse More Products
-                                </button>
-                            </a>
+                            <a href="{{route('product')}}" class="btn btn-warning">Browse More Products</a>
                         </div>
                     </div>
 

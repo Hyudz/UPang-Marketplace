@@ -11,124 +11,23 @@
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
 </head>
 <body>
+    <!-- FOR BUYER -->
     @include('header2')
     <div class="container mt-5">
-    <!-- Filter Tabs -->
-    <ul class="nav nav-pills mb-3">
-        <li class="nav-item">
-            <a class="nav-link active" id="all-tab" data-toggle="pill" href="#all">All</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="to-receive-tab" data-toggle="pill" href="#to-receive">To Receive</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="cancelled-tab" data-toggle="pill" href="#cancelled">Cancelled</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" id="settled-tab" data-toggle="pill" href="#settled">Settled</a>
-        </li>
-    </ul>
+        <div class="profile">
+            <div class="profile-details d-flex justify-content-between" style="border: 3px solid; border-radius: 30px;">
+                <div class="profile-details p-3">
+                    <h5>{{$usertype->first_name}} {{$usertype->last_name}}</h5>
+                    <h6> {{$usertype->email}} </h6>
+                </div>
 
-    <!-- Tab Content -->
-    <div class="tab-content">
-        <div class="tab-pane fade show active" id="all">
-            <table class="table">
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Product 1</td>
-                    <td>₱100.00</td>
-                    <td>Cancelled</td>
-                </tr>
-                <tr>
-                    <td>Product 2</td>
-                    <td>₱200.00</td>
-                    <td>To Receive</td>
-                </tr>
-                <tr>
-                    <td>Product 3</td>
-                    <td>₱300.00</td>
-                    <td>Settled</td>
-                </tr>
-            </table>
+                <div class="me-3 mt-2">
+                    <a href="{{route('editProfile')}}" class="btn btn-primary">Edit Profile</a>    
+                </div>
+            </div>
         </div>
-        <div class="tab-pane fade" id="to-receive">
-        <table class="table">
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Product 1</td>
-                    <td>₱100.00</td>
-                    <td>Cancelled</td>
-                </tr>
-                <tr>
-                    <td>Product 2</td>
-                    <td>₱200.00</td>
-                    <td>To Receive</td>
-                </tr>
-                <tr>
-                    <td>Product 3</td>
-                    <td>₱300.00</td>
-                    <td>Settled</td>
-                </tr>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="cancelled">
-        <table class="table">
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Product 1</td>
-                    <td>₱100.00</td>
-                    <td>Cancelled</td>
-                </tr>
-                <tr>
-                    <td>Product 2</td>
-                    <td>₱200.00</td>
-                    <td>To Receive</td>
-                </tr>
-                <tr>
-                    <td>Product 3</td>
-                    <td>₱300.00</td>
-                    <td>Settled</td>
-                </tr>
-            </table>
-        </div>
-        <div class="tab-pane fade" id="settled">
-        <table class="table">
-                <tr>
-                    <th>Product</th>
-                    <th>Price</th>
-                    <th>Status</th>
-                </tr>
-                <tr>
-                    <td>Product 1</td>
-                    <td>₱100.00</td>
-                    <td>Cancelled</td>
-                </tr>
-                <tr>
-                    <td>Product 2</td>
-                    <td>₱200.00</td>
-                    <td>To Receive</td>
-                </tr>
-                <tr>
-                    <td>Product 3</td>
-                    <td>₱300.00</td>
-                    <td>Settled</td>
-                </tr>
-            </table>
-        </div>
+    @include('admin/buyerprofile')
     </div>
-</div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

@@ -20,27 +20,20 @@ his/her uploaded products and if he/she wants to edit his/her details -->
 <body>
         @include('header2')
 
-        <div class="container-fluid">
-            <h1>Your product</h1>
-        </div>
-    
-        <div class="container-fluid">
-                <div class="row w-auto">
-                    @foreach($products as $like)
-                    <div class="col">
-                        <a href="{{route('analytics',$like->id)}}"> <!-- Not the link to the product but the link to the product details and analytics -->
-                            <div class="card mt-1" style="width: 18rem;">
-                                <img class="card-img-top" src="{{asset('products/placeholder.png')}}" alt="product image">
-                                <div class="card-body">
-                                    <h5 class="card-title" id="product1">{{$like->name}}</h5>
-                                    <p class="card-text" style="text-align: justify;">₱{{$like->price}}</p>
-                                </div>
-                            </div>
-                        </a>
-                    </div>
-                    @endforeach
+        <div class="profile container mt-3">
+            <div class="profile-details d-flex justify-content-between" style="border: 3px solid; border-radius: 30px;">
+                <div class="profile-details p-3">
+                    <h5>{{$usertype->first_name}} {{$usertype->last_name}}</h5>
+                    <h6> {{$usertype->email}} </h6>
+                </div>
+
+                <div class="me-3 mt-2">
+                    <a href="{{route('editProfile')}}" class="btn btn-primary">Edit Profile</a>    
                 </div>
             </div>
+        </div>
+
+        @include('admin/sellerprofile')
 
 
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
