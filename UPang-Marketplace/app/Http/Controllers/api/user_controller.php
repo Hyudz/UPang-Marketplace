@@ -43,27 +43,27 @@ class user_controller extends Controller
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
-            'user_type' => 'required',
-            'gender' => 'required',
-            'birthday' => 'required'
+            'password' => 'required',
+            'new_password' => 'required|confirmed',
         ]);
 
+        $userProfile = user_table::find($id);
+    
+        if (!Hash::check($request->password, $userProfile->password)) {
+            return response()->json([
+                'status' => 'error',
+                'message' => 'Password does not match'
+            ]);
+        }
 
         $user->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
             'email' => $request->email,
-            'password' => Hash::make($request->password), // Added password update
-            'user_type' => $request->user_type,
-            'gender' => $request->gender,
-            'birthday' => $request->birthday
+            'password' => bcrypt($request->new_password),
 
         ]);
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User updated successfully',
-            'data' => $user
-        ]);
+        return response()->json(['message' => 'User updated successfully']);
 
     }
 
@@ -75,15 +75,5 @@ class user_controller extends Controller
             'message' => 'User deleted successfully',
             'data' => $user
         ]);
-    }
-
-    public function getData(Request $request)
-    {
-        // Ensure the request is authenticated (using Sanctum)
-        $user = $request->user();
-    
-        $data = ['user' => $user];
-
-        return response()->json($data);
     }
 }

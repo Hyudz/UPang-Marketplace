@@ -46,6 +46,7 @@ class webpage_controller extends Controller
     }
 
     function my_profile(){
+        //BUYER PROFILE
         $usertype = Auth::user();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
 
@@ -91,7 +92,6 @@ class webpage_controller extends Controller
 
     function profile(){
         $usertype = Auth::user();
-
         $products = products::where('user_id', Auth::user()->id)->get();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
         return view('profile',['usertype' => $usertype, 'products' => $products, 'notifications' => $notifications]);
