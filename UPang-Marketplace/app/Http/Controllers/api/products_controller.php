@@ -25,9 +25,15 @@ class products_controller extends Controller
     }
 
     public function getSeller(Request $request){
-        $sellerId = products::where('id', $request->id)->first()->user_id;
-        $sellerName = user_table::where('id', $sellerId)->first()->first_name;
-        return response()->json(['data' => $sellerName]);
+        $sellerId = products::where('id', $request->id);
+        $sellerName = user_table::where('id', $sellerId)->first();
+        return response()->json($sellerId);
+    }
+
+    public function getBuyer(){
+        $buyerId = Auth::user()->id;
+        $buyerName = user_table::where('id', $buyerId)->first();
+        return response()->json(['data' => $buyerName]);
     }
 
     public function store(Request $request){
@@ -43,31 +49,25 @@ class products_controller extends Controller
         return products::create($data);
     }
 
-    public function update(Request $request, $id){
-        $product = products::where('id', $id)
-                            ->first();
-    
-        if(!$product){
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Product not found'
-            ]);
-        }
-    
+    public function update(Request $request){
+        $product = products::find($request->id);
+
         $request->validate([
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
             'quantity' => 'required',
+            'category' => 'required'
         ]);
 
         $product->update([
             'name' => $request->name,
             'description' => $request->description,
             'price' => $request->price,
-            'quantity' => $request->quantity
+            'quantity' => $request->quantity,
+            'category' => $request->category,
         ]);
-    
+
         return response()->json([
             'status' => 'success',
             'message' => 'Product updated successfully',
@@ -77,13 +77,9 @@ class products_controller extends Controller
     
 
     public function destroy($id){
-        $product = products::findOrFail($id);
+        $product = products::find($id);
         $product->delete();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'Product deleted successfully',
-            'data' => $product
-        ]);
+        return response()->json(['message' => 'Product deleted']);
     }
 
     public function show(){
