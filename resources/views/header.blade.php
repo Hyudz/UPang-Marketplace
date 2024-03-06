@@ -4,7 +4,7 @@
         <a href="{{route('landing')}}">
             <img src="{{asset('img/medyo final na logo 1.png')}}" style="height: 10vmin;" alt="" loading="lazy" class="m-2"/>
         </a>
-        <form class="d-none d-md-flex input-group w-auto my-auto" method="POST" action="{{route('search2')}}">
+        <form class="d-md-flex input-group w-auto my-auto" method="POST" action="{{route('search2')}}">
             @csrf
             <input type="search" name="search" class="form-control" placeholder='I am looking for...' style="min-width: 300px; border-radius: 60px 0px 0px 60px"/>
             <span class="input-group-text border-0">
