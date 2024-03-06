@@ -1,0 +1,132 @@
+::placeholder {
+    font-family: 'Sahitya', sans-serif;
+}
+
+body {
+  font-family: 'Sahitya', sans-serif;
+  overflow-x: hidden;
+}
+
+.item-container {
+    display: flexbox;
+    align-items: center;
+    z-index: 1;
+}
+
+  /* Style for the item */
+.item {
+    padding: 5px;
+    display: flex;
+    width: 125%;
+    cursor: pointer;
+}
+
+.items-list {
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+  /* Style for the list of buttons */
+.button-list {
+    display: none;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+  /* Show the list of buttons when hovering over the item */
+.item-container:hover .button-list {
+    display: block;
+}
+
+  /* Style for individual buttons in the list */
+.button-active{
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+    transition: background-color 0.3s;
+}
+
+  /* Hover effect for buttons in the list */
+.button-list a:hover {
+    background-color: #f2f2f2;
+}
+
+.items-list :hover {
+    background-color: red;
+}
+
+a, li {
+    text-decoration: none;
+    color: black;
+    margin: 2px;
+}
+
+#sell {
+  border-radius:60px;
+  width: auto;
+  padding: auto;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+#searchbar {
+  border-radius: 60px;
+}
+
+#nav-icon {
+  border: solid 2px;
+  border-radius: 60px;
+  padding: 5px;
+  margin-left: 3px;
+}
+
+#nav-icon :hover {
+  background-color: grey;
+  transition: ease-in-out 0.2s;
+}
+
+.dropbtn {
+  font-size: 16px;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+/* Dropdown button on hover & focus */
+/* .dropbtn:hover, .dropbtn:focus {
+  background-color: #2980B9;
+} */
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content a:hover {background-color: #ddd;}
+
+/* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+.show {display:block;}

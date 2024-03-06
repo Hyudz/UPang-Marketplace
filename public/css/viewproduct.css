@@ -1,0 +1,51 @@
+a {
+    text-decoration: none;
+}
+
+/* body {
+    overflow: hidden;
+} */
+
+h1 {
+    font-size: 72px;
+}
+
+#content {
+    position: fixed;
+    top: 10%;
+}
+
+.icon-container {
+    border: 2px solid;
+    border-radius:50%;
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
+    transform: rotate(300deg);
+}
+
+#shoppingbtn {
+    border-radius: 60px;
+    padding: 1%;
+    align-items: center;
+    width: 150px;
+    margin-left: 20px;
+}
+
+#firstHeading {
+    margin-top: 25%;
+}
+
+#content {
+    max-height: 500%;
+}
+
+.short_desc {
+    text-align: justify;
+    text-justify: inter-word;
+}
+
+#heartBtn {
+    width: 50px;
+    border-radius: 60px;
+}

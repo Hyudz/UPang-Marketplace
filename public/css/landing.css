@@ -1,0 +1,42 @@
+a {
+    text-decoration: none;
+}
+
+/* body {
+    overflow: hidden;
+} */
+
+h1 {
+    font-size: 72px;
+}
+
+#content {
+    position: fixed;
+    top: 10%;
+}
+
+.icon-container {
+    border: 2px solid;
+    border-radius:50%;
+    width: 32px;
+    height: 32px;
+    margin-left: 10px;
+    transform: rotate(300deg);
+}
+
+#shoppingbtn {
+    border-radius: 60px;
+    background-color: #F2D000;
+}
+
+#firstHeading {
+    margin-top: 25%;
+}
+
+.model {
+    background-color: red;
+}
+
+#content {
+    max-height: 500%;
+}
