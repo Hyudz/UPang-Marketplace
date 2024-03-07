@@ -37,7 +37,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     // Route::post("/message_send",[messages_api::class,'store']);
     // Route::delete("/message_delete/{id}",[messages_api::class,'destroy']);
     Route::post("/getSeller", [products_controller::class,'getSeller']);
-    Route::post("/getBuyer", [products_controller::class,'getBuyer']);
+    Route::get("/getBuyer", [products_controller::class,'getBuyer']);
     Route::post("/cancelOrder", [orders_controller::class, 'orderCancel']);
     Route::post("/orderSettled", [orders_controller::class, 'orderSettled']);
     Route::get("/buyerProfile", [orders_controller::class, 'buyerProfile']);
