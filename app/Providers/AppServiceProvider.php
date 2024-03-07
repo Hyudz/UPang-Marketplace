@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\URL;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -24,7 +25,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
          if (config('app.env') === 'explorers') {
-        URL::forceScheme('https://marketplacebackup-036910b2ff5f.herokuapp.com');
+        URL::forceScheme('https');
     }
     }
 }
