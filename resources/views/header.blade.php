@@ -18,7 +18,7 @@
     <ul class="navbar-nav ms-auto">
         <div class="container">
             <span style="color: white;">Log in or</span> <a href="{{route('signup')}}" style="text-decoration: underline; color: #D3B306;"> Create Your Marketplace Account!</a>
-            <form class="d-flex me-5" action="{{route('login-post')}}" method="POST">
+            <form class="d-flex me-5" action="{{secure_url('login-post')}}" method="POST">
                 @csrf
                 <input class="form-controll me-2" type="email" name="email" placeholder="Email">
                 <input class="form-controll me-2" type="password" name="password" placeholder="Password">
