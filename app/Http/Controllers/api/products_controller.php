@@ -34,7 +34,7 @@ class products_controller extends Controller
     public function getBuyer(){
         $buyerId = Auth::user()->id;
         $buyerName = user_table::where('id', $buyerId)->first();
-        return response()->json(['data' => $buyerName]);
+        return response()->json($buyerName);
     }
 
     public function store(Request $request){
