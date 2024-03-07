@@ -70,10 +70,6 @@ class user_controller extends Controller
     public function destroy($id){
         $user = user_table::findOrFail($id);
         $user->delete();
-        return response()->json([
-            'status' => 'success',
-            'message' => 'User deleted successfully',
-            'data' => $user
-        ]);
+        return response()->json(['message' => 'User deleted successfully']);
     }
 }
