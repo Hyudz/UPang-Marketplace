@@ -25,9 +25,10 @@ class products_controller extends Controller
     }
 
     public function getSeller(Request $request){
-        $sellerId = products::where('id', $request->id);
+        $productId = $request->id;
+        $sellerId = products::where('id', $productId)->value('user_id');
         $sellerName = user_table::where('id', $sellerId)->first();
-        return response()->json($sellerId);
+        return response()->json($sellerName);
     }
 
     public function getBuyer(){
