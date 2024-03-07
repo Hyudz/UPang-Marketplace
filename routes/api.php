@@ -44,6 +44,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::get("/sellerProfile", [orders_controller::class, 'sellerProfile']);
     Route::delete("/deleteProduct/{id}",[products_controller::class,'destroy']);
     Route::put("/updateProduct/{id}",[products_controller::class,'update']);
+    Route::put("/updateProfile/{id}",[user_controller::class,'update']);
 });
 Route::get('/product',[products_controller::class,'show'])->middleware('auth:sanctum');
 Route::post('/admin/signin',[Admin_api_controller::class,'signin']);
