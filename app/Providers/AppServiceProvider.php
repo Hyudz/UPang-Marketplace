@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
          if (config('app.env') === 'explorers') {
-        URL::forceScheme('https');
+        URL::forceScheme('https://marketplacebackup-036910b2ff5f.herokuapp.com');
     }
     }
 }
