@@ -33,6 +33,7 @@
         <div class="tab-pane fade" id="to-receive">
         <table class="table">
                 <tr>
+                    <th>ID</th>
                     <th>Product</th>
                     <th>Price</th>
                     <th>Status</th>
@@ -41,6 +42,7 @@
                 @foreach($productDetails as $productDetail)
                 @if($productDetail->status == "to ship")
                 <tr>
+                    <td>{{$productDetail->id}}</td>
                     <td>{{$productDetail->name}}</td>
                     <td>₱{{$productDetail->price}}.00</td>
                     <td>{{$productDetail->status}}</td>
@@ -93,3 +95,9 @@
             </table>
         </div>
     </div>
+
+    <script>
+        function viewDetails(productDetail){
+            console.log(productDetail);
+        }
+    </script>

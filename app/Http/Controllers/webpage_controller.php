@@ -333,7 +333,7 @@ class webpage_controller extends Controller
 
     function cancelOrder(Request $request){
         $order = order_history::find($request->order_id);
-        $orderItem = order_item::find($order->id);
+        $orderItem = order_item::find($order->order_id);
         $products = products::find($orderItem->product_id);
     
         $order->update([
