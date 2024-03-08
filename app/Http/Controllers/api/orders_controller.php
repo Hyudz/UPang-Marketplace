@@ -145,7 +145,7 @@ class orders_controller extends Controller
         ->select('products.*', 'order_histories.status', 'order_histories.id')
         ->get();
 
-        return response()->json(['product'=>$productDetails]);
+        return response()->json($productDetails);
     }
 
     public function sellerProfile(){

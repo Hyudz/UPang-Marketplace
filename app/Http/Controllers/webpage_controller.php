@@ -376,7 +376,7 @@ class webpage_controller extends Controller
 
         notifications::create([
             'user_id' => $product->user_id,
-            'message' => 'Your product order has been settled'
+            'message' => 'Your product order has p settled'
         ]);
 
         notifications::create([
