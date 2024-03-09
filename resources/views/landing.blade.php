@@ -18,7 +18,7 @@
             <div class="row w-auto">
                 @foreach($products as $product)
                 <div class="col">
-                    <a href="{{route('preview', $product->id)}}">
+                    <a href="{{route('preview', $product->id)}}" style="text-decoration: none;">
                         <div class="card mt-5" style="width: 18rem;">
                             <img class="card-img-top" style="height: 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                             <div class="card-body">

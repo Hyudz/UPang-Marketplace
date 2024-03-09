@@ -113,7 +113,7 @@ class orders_controller extends Controller
 
     function orderSettled(Request $request){
         $product = products::find($request->product_id);
-        $orderItem = order_item::where('product_id', $product->id)->first();
+        $orderItem = order_item::where('product_id', $product->id)->latest()->first();
         $order = order_history::where('order_id', $orderItem->id)->first();
 
         $order->update([
