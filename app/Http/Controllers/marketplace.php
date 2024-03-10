@@ -24,7 +24,11 @@ class marketplace extends Controller
 
     function preview(Request $request){
         $product = products::where('id', '=', $request->id)->first();
-        return view('viewproduct2', ['product' => $product]);
+        $similar = products::where('id', '!=', $product->id)
+        ->where('availability', 'approved')
+        ->inRandomOrder()
+        ->get();
+        return view('viewproduct2', ['product' => $product, 'similar' => $similar]);
     }
 
     function landing(){
@@ -74,7 +78,7 @@ class marketplace extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|email|unique:user_table,email',
             'password' => 'required|confirmed',
             'user_type' => 'required',
             'birthday' => 'required',
@@ -91,10 +95,24 @@ class marketplace extends Controller
         $data['user_type'] = $request->user_type;
         $data['gender'] = $request->gender;
         $data['birthday'] = $request->birthday;
+
+        if($request->email)
     
         $user = user_table::create($data);
         if ($user) {
-            return redirect()->route('login')->with('success', 'User created successfully');
+            $credentials = [
+                'email' => $request->input('email'),
+                'password' => $request->input('password'),
+            ];
+    
+            if (Auth::attempt($credentials)) {
+                $products = DB::table('products')->where('availability', 'approved')
+                ->where('user_id', '!='  ,Auth::user()->id)
+                ->get();
+                $usertype = Auth::user();
+                $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+                return redirect()->route('homepage',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
+            }
         } else {
             return redirect()->route('signup')->with('error', 'User not created');
         }
@@ -111,14 +129,19 @@ class marketplace extends Controller
         ];
 
         if (Auth::attempt($credentials)){
-            $product = products::all()->where('availability', 'under_review');
-            $all_products = products::all();
-            $users = user_table::all();
-            $historyStatus = order_history::all();
-            return redirect()->route('admin.dashboard', ['products' => $product, 'all_products' => $all_products, 'users' => $users, 'historyStatus' => $historyStatus]);
+
+            if (Auth::user()->user_type == 'admin') {
+                $product = products::all()->where('availability', 'under_review');
+                $all_products = products::all();
+                $users = user_table::all();
+                $historyStatus = order_history::all();
+                return redirect()->route('admin.dashboard', ['products' => $product, 'all_products' => $all_products, 'users' => $users, 'historyStatus' => $historyStatus]);
+            } else {
+                return redirect()->route('admin-signin')->with('error', 'Unauthorized access');
+            }
         }
 
-        return redirect()->route('admin-signin')->with(['error' => $credentials['password']]);
+        return redirect()->route('admin-signin')->with(['error' => 'Invalid email or password']);
     }
 
     function admin_dashboard(){

@@ -21,33 +21,53 @@
     </head>
     <body>
     @include('header')
-        <div class="container-fluid mainContent">
-            
-            <div class="d-flex">
-            <div class="col-md">
-                <h1 class="p-4" style="font-family: 'Sahitya';" id="productname">
-                    {{$product->name}}
-                </h1>
-                <h5 class="ms-4">₱{{$product->price}}.00</h5>
-                <h5 class="short_desc ms-4">{{$product->description}}</h5><br>
-                <div class="d-flex justify-content-center">
-                    <form method="POST" action="{{route('save_item',$product->id)}}">
-                        @csrf
-                        <input type="hidden" name="product_id" value="$product->id">
-                        <button id="shoppingbtn" type="submit"> <span class="fa fa-shopping-cart"></span> Add to Cart</button>
-                    </form>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="card">
+                            <div class="card-header text-center">
+                                <img src="{{ asset('uploads/products/'.$product->image) }}" alt="product image" class="img-fluid" style="max-height: 400px;">
+                            </div>
 
-                    <a href="{{route('checkout-item',$product->id)}}">
-                        <button id="shoppingbtn">Buy Now</button>
-                    </a>
-                </div>
-            </div>
+                            <div class="card-body">
+                                <h5 class="card-title ms-4" style="font-family: 'Sahitya';" id="productname">{{ $product->name }}</h5>
+                                <h5 class="ms-4">₱{{ $product->price }}.00</h5>
+                                <p class="card-text ms-4 short_desc">{{ $product->description }}</p>
+                            </div>
 
-            <div class="col-md" style="height: 100vmin;">
-                <div class="mh-100 container mt-5 mb-auto me-auto ms-auto" class="model">
-                    <img src="{{asset('uploads/products/'.$product->image)}}" alt="product image" class="img-fluid" style="max-height: 90vh; width: 100%;">
+                            <div class="card-footer d-flex flex-row justify-content-center">
+                                <form method="POST" action="{{ route('save_item', $product->id) }}">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                    <button type="submit" class="btn btn-success me-2">
+                                        <span class="fa fa-shopping-cart"></span> Add to Cart
+                                    </button>
+                                </form>
+
+                                <a href="{{ route('checkout-item', $product->id) }}" class="btn btn-warning">Buy Now</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row mt-4">
+                            @foreach($similar->take(6) as $similarProduct)
+                                <div class="col-md-4">
+                                    <a href="{{ route('viewproduct', $similarProduct->id) }}" class="text-decoration-none">
+                                        <div class="card">
+                                            <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{ asset('uploads/products/'.$similarProduct->image) }}" alt="product image">
+                                            <div class="card-body">
+                                                <h5 class="card-title" id="product1">{{ $similarProduct->name }}</h5>
+                                                <p class="card-text" style="text-align: justify;">₱{{ $similarProduct->price }}</p>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

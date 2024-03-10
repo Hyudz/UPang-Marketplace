@@ -15,7 +15,7 @@
     @include('header2')
     <div class="container mt-5">
         <div class="profile">
-            <div class="profile-details d-flex justify-content-between" style="border: 3px solid; border-radius: 30px;">
+            <div class="profile-details d-flex justify-content-between" style="border: 3px solid;">
                 <div class="profile-details p-3">
                     <h5>{{$usertype->first_name}} {{$usertype->last_name}}</h5>
                     <h6> {{$usertype->email}} </h6>

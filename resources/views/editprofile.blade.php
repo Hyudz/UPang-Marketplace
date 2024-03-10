@@ -11,7 +11,7 @@
     <div class="container d-flex align-items-center justify-content-center min-vh-100">
         <div class="card" style="width: 35rem;">
             <div class="card-header">
-                <h3>Update your Profile</h3>
+                <h3 class="text-center" style="font-family: 'Sahitya', sans-serif;">Update your Profile</h3>
             </div>
 
             <div class="mt-5">
@@ -64,12 +64,12 @@
                     <input type="hidden" name="usertype" value="{{$userDetails->id}}">
 
                     <div class="d-flex justify-content-center">
-                        <a href="{{route('homepage')}}" class="btn btn-secondary mt-3 me-3">Cancel</a>
-                        <button type="submit" class="btn btn-secondary mt-3 ">Submit</button>
+                        <a href="{{route('homepage')}}" class="btn btn-warning mt-3 me-3">Cancel</a>
+                        <button type="submit" class="btn btn-success mt-3 ">Submit</button>
                     </div>
                 </form>
 
-                <form action="{{ route('deleteProfile', $userDetails->id) }}" method="POST">
+                <form action="{{ route('deleteProfile', $userDetails->id) }}" method="POST" class="d-flex justify-content-center">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger mt-3 me-3">Delete Account</button>

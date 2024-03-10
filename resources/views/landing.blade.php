@@ -9,28 +9,39 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <!--     <link rel="stylesheet" href="{{asset('css/header.css')}}"> -->
     <link rel="icon" href="{{secure_asset('img/medyo final na logo 1.png')}}" type="image/x-icon">
+    <style>
+        body {
+            background-color: #EEF6FF;
+        }
+
+        * {
+            font-family: 'Sahitya', sans-serif;
+        }
+    </style>
 </head>
 <body>
     @include('header')
     <div class="container-fluid">
         <h1 class="mt-5">Products on Sale!</h1>
         <div class="container-fluid">
-            <div class="row w-auto">
-                @foreach($products as $product)
-                <div class="col">
-                    <a href="{{route('preview', $product->id)}}" style="text-decoration: none;">
-                        <div class="card mt-5" style="width: 18rem;">
-                            <img class="card-img-top" style="height: 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
-                            <div class="card-body">
-                                <h5 class="card-title" id="product1">{{$product->name}}</h5>
-                                <p class="card-text" style="text-align: justify;">{{$product->price}}</p>
-                            </div>
-                        </div>
-                    </a>
+    <div class="row">
+        @foreach($products as $product)
+        <div class="col-md-3">
+            <a href="{{route('preview', $product->id)}}" style="text-decoration: none;">
+                <div class="card mt-5">
+                    <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                    <div class="card-body">
+                        <h5 class="card-title" id="product1">{{$product->name}}</h5>
+                        <p class="card-text" style="text-align: justify;">{{$product->price}}</p>
+                    </div>
                 </div>
-                @endforeach
-            </div>
+            </a>
         </div>
+        @endforeach
+    </div>
+</div>
+
+
 <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script> -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script> -->
 </body>

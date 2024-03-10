@@ -33,13 +33,15 @@
                 <table class="table table-dark table-striped">
                     <thead>
                         <tr>
-                            <th colspan="8">
+                            <th colspan="10">
                             Products Approval
                             </th>
                         </tr>
                         <tr>
                             <th>ID</th>
+                            <th>Image</th>
                             <th>Name</th>
+                            <th>Seller</th>
                             <th>Description</th>
                             <th>Price</th>
                             <th>Quantity</th>
@@ -51,7 +53,9 @@
                         @foreach($products as $product)
                         <tr>
                             <td>{{$product->id}}</td>
+                            <td><img src="{{asset('uploads/products/'.$product->image)}}" alt="product image" style="width: 100px; height: 100px;"></td>
                             <td>{{$product->name}}</td>
+                            <td>{{$product->seller->first_name}} {{$product->seller->last_name}}</td>
                             <td>{{$product->description}}</td>
                             <td>{{$product->price}}</td>
                             <td>{{$product->quantity}}</td>
@@ -136,19 +140,19 @@
                         <td>{{ $users->count()}}</td>
                     </tr>
                     <tr>
-                        <td>Buyers</td>
+                        <td>Buyer Accounts:</td>
                         <td>{{ $users->where('user_type', 'buyer')->count()}}</td>
                     </tr>
                     <tr>
-                        <td>Sellers</td>
+                        <td>Seller Accounts:</td>
                         <td>{{ $users->where('user_type', 'seller')->count()}}</td>
                     </tr>
                     <tr>
-                        <td>Male</td>
+                        <td>Male Users: </td>
                         <td>{{ $users->where('gender', 'male')->count()}}</td>
                     </tr>
                     <tr>
-                        <td>Female</td>
+                        <td>Female Users: </td>
                         <td>{{ $users->where('gender', 'female')->count()}}</td>
                     </tr>
                 </table>

@@ -41,7 +41,7 @@
                         <a class="nav-link" id="study-tab" data-toggle="pill" href="#study">Study Materials</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" id="electronics-tab" data-toggle="pill" href="#electronic">Electronics and Gadgets</a>
+                        <a class="nav-link" id="electronics-tab" data-toggle="pill" href="#electronics">Electronics and Gadgets</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" id="clothing-tab" data-toggle="pill" href="#clothing">Clothing</a>
@@ -50,12 +50,12 @@
 
                 <div class="tab-content">
                     <div class="tab-pane fade show active" id="all">
-                        <div class="row w-auto ">
+                        <div class="row">
                             @foreach($products as $product)
-                            <div class="col mt-5">
+                            <div class="col-md-3">
                                 <a href="{{route('viewproduct', $product->id)}}">
-                                    <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                    <div class="card mt-5">
+                                            <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                                         <div class="card-body">
                                             <h5 class="card-title" id="product1">{{$product->name}}</h5>
                                             <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
@@ -68,13 +68,13 @@
                     </div>
 
                     <div class="tab-pane fade" id="academic">
-                        <div class="row w-auto ">
+                        <div class="row">
                             @foreach($products as $product)
                             @if($product->category == "Supply")
-                            <div class="col mt-5">
+                            <div class="col-md-3">
                                 <a href="{{route('viewproduct', $product->id)}}">
-                                    <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                    <div class="card mt-5">
+                                            <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                                         <div class="card-body">
                                             <h5 class="card-title" id="product1">{{$product->name}}</h5>
                                             <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
@@ -88,13 +88,13 @@
                     </div>
 
                     <div class="tab-pane fade" id="study">
-                        <div class="row w-auto">
+                        <div class="row">
                             @foreach($products as $product)
                             @if($product->category == "Materials")
-                            <div class="col mt-5">
+                            <div class="col-md-3">
                                 <a href="{{route('viewproduct', $product->id)}}">
-                                    <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                    <div class="card mt-5">
+                                            <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                                         <div class="card-body">
                                             <h5 class="card-title" id="product1">{{$product->name}}</h5>
                                             <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
@@ -108,13 +108,13 @@
                     </div>
 
                     <div class="tab-pane fade" id="electronics">
-                        <div class="row w-auto ">
+                        <div class="row">
                             @foreach($products as $product)
                             @if($product->category == "Electronics")
-                            <div class="col mt-5">
+                            <div class="col-md-3">
                                 <a href="{{route('viewproduct', $product->id)}}">
-                                    <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                    <div class="card mt-5">
+                                            <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                                         <div class="card-body">
                                             <h5 class="card-title" id="product1">{{$product->name}}</h5>
                                             <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>
@@ -128,13 +128,13 @@
                     </div>
 
                     <div class="tab-pane fade" id="clothing">
-                        <div class="row w-auto ">
+                        <div class="row">
                             @foreach($products as $product)
                             @if($product->category == "Uniform")
-                            <div class="col mt-5">
+                            <div class="col-md-3">
                                 <a href="{{route('viewproduct', $product->id)}}">
-                                    <div class="card" style="width: 18rem;">
-                                            <img class="card-img-top" style="width: auto; height : 200px; padding: 10px;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
+                                    <div class="card mt-5">
+                                            <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{asset('uploads/products/'.$product->image)}}" alt="product image">
                                         <div class="card-body">
                                             <h5 class="card-title" id="product1">{{$product->name}}</h5>
                                             <p class="card-text" style="text-align: justify;">₱{{$product->price}}</p>

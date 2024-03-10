@@ -110,7 +110,12 @@ class webpage_controller extends Controller
         $usertype = Auth::user();
         $product = products::with('user')->find($request->id);
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-        return view('viewproduct', ['product' => $product,'usertype' => $usertype, 'notifications' => $notifications]);
+
+        $similar = products::where('id', '!=', $product->id)
+        ->where('availability', 'approved')
+        ->inRandomOrder()
+        ->get();
+        return view('viewproduct', ['product' => $product,'usertype' => $usertype, 'notifications' => $notifications], ['similar' => $similar]);
     }
 
     function cart(){
@@ -415,7 +420,13 @@ class webpage_controller extends Controller
             'quantity' => $request->quantity,
             'category' => $request->category,
         ]);
-        return redirect()->route('profile')->with('success', 'Product updated successfully');
+
+        if (Auth::user()->user_type != 'admin') {
+            return redirect()->route('profile')->with('success', 'Product updated successfully');
+        } else {
+            return redirect('seller/update_product')->with('success', 'Product updated successfully');
+        }
+        
 
     }
 
