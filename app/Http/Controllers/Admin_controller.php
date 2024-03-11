@@ -22,6 +22,7 @@ class Admin_controller extends Controller
         $all_products = products::all();
         $users = user_table::all();
         $historyStatus = order_history::all();
+        //return view('admin.dashboard', ['products' => $product, 'all_products' => $all_products, 'users' => $users, 'historyStatus' => $historyStatus, 'sellerName' => $sellerName]);
         return view('admin.dashboard',['products' => $product, 'all_products' => $all_products, 'users' => $users, 'historyStatus' => $historyStatus]);
     }
 

@@ -6,12 +6,12 @@
     <title>Sign Up</title>
     <link href="{{asset('css/signup.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
+    <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
 </head>
 <body style="height: 100vh;">
 
     <div class="mt-3" style="height: 15px;"></div>
-    <div class="container mt-5 p-5" style="width: 600px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);">
+    <div class="container mt-5 p-5" style="width: 600px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); background: rgb(255,255,255); background: linear-gradient(158deg, rgba(255,255,255,1) 0%, rgba(226,255,220,1) 100%);">
         <div class="justify-content-center">
             <h3 class="text-center" style="font-family: 'Sahitya', sans-serif;">Welcome to PHINMA UPang Marketplace</h3>
             <h6 class="text-center" style="font-family: 'Sahitya', sans-serif;">Already have an account? <a href="{{route('login')}}" style="text-decoration: none;">Sign in </a> now!</h6>

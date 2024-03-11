@@ -11,7 +11,7 @@
         <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
         <link rel="stylesheet" href="{{asset('css/viewproduct.css')}}">
         <link rel="stylesheet" href="{{asset('css/header.css')}}">
-        <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
+        <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
 
         <style>
             body {

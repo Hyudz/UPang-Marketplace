@@ -33,14 +33,13 @@
                 <table class="table table-dark table-striped">
                     <thead>
                         <tr>
-                            <th colspan="10">
+                            <th colspan="9">
                             Products Approval
                             </th>
                         </tr>
                         <tr>
                             <th>ID</th>
                             <th>Image</th>
-                            <th>Name</th>
                             <th>Seller</th>
                             <th>Description</th>
                             <th>Price</th>
@@ -55,7 +54,6 @@
                             <td>{{$product->id}}</td>
                             <td><img src="{{asset('uploads/products/'.$product->image)}}" alt="product image" style="width: 100px; height: 100px;"></td>
                             <td>{{$product->name}}</td>
-                            <td>{{$product->seller->first_name}} {{$product->seller->last_name}}</td>
                             <td>{{$product->description}}</td>
                             <td>{{$product->price}}</td>
                             <td>{{$product->quantity}}</td>
@@ -213,7 +211,7 @@
                             
                             <tr>
                                 <td>{{$user->id}}</td>
-                                <td> <a href="{{route('viewprofile', $user->id)}}"> {{$user->first_name}} {{$user->last_name}} </a></td>
+                                <td> {{$user->first_name}} {{$user->last_name}}</td>
                                 <td>{{$user->user_type}}</td>
                             </tr>
                             @endif

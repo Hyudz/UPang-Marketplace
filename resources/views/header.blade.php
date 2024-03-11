@@ -2,7 +2,7 @@
     <nav id="main-navbar" class="navbar navbar-expand-lg navbar-light" style="background-color: #23713E;">
     <div class="container-fluid">
         <a href="{{route('landing')}}">
-            <img src="{{asset('img/medyo final na logo 1.png')}}" style="height: 10vmin;" alt="" loading="lazy" class="m-2"/>
+            <img src="{{asset('img/logowithoutbg.png')}}" style="height: 10vmin;" alt="" loading="lazy" class="m-2"/>
         </a>
     
         <form class="d-md-flex input-group w-auto my-auto" method="POST" action="{{secure_url(route('search2'))}}">

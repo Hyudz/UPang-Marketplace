@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
+    <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
     <title>Order Confirmed</title>
 </head>
 <body>

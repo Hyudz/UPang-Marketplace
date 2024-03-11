@@ -6,12 +6,12 @@
             <link href="{{asset('css/login.css')}}" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Sahitya" rel="stylesheet">
             <link href="https://fonts.googleapis.com/css?family=Inria+Serif" rel="stylesheet">
-            <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
+            <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         </head>
         <body class="d-flex justify-content-center align-items-center" style="height: 100vh;">  
             <div class="container-fluid d-flex justify-content-center align-items-center">
-                <div class="container m-" style="background-color: white; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);">
+                <div class="container m-" style="background-color: white; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); background: rgb(255,255,255); background: linear-gradient(158deg, rgba(255,255,255,1) 0%, rgba(226,255,220,1) 100%);">
                     <div class="row">
                         <div class="col p-5">
                             <div class="d-flex justify-content-center">
@@ -74,8 +74,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col" style="background: rgb(226,255,220);
-background: linear-gradient(158deg, rgba(226,255,220,1) 55%, rgba(105,184,91,1) 100%);">
+                        <div class="col">
                             <div class="container mt-5">
                                 <img src="{{asset('img/intro.png')}}" alt="UPang Marketplace" class="img-fluid">
                             </div>

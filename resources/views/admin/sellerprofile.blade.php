@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container">
             <ul class="nav nav-pills mb-3">
                 <li class="nav-item">
                     <a class="nav-link active" id="all-tab" data-toggle="pill" href="#all">All</a>

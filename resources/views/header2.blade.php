@@ -7,7 +7,7 @@
         </button>
 
         <a class="navbar-brand" href="{{route('homepage')}}">
-            <img  src="{{asset('img/medyo final na logo 1.png')}}" style="height: 10vmin;" alt="" loading="lazy"/>
+            <img  src="{{asset('img/logowithoutbg.png')}}" style="height: 10vmin;" alt="" loading="lazy"/>
         </a>
 
         <form class="d-none d-md-flex input-group w-auto my-auto" method="POST" action="{{route('search')}}">

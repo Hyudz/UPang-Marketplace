@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="{{asset('css/header.css')}}">
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
-    <link href="{{asset('img/medyo final na logo 1.png')}}" rel="icon" type="image/x-icon">
+    <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
     <title>Saved Items</title>
     <style>
         body {

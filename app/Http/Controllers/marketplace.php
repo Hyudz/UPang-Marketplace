@@ -135,6 +135,7 @@ class marketplace extends Controller
                 $all_products = products::all();
                 $users = user_table::all();
                 $historyStatus = order_history::all();
+                // $sellerName = user_table::all()->where('id', $product->user_id)->first();
                 return redirect()->route('admin.dashboard', ['products' => $product, 'all_products' => $all_products, 'users' => $users, 'historyStatus' => $historyStatus]);
             } else {
                 return redirect()->route('admin-signin')->with('error', 'Unauthorized access');
