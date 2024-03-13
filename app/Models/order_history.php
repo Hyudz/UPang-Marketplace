@@ -9,26 +9,32 @@ class order_history extends Model
 {
     use HasFactory;
     protected $table = 'order_histories';
-    protected $fillable = [
-        'user_id',
-        'order_id',
+    protected $fillable = [ 
         'total_amount',
         'payment_id',
+        'seller_id',
+        'buyer_id',
+        'product_id',
         'status'
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(user_table::class);
-    }
-
-    public function order_item()
-    {
-        return $this->hasMany(order_item::class);
-    }
 
     public function payment()
     {
         return $this->belongsTo(payment::class);
+    }
+
+    public function product()
+    {
+        return $this->belongsTo(products::class);
+    }
+
+    public function seller()
+    {
+        return $this->belongsTo(user_table::class, 'seller_id');
+    }
+
+    public function buyer()
+    {
+        return $this->belongsTo(user_table::class, 'buyer_id');
     }
 }

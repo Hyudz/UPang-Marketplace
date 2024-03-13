@@ -13,17 +13,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('user_profile', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('sender_id');
-            $table->foreign('sender_id')->references('id')->on('user_table')->onDelete('cascade');
-            $table->unsignedBigInteger('receiver_id');
-            $table->foreign('receiver_id')->references('id')->on('user_table')->onDelete('cascade');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('user_table')->onDelete('cascade');
-            $table->string('message');
-            $table->string('message_type');
-            $table->timestamps();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('email');
+            $table->string('password');
+            $table->string('user_type');
+            $table->string('address');
+            $table->string('contactNo');
         });
     }
 
@@ -34,6 +34,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('user_profile');
     }
 };

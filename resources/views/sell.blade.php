@@ -6,18 +6,17 @@
     <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
     <title>Sell Item</title>
     <style>
-        body {
-            background-color: #EEF6FF;
-        }
 
         * {
             font-family: 'Sahitya', sans-serif;
         }
+
+        
     </style>
     <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
-<body class="d-flex align-items-center justify-content-center min-vh-100">
+<body class="d-flex align-items-center justify-content-center min-vh-100" style="background-color: #EEF6FF;">
 
     <div class="container" style="width: 600px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); padding:5px; border-radius: 30px; background-color: white;   ">
         <div class="card-header d-flex justify-content-center">
@@ -45,27 +44,30 @@
         
         <form action="{{route('sell.product')}}" method="POST" enctype="multipart/form-data">
             @csrf
-            <input class="mt-2 form-control" type="text" name="product_name" placeholder="Product Name">
-            <input class="mt-2 form-control" type="text" name="product_price" placeholder="Price">
-            <input class="mt-2 form-control" type="text" name="product_description" placeholder="Description">
-            <!-- <input class="mt-2" type="text" name="product_category" placeholder="Category"> -->
-            <select class="form-select mt-2" name="product_category" required>
-                <option value="none">Category</option>
-                <option value="Supply" title="Binders, Pens, Papers, Yellow Pad Paper, Rulers, Calculator,etc">Academic Supply</option>
-                <option value="Materials" title="Textbooks, Reviewers">Study Materials</option>
-                <option value="Electronics" title="Laptop, Tablet, Storage Drivers, Digital Products">Electronics and Gadgets</option>
-                <option value="Uniform" title="PE Uniform, Jogging Pants, RSO Uniform, University Uniform">Clothing</option>
-                <option value="Others">Others</option>
-            </select>
-            <input class="mt-2 form-control" type="text" name="product_quantity" placeholder="Quanitity">
-            <!-- <select name="department">
-                <option value="1">CITE</option>
-                <option value="2">CCJS</option>
-                <option value="3">CAHS</option>
-                <option value="4">CEA</option>
-                <option value="5">CMA</option>
-            </select> -->
-            <input class="mt-2 form-control" type="file" name="product_image" required>
+            <div class="d-flex">
+                <input class="m-1 form-control" type="text" name="product_name" required placeholder="Product Name">
+                <input class="m-1 form-control" type="number" name="product_price" required placeholder="Price" min="1">
+            </div>
+
+            <div class="d-flex">
+                <textarea class="m-1 form-control" type="text" required name="product_description" style="resize: none;" cols="10" rows="5" placeholder="Description"></textarea>
+            </div>
+
+            <div class="d-flex">
+                <select class="form-select m-1" name="product_category" required>
+                    <option value="none">Category</option>
+                    <option value="Supply" title="Binders, Pens, Papers, Yellow Pad Paper, Rulers, Calculator,etc">Academic Supply</option>
+                    <option value="Materials" title="Textbooks, Reviewers">Study Materials</option>
+                    <option value="Electronics" title="Laptop, Tablet, Storage Drivers, Digital Products">Electronics and Gadgets</option>
+                    <option value="Uniform" title="PE Uniform, Jogging Pants, RSO Uniform, University Uniform">Clothing</option>
+                    <option value="Others">Others</option>
+                </select>
+                <input class="m-1 form-control" type="number" name="product_quantity" placeholder="Quanitity" required min="1">
+                <input class="m-1 form-control" type="file" name="product_image" required>
+            </div>
+            <div class="container-fluid d-flex justify-content-center">
+                <span style="font-size: 12px;">Before the product can be viewed and purchased on the website, it will undergo review by the admin for approval.</span>
+            </div>
             <div class="container-fluid d-flex justify-content-center">
                 <a href="{{route('homepage')}}" class="btn btn-outline-warning mt-2 me-2"> <b>Cancel Upload <b></a>
                 <button class="mt-2 btn btn-success" type="submit">Upload</button>

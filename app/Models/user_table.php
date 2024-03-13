@@ -40,29 +40,14 @@ class user_table extends Model implements Authenticatable
         return $this->hasMany(notifications::class);
     }
 
-    public function likes()
-    {
-        return $this->hasMany(likes_table::class);
-    }
-
     public function cart_items()
     {
         return $this->hasMany(cart_items::class);
     }
 
-    public function sender()
+    public function user_profile()
     {
-        return $this->hasMany(messages::class, 'sender_id');
-    }
-
-    public function receiver()
-    {
-        return $this->hasMany(messages::class, 'receiver_id');
-    }
-
-    public function concerns()
-    {
-        return $this->hasMany(concerns::class);
+        return $this->hasOne(user_profile::class);
     }
 
 }

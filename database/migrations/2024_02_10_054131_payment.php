@@ -17,8 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('user_table')->onDelete('cascade');
-            $table->unsignedBigInteger('order_id');
-            $table->foreign('order_id')->references('id')->on('order_items')->onDelete('cascade');
             $table->string('payment_method');
             $table->string('payment_status');
             $table->timestamps();
@@ -32,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('payments');
     }
 };

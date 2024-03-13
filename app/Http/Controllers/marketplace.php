@@ -84,8 +84,9 @@ class marketplace extends Controller
             'birthday' => 'required',
             "user_type" => "required|in:seller,buyer",
             "gender" => "required|in:male,female",
-            "birthday" => "required|date"
-
+            "birthday" => "required|date",
+            "adress" => "required",
+            "contactNo" => "required"
         ]);
     
         $data['first_name'] = $request->first_name;
@@ -95,27 +96,34 @@ class marketplace extends Controller
         $data['user_type'] = $request->user_type;
         $data['gender'] = $request->gender;
         $data['birthday'] = $request->birthday;
+        $data['address'] = $request->address;
+        $data['contactNo'] = $request->contactNo;
 
         if($request->email)
     
-        $user = user_table::create($data);
-        if ($user) {
-            $credentials = [
-                'email' => $request->input('email'),
-                'password' => $request->input('password'),
-            ];
+        $user = user_table::create(
+            $data['email'],
+            $data['password']
+        );
+
+
+        // if ($user) {
+        //     $credentials = [
+        //         'email' => $request->input('email'),
+        //         'password' => $request->input('password'),
+        //     ];
     
-            if (Auth::attempt($credentials)) {
-                $products = DB::table('products')->where('availability', 'approved')
-                ->where('user_id', '!='  ,Auth::user()->id)
-                ->get();
-                $usertype = Auth::user();
-                $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-                return redirect()->route('homepage',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
-            }
-        } else {
-            return redirect()->route('signup')->with('error', 'User not created');
-        }
+        //     if (Auth::attempt($credentials)) {
+        //         $products = DB::table('products')->where('availability', 'approved')
+        //         ->where('user_id', '!='  ,Auth::user()->id)
+        //         ->get();
+        //         $usertype = Auth::user();
+        //         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+        //         return redirect()->route('homepage',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
+        //     }
+        // } else {
+        //     return redirect()->route('signup')->with('error', 'User not created');
+        // }
     }
 
     function adminlogin(){

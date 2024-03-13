@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order_history;
 use Illuminate\Http\Request;
 use App\Models\products;
 use Illuminate\Support\Facades\Auth;
@@ -18,7 +19,9 @@ class seller_product extends Controller
         $product = products::find($request->id);
         $usertype = Auth::user();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-        return view('seller/analytics', ['product' => $product, 'usertype' => $usertype, 'notifications' => $notifications]);
+
+        $histories = order_history::where('product_id', $product->id)->get();
+        return view('seller/analytics', ['product' => $product, 'usertype' => $usertype, 'notifications' => $notifications, 'histories' => $histories]);
     }
 
     public function delete(Request $request){

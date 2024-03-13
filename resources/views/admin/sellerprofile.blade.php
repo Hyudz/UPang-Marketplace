@@ -88,22 +88,24 @@
                             <th>Product</th>
                             <th>Price</th>
                             <th>Status</th>
+                            <th>Buyer Name:</th>
                             <th>Buyer Message</th>
                             <th>Actions</th>
                         </tr>
-                        @foreach($products as $product)
-                        @if($product->availability == "to ship")
+                        @foreach($productDetails as $productDetail)
+                        @if($productDetail->status == "to ship")
                         <tr>
-                            <td>{{$product->name}}</td>
-                            <td>₱{{$product->price}}.00</td>
-                            <td>{{$product->availability}}</td>
-                            <td>{{$product->message}}</td>
+                            <td>{{$productDetail->name}}</td>
+                            <td>₱{{$productDetail->price}}.00</td>
+                            <td> {{$productDetail->availability}} </td>
+                            <td> </td>
+                            <td>{{$productDetail->message}}</td>
                             <td>
                                 <form action="{{route('orderSettled')}}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="product_id" value="{{$product->id}}">
-                                    <button class="btn btn-primary">Order Delivered</button>
-                                </form>
+                                    <input type="hidden" id="product_id" name="product_id" value="{{$productDetail->id}}">
+                                    <button type="submit" class="btn btn-primary">Order Delivered</button>
+                                </form> 
                             </td>
                         </tr>
                         @endif

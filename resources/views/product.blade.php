@@ -12,10 +12,20 @@
     <script src="https://kit.fontawesome.com/de52212229.js" crossorigin="anonymous"></script>
     <title>Browse Products</title>
     <style>
-            body {
-                background-color: #EEF6FF;
-            }
-        </style>
+        body {
+            background-color: #EEF6FF;
+        }
+
+        .nav-pills .nav-link.active, .nav-pills .nav-link:hover {
+        color: #23713E;
+        background-color: #F3E309;
+        border-color: #F3E309;
+        }
+
+        .nav-pills .nav-link {
+            color: #4D9941 ;
+        }
+    </style>
 </head>
 <body>
     <div class="fixed-top">

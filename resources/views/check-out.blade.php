@@ -68,7 +68,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{$product->name}}</h5>
                         <span class="card-text">₱{{$product->price}}.00</span>
-                        <span class="card-text ms-5">x{{$product->quantity}}</span>
+                        <span class="card-text ms-5">x1</span>
                     </div>
                 </div>
 

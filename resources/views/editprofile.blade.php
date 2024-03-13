@@ -6,11 +6,21 @@
     <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Edit Profile</title>
+    <style>
+        * {
+            font-family: 'Sahitya', sans-serif;
+        }
+
+        body {
+            background-color: #EEF6FF;
+        }
+
+        </style>
 </head>
 <body>
     <div class="container d-flex align-items-center justify-content-center min-vh-100">
-        <div class="card" style="width: 35rem;">
-            <div class="card-header">
+        <div class="card" style="width: 35rem; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5);">
+            <div class="container mt-2">
                 <h3 class="text-center" style="font-family: 'Sahitya', sans-serif;">Update your Profile</h3>
             </div>
 
@@ -49,31 +59,31 @@
                         </div>
                     </div>
 
-                    <label for="email">Email</label>
+                    <label for="email" class="mt-1">Email</label>
                     <input type="email" name="email" id="email" class="form-control" value="{{$userDetails->email}}">
 
-                    <label for="password">Current Password</label>
+                    <label for="password" class="mt-1">Current Password</label>
                     <input type="password" name="password" id="password" class="form-control">
 
-                    <label for="new_password">New Password</label>
+                    <label for="new_password" class="mt-1">New Password</label>
                     <input type="password" name="new_password" id="new_password" class="form-control">
 
-                    <label for="confirm_password">Confirm Password</label>
+                    <label for="confirm_password" class="mt-1">Confirm Password</label>
                     <input type="password" name="new_password_confirmation" id="confirm_password" class="form-control">
 
                     <input type="hidden" name="usertype" value="{{$userDetails->id}}">
 
                     <div class="d-flex justify-content-center">
-                        <a href="{{route('homepage')}}" class="btn btn-warning mt-3 me-3">Cancel</a>
+                        <a href="{{route('homepage')}}" class="btn btn-secondary mt-3 me-3">Cancel</a>
                         <button type="submit" class="btn btn-success mt-3 ">Submit</button>
                     </div>
                 </form>
 
-                <form action="{{ route('deleteProfile', $userDetails->id) }}" method="POST" class="d-flex justify-content-center">
+                <!-- <form action="{{ route('deleteProfile', $userDetails->id) }}" method="POST" class="d-flex justify-content-center">
                     @method('DELETE')
                     @csrf
                     <button type="submit" class="btn btn-danger mt-3 me-3">Delete Account</button>
-                </form>
+                </form> -->
             </div>
         </div>
     </div>

@@ -54,7 +54,7 @@
                         <div class="row">
                             @foreach($similar->take(6) as $similarProduct)
                                 <div class="col-md-4">
-                                    <a href="{{ route('viewproduct', $similarProduct->id) }}" class="text-decoration-none">
+                                    <a href="{{ route('preview', $similarProduct->id) }}" class="text-decoration-none">
                                         <div class="card">
                                             <img class="card-img-top" style="height: 200px; object-fit: cover;" src="{{ asset('uploads/products/'.$similarProduct->image) }}" alt="product image">
                                             <div class="card-body">

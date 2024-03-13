@@ -19,20 +19,36 @@ his/her uploaded products and if he/she wants to edit his/her details -->
             * {
                 font-family: 'Sahitya', sans-serif;
             }
+
+            .nav-pills .nav-link.active, .nav-pills .nav-link:hover {
+            color: #23713E;
+            background-color: #F3E309;
+            border-color: #F3E309;
+            }
+
+            .nav-pills .nav-link {
+                color: #4D9941 ;
+            }
     </style>
 </head>
 <body>
         @include('header2')
-
-        <div class="profile container d-flex flex-row mt-3 h-100">
-            <div class="profile-details d-flex h-100 flex-column justify-content-between" style="border: 3px solid;">
-                <div class="profile-details p-3">
+        <!-- ETO YUNG SA SELLER PROFILE  -->
+        <div class="profile container d-flex flex-row mt-3 h-100" >
+            <div class="profile-details d-flex h-100 flex-column justify-content-between" style="border: 1px solid; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); background-color: white;">
+                <div class="profile-details p-3" >
                     <h5>{{$usertype->first_name}} {{$usertype->last_name}}</h5>
                     <h6> {{$usertype->email}} </h6>
                 </div>
 
-                <div class="me-3 mt-2 p-3 container-fluid">
-                    <a href="{{route('editProfile')}}" class="btn btn-primary w-100">Edit Profile</a>    
+                <div class=" container-fluid p-1">
+                    <div class=" mt-2 container-fluid">
+                        <a href="{{route('editProfile')}}" class="btn btn-success w-100">Edit Profile</a>    
+                    </div>
+
+                    <div class="me-3 container-fluid">
+                        <a href="{{route('deleteProfile', $usertype->id)}}" class="btn btn-danger w-100">Delete Profile</a>    
+                    </div>
                 </div>
             </div>
 
@@ -44,8 +60,8 @@ his/her uploaded products and if he/she wants to edit his/her details -->
         
 
 
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

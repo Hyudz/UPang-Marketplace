@@ -77,15 +77,13 @@
 
             @if($usertype->user_type == 'buyer')
             <li class="nav-item" >
-                <a href="{{route('sell')}}" >
+                <a href="{{route('sell')}}" class="nav-item" >
                     <button type="submit" style="display: none;">SELL</button>
                 </a>
             </li>
             @elseif($usertype->user_type == 'seller')
             <li class="nav-item">
-                <a href="{{route('sell')}}">
-                    <button type="submit" style="border-radius:60px; width: auto;">SELL</button>
-                </a>
+                <a href="{{route('sell')}}" style="text-decoration: none;" class="nav-item btn btn-outline-warning"> <span>SELL</span> </a>
             </li>
             @endif
         </ul>

@@ -11,7 +11,6 @@ class payment extends Model
     protected $table = 'payments';
     protected $fillable = [
         'user_id',
-        'order_id',
         'payment_method',
         'payment_status',
         'payment_amount'
@@ -20,11 +19,6 @@ class payment extends Model
     public function user()
     {
         return $this->belongsTo(user_table::class);
-    }
-
-    public function order()
-    {
-        return $this->belongsTo(order_history::class);
     }
 
     public function order_history()
