@@ -61,7 +61,8 @@ class webpage_controller extends Controller
         // dd($productDetails);
         return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications, 'productDetails' => $productDetails]);
         } catch (\Exception $e) {
-            return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications]);
+            $productDetails = [];
+            return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications, 'productDetails' => $productDetails]);
         }
     }
 
@@ -132,7 +133,9 @@ class webpage_controller extends Controller
 
         return view('profile',['usertype' => $usertype, 'products' => $products, 'notifications' => $notifications, 'productDetails' => $productDetails]);
         } catch (\Exception $e) {
-            return view('profile',['usertype' => $usertype, 'notifications' => $notifications]);
+            $products = [];
+            $productDetails = [];
+            return view('profile',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products, 'productDetails' => $productDetails]);
         }
     }
 
