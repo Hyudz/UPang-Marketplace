@@ -25,7 +25,6 @@
                             <th>Price</th>
                             <th>Status</th>
                         </tr>
-                        @try
                         @foreach($products as $product)
                         <tr>
                             <td>{{$product->name}}</td>
@@ -33,8 +32,6 @@
                             <td>{{$product->availability}}</td>
                         </tr>
                         @endforeach
-                        @catch
-                        @endtry
                     </table>
                 </div>
 
@@ -46,7 +43,6 @@
                             <th>Status</th>
                             <th colspan="2">Actions</th>
                         </tr>
-                        @try
                         @foreach($products as $product)
                         @if($product->availability == "approved")
                         <tr>
@@ -65,8 +61,6 @@
                         </tr>
                         @endif
                         @endforeach 
-                        @catch
-                        @endtry
                     </table>
                 </div>
 
@@ -77,7 +71,6 @@
                             <th>Price</th>
                             <th>Status</th>
                         </tr>
-                        @try
                         @foreach($products as $product)
                         @if($product->availability == "declined")
                         <tr>
@@ -87,8 +80,6 @@
                         </tr>
                         @endif
                         @endforeach 
-                        @catch
-                        @endtry
                     </table>
                 </div>
                 <div class="tab-pane fade" id="toShip">
@@ -101,7 +92,6 @@
                             <th>Buyer Message</th>
                             <th>Actions</th>
                         </tr>
-                        @try
                         @foreach($productDetails as $productDetail)
                         @if($productDetail->status == "to ship")
                         <tr>
@@ -120,8 +110,6 @@
                         </tr>
                         @endif
                         @endforeach 
-                        @catch
-                        @endtry
                     </table>
                 </div>
                 <div class="tab-pane fade" id="settled">
@@ -131,7 +119,6 @@
                             <th>Price</th>
                             <th>Status</th>
                         </tr>
-                        @try
                         @foreach($productDetails as $productDetail)
                         @if($productDetail->status == "sold")
                         <tr>
@@ -141,8 +128,6 @@
                         </tr>
                         @endif
                         @endforeach 
-                        @catch
-                        @endtry
                     </table>
                 </div>
             </div>
