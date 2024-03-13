@@ -49,6 +49,8 @@ class webpage_controller extends Controller
         //BUYER PROFILE
         $usertype = Auth::user();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+
+        try {
         $orderHistory = order_history::where('buyer_id', Auth::user()->id)->first();
         $productDetails = products::join('order_histories', 'products.id', '=', 'order_histories.product_id')
         ->join('user_table', 'order_histories.seller_id', '=', 'user_table.id')
@@ -58,6 +60,9 @@ class webpage_controller extends Controller
 
         // dd($productDetails);
         return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications, 'productDetails' => $productDetails]);
+        } catch (\Exception $e) {
+            return view('buyer/profile_edit', ['usertype' => $usertype, 'notifications' => $notifications]);
+        }
     }
 
     function updateProfile(Request $request, $id){
@@ -114,8 +119,10 @@ class webpage_controller extends Controller
     function profile(){
         //SELLER PROFILE
         $usertype = Auth::user();
-        $products = products::where('user_id', Auth::user()->id)->get();
         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+
+        try {
+        $products = products::where('user_id', Auth::user()->id)->get();
         $orderHistory = order_history::where('seller_id', Auth::user()->id)->first();
         $productDetails = products::join('order_histories', 'products.id', '=', 'order_histories.product_id')
         ->join('user_table', 'order_histories.buyer_id', '=', 'user_table.id')
@@ -124,6 +131,9 @@ class webpage_controller extends Controller
         ->get();
 
         return view('profile',['usertype' => $usertype, 'products' => $products, 'notifications' => $notifications, 'productDetails' => $productDetails]);
+        } catch (\Exception $e) {
+            return view('profile',['usertype' => $usertype, 'notifications' => $notifications]);
+        }
     }
 
     function sell(){
