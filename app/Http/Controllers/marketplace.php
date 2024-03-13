@@ -9,8 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use App\Models\products;
 use Illuminate\Support\Facades\DB;
 use App\Models\order_history;
-
-
+use App\Models\user_profile;
 
 class marketplace extends Controller
 {
@@ -81,11 +80,10 @@ class marketplace extends Controller
             'email' => 'required|email|unique:user_table,email',
             'password' => 'required|confirmed',
             'user_type' => 'required',
-            'birthday' => 'required',
             "user_type" => "required|in:seller,buyer",
             "gender" => "required|in:male,female",
-            "birthday" => "required|date",
-            "adress" => "required",
+            "birthdate" => "required|date",
+            "address" => "required",
             "contactNo" => "required"
         ]);
     
@@ -95,35 +93,39 @@ class marketplace extends Controller
         $data['password'] = Hash::make($request->password);
         $data['user_type'] = $request->user_type;
         $data['gender'] = $request->gender;
-        $data['birthday'] = $request->birthday;
+        $data['birthdate'] = $request->birthdate;
         $data['address'] = $request->address;
         $data['contactNo'] = $request->contactNo;
-
-        if($request->email)
     
-        $user = user_table::create(
-            $data['email'],
-            $data['password']
-        );
+        $user = user_table::create([
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'address' => $data['address'],
+            'contactNo' => $data['contactNo'],
+            'user_type' => $data['user_type'],
+            'gender' => $data['gender'],
+            'birthdate' => $data['birthdate'],
+        ]);
 
-
-        // if ($user) {
-        //     $credentials = [
-        //         'email' => $request->input('email'),
-        //         'password' => $request->input('password'),
-        //     ];
+        if ($user) {
+            $credentials = [
+                'email' => $request->input('email'),
+                'password' => $request->input('password'),
+            ];
     
-        //     if (Auth::attempt($credentials)) {
-        //         $products = DB::table('products')->where('availability', 'approved')
-        //         ->where('user_id', '!='  ,Auth::user()->id)
-        //         ->get();
-        //         $usertype = Auth::user();
-        //         $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
-        //         return redirect()->route('homepage',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
-        //     }
-        // } else {
-        //     return redirect()->route('signup')->with('error', 'User not created');
-        // }
+            if (Auth::attempt($credentials)) {
+                $products = DB::table('products')->where('availability', 'approved')
+                ->where('user_id', '!='  ,Auth::user()->id)
+                ->get();
+                $usertype = Auth::user();
+                $notifications = DB::table('notifications')->where('user_id', Auth::user()->id)->get();
+                return redirect()->route('homepage',['usertype' => $usertype, 'notifications' => $notifications, 'products' => $products]);
+            }
+        } else {
+            return redirect()->route('signup')->with('error', 'User not created');
+        }
     }
 
     function adminlogin(){

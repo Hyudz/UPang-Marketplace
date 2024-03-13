@@ -44,52 +44,35 @@
         </div>
 
             <div class="card-body">
-                <form action="{{route('updateProfile',$userDetails->id)}}" method="POST">
+                <form action="{{route('updateAccount', $id)}}" method="POST">
                     @method('PUT')
                     @csrf
-                    <div class="d-flex">
+                    <div class="d-flex flex-column">
                         <div class="container">
-                            <label for="first_name">First Name</label>
-                            <input type="text" required name="first_name" id="first_name" class="form-control" value="{{$userDetails->first_name}}">
+                            <label for="Email">Email</label>
+                            <input type="text" required name="email" id="email" class="form-control">
                         </div>
 
                         <div class="container">
-                            <label for="last_name">Last Name</label>
-                            <input type="text" required name="last_name" id="last_name" class="form-control" value="{{$userDetails->last_name}}">
-                        </div>
-                    </div>
-
-                    <div class="container d-flex mt-2">
-                        <div class="container">
-                            <label for="gender">Gender</label>
-                            <select name="gender" class="form-select" id="dropdown" required>
-                            <option value="none"></option>
-                                <option value="male">Male</option>
-                                <option value="female">Female</option>
-                            </select>
+                            <label for="password">Current Password</label>
+                            <input type="password" required name="password" id="password" class="form-control">
                         </div>
 
                         <div class="container">
-                            <label for="birthdate">Birthdate</label>
-                            <input type="date" value="{{$userDetails->birthdate}}" name="birthdate" class="form-control" id="dropdown" required>
+                            <label for="newpassword">New Password</label>
+                            <input type="password" required name="newpassword" id="newpassword" class="form-control">
                         </div>
+
+                        <div class="container">
+                            <label for="newpassword_confirmation">Confirm Password</label>
+                            <input type="password" required name="newpassword_confirmation" id="newpassword_confirmation" class="form-control">
+                        </div>
+
+                        <input type="hidden" name="id" value="{{$id}}">
                     </div>
 
-                    <div class="container mt-2">
-                        <label for="address">Address</label>
-                        <input type="text" required name="address" id="address" class="form-control" value="{{$userDetails->address}}">
-                    </div>
-
-                    <div class="container mt-2">
-                        <label for="contactNo">Contact Number</label>
-                        <input type="text" required name="contactNo" id="contactNo" class="form-control" value="{{$userDetails->contactNo}}">
-                    </div>
-
-                    <input type="hidden" name="usertype" value="{{$userDetails->id}}">
-
-                    <div class="d-flex justify-content-center">
-                        <a href="{{route('homepage')}}" class="btn btn-secondary mt-3 me-3">Cancel</a>
-                        <button type="submit" class="btn btn-success mt-3 ">Submit</button>
+                    <div class="d-flex justify-content-center mt-3">
+                        <button type="submit" class="btn btn-success">Update</button>
                     </div>
                 </form>
             </div>

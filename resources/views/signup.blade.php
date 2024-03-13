@@ -7,11 +7,21 @@
     <link href="{{asset('css/signup.css')}}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
+
+    <style>
+        * {
+            font-family: 'Sahitya', sans-serif;
+        }
+
+        body {
+            background-color: #EEF6FF;
+        }
+    </style>
 </head>
 <body style="height: 100vh;">
 
     <div class="mt-3" style="height: 15px;"></div>
-    <div class="container mt-5 p-5" style="width: 600px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); background: rgb(255,255,255); background: linear-gradient(158deg, rgba(255,255,255,1) 0%, rgba(226,255,220,1) 100%);">
+    <div class="container mt-4 p-4" style="width: 600px; box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.5); background: rgb(255,255,255); background: linear-gradient(158deg, rgba(255,255,255,1) 0%, rgba(226,255,220,1) 100%);">
         <div class="justify-content-center">
             <h3 class="text-center" style="font-family: 'Sahitya', sans-serif;">Welcome to PHINMA UPang Marketplace</h3>
             <h6 class="text-center" style="font-family: 'Sahitya', sans-serif;">Already have an account? <a href="{{route('login')}}" style="text-decoration: none;">Sign in </a> now!</h6>
@@ -55,6 +65,15 @@
                 <div class="mt-3">
                     <input type="password" name="password_confirmation" placeholder="Confirm Password" class="form-control" id="form_input">
                 </div>
+
+                <div class="mt-3">
+                    <input type="text" name="contactNo" placeholder="Contact Number" required class="form-control" id="form_input">
+                </div>
+
+                <div class="mt-3">
+                    <input type="text" name="address" placeholder="Address" required class="form-control" id="form_input">
+                </div>
+                
                 <div class="mt-3">
                     <div class="container text-center">
                         <div class="row">
@@ -69,7 +88,7 @@
 
                             <div class="col">
                                 <h5 class="d-flex justify-content-start col">Gender</h5>
-                                <select name="gender" class="form-control   " id="dropdown" required>
+                                <select name="gender" class="form-control" id="dropdown" required>
                                     <option value="none"></option>
                                     <option value="male">Male</option>
                                     <option value="female">Female</option>
@@ -78,7 +97,7 @@
 
                             <div class="col">
                                 <h5 class="d-flex justify-content-start col">Birthdate</h5>
-                                <input type="date" name="birthday" class="form-control" id="dropdown" required>
+                                <input type="date" name="birthdate" class="form-control" id="dropdown" required>
                             </div>
                         </div>
                     </div>

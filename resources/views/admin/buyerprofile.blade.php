@@ -33,27 +33,28 @@
         <div class="tab-pane fade" id="to-receive">
         <table class="table">
                 <tr>
-                    <th>ID</th>
                     <th>Product</th>
                     <th>Price</th>
                     <th>Status</th>
+                    <th>Seller Name</th>
                     <th>Actions</th>
                 </tr>
                 @foreach($productDetails as $productDetail)
                 @if($productDetail->status == "to ship")
                 <tr>
-                    <td>{{$productDetail->id}}</td>
                     <td>{{$productDetail->name}}</td>
                     <td>₱{{$productDetail->price}}.00</td>
                     <td>{{$productDetail->status}}</td>
+                    <td>{{$productDetail->seller_name}} {{$productDetail->seller_lastname}}</td>
                     <td> 
                         <form action="{{ route('cancelOrder')}}" method="post">
                             @csrf
-                            <input type="hidden" name="order_id" value="{{ $productDetail->id }}">
+                            <input type="hidden" name="order_id" value="{{ $productDetail->order_id }}">
                             <button type="submit" class="btn btn-danger">Cancel Order</button>
                         </form>
+                        <!-- <button type="button" class="btn btn-primary" onclick="window.alert('{{ $productDetail->order_histories_id}}')"></button> -->
                     </td>
-                </tr>
+                </tr> 
                 @endif
                 @endforeach 
             </table>

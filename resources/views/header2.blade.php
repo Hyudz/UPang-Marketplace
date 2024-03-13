@@ -69,12 +69,6 @@
                 </div>
             </li>
 
-            <li class="nav-item" style="display: none;">
-                <a href="{{route('messages')}}" class="nav-item">
-                    <i class="fa fa-message" id="nav-icon"></i>
-                </a>
-            </li>
-
             @if($usertype->user_type == 'buyer')
             <li class="nav-item" >
                 <a href="{{route('sell')}}" class="nav-item" >

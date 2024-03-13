@@ -16,24 +16,22 @@ class user_table extends Model implements Authenticatable
     protected $table = 'user_table';
 
     protected $fillable = [
-        'first_name',
-        'last_name',
         'email',
         'password',
+        'first_name',
+        'last_name',
         'user_type',
+        'address',
+        'contactNo',
         'gender',
-        'birthday'
+        'birthdate',
     ];
 
     public function products()
     {
-        return $this->hasMany(products::class, 'user_id', 'id');
+        return $this->hasMany(products::class);
     }
 
-    public function order_history()
-    {
-        return $this->hasMany(order_history::class);
-    }
 
     public function notifications()
     {
@@ -45,9 +43,5 @@ class user_table extends Model implements Authenticatable
         return $this->hasMany(cart_items::class);
     }
 
-    public function user_profile()
-    {
-        return $this->hasOne(user_profile::class);
-    }
 
 }

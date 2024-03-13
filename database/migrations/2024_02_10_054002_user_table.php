@@ -17,6 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('user_type');
+            $table->string('address');
+            $table->string('contactNo');
+            $table->string('birthdate');
+            $table->string('gender');
             $table->timestamps();
         });
     }

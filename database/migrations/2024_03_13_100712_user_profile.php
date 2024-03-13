@@ -19,11 +19,10 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('user_table')->onDelete('cascade');
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('email');
-            $table->string('password');
             $table->string('user_type');
             $table->string('address');
             $table->string('contactNo');
+            $table->timestamps();
         });
     }
 

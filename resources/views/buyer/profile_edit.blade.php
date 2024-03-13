@@ -47,7 +47,11 @@
                         <a href="{{route('editProfile')}}" class="btn btn-success w-100">Edit Profile</a>    
                     </div>
 
-                    <div class="me-3 container-fluid">
+                    <div class="mt-2 container-fluid">
+                        <a href="{{route('displayAccount', $usertype->id)}}" class="btn btn-success w-100">Update Account</a>
+                    </div>
+
+                    <div class="me-3 mt-2 container-fluid">
                         <a href="{{route('deleteProfile', $usertype->id)}}" class="btn btn-danger w-100">Delete Profile</a>    
                     </div>
                 </div>

@@ -24,18 +24,12 @@ Route::apiResource('users', user_controller::class);
 
 Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post('/logout',[marketplace_api::class,'logout']);
-    // Route::get('/likes',[likes_api::class,'index']);
-    // Route::post('/likes/add',[likes_api::class,'store']);
-    // Route::delete('/likes/remove',[likes_api::class,'destroy']);
     Route::get("/cart", [cart_api::class,'index']);
     Route::post("/purchase", [orders_controller::class,'store']);
     Route::delete("/remove_from_cart", [cart_api::class,'destroy']);
     Route::post("/add_to_cart", [cart_api::class,'store']);
     Route::get('/orderBuyer', [orders_controller::class, 'buyerProfile']);
     Route::get('/notifications',[notifications_api::class,'index']);
-    // Route::get("/message",[messages_api::class,'index']);
-    // Route::post("/message_send",[messages_api::class,'store']);
-    // Route::delete("/message_delete/{id}",[messages_api::class,'destroy']);
     Route::post("/getSeller", [products_controller::class,'getSeller']);
     Route::get("/getBuyer", [products_controller::class,'getBuyer']);
     Route::post("/cancelOrder", [orders_controller::class, 'orderCancel']);

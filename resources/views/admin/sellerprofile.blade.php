@@ -98,14 +98,14 @@
                             <td>{{$productDetail->name}}</td>
                             <td>₱{{$productDetail->price}}.00</td>
                             <td> {{$productDetail->availability}} </td>
-                            <td> </td>
+                            <td> {{$productDetail-> buyer_name}} {{$productDetail-> buyer_lastname}}  </td>
                             <td>{{$productDetail->message}}</td>
                             <td>
                                 <form action="{{route('orderSettled')}}" method="POST">
                                     @csrf
-                                    <input type="hidden" id="product_id" name="product_id" value="{{$productDetail->id}}">
+                                    <input type="hidden" id="product_id" name="product_id" value="{{$productDetail->order_id}}">
                                     <button type="submit" class="btn btn-primary">Order Delivered</button>
-                                </form> 
+                                </form>
                             </td>
                         </tr>
                         @endif
@@ -119,12 +119,12 @@
                             <th>Price</th>
                             <th>Status</th>
                         </tr>
-                        @foreach($products as $product)
-                        @if($product->availability == "sold")
+                        @foreach($productDetails as $productDetail)
+                        @if($productDetail->status == "sold")
                         <tr>
-                            <td>{{$product->name}}</td>
-                            <td>₱{{$product->price}}.00</td>
-                            <td>{{$product->availability}}</td>
+                            <td>{{$productDetail->name}}</td>
+                            <td>₱{{$productDetail->price}}.00</td>
+                            <td>{{$productDetail->status}}</td>
                         </tr>
                         @endif
                         @endforeach 

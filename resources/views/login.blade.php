@@ -8,6 +8,12 @@
             <link href="https://fonts.googleapis.com/css?family=Inria+Serif" rel="stylesheet">
             <link href="{{asset('img/logowithoutbg.png')}}" rel="icon" type="image/x-icon">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+            <style>
+                body {
+                    background-color: #EEF6FF;
+                }
+            </style>
         </head>
         <body class="d-flex justify-content-center align-items-center" style="height: 100vh;">  
             <div class="container-fluid d-flex justify-content-center align-items-center">

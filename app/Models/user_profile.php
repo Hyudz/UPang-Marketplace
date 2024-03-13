@@ -14,7 +14,8 @@ class user_profile extends Model
         'first_name',
         'last_name',
         'address',
-        'phone',
+        'contactNo',
+        'user_type'
     ];
 
     public function user()
@@ -29,6 +30,6 @@ class user_profile extends Model
 
     public function order_history()
     {
-        return $this->hasMany(order_history::class, 'seller_id');
+        return $this->hasMany(order_history::class, 'buyer_id');
     }
 }

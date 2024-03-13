@@ -4,11 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\marketplace;
 use App\Http\Controllers\seller_product;
 use App\Http\Controllers\webpage_controller;
-use App\Http\Controllers\create_chat;
-use App\Http\Controllers\messages_controller;
 use App\Http\Controllers\Admin_controller;
-use App\Http\Livewire\Chat\Main;
-
 Route::get('/',[marketplace::class,'landing']) -> name('landing');
 Route::get('/preview/{id}',[marketplace::class,'preview']) -> name('preview');
 Route::get("/signup",[marketplace::class,'signup']) -> name('signup');  
@@ -35,8 +31,6 @@ Route::get("/my_profile",[webpage_controller::class,'my_profile']) -> name('buye
 Route::post("/purchased/{id}",[webpage_controller::class,'purchased']) -> name('purchased');
 Route::get("/check-out/{id}",[webpage_controller::class,'purchase']) -> name('checkout-item');
 Route::get("/not_found",[webpage_controller::class,'notfound']) -> name('not_found');
-Route::get("/messages",[messages_controller::class,'index']) -> name('messages');
-Route::get("/chat/{id}",[messages_controller::class,'chats']) -> name('chats');
 Route::post("/product_result", [webpage_controller::class,'searchItem']) -> name('search');
 Route::post("/product_results", [marketplace::class,'searchItem2']) -> name('search2');
 Route::get("/notifDetails/{id}",[webpage_controller::class,'notifDetails']) -> name('notifDetails');
@@ -48,9 +42,8 @@ Route::delete("/deleteProfile/{id}",[webpage_controller::class,'deleteProfile'])
 Route::delete("/deleteProduct/{id}",[webpage_controller::class,'deleteProduct']) -> name('deleteProduct');
 Route::get("/editProduct/{id}",[webpage_controller::class,'editProduct']) -> name('editProduct');
 Route::put("/updateProduct/{id}",[webpage_controller::class,'updateProduct']) -> name('updateProduct');
-
-//TODO: Add routes for the following:
-// - /admin/dashboard
+Route::get("/updateAccount/{id}",[webpage_controller::class,'displayAccount']) -> name('displayAccount');
+Route::put("/updateAccount/{id}",[webpage_controller::class,'updateAccount']) -> name('updateAccount');
 
 Route::get("/analytics/{id}",[seller_product::class,'analytics']) -> name('analytics');
 Route::post("/delete/{id}",[seller_product::class,'delete']) -> name('delete_product');

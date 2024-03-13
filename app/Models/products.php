@@ -23,11 +23,11 @@ class products extends Model
 
     public function user()
     {
-        return $this->belongsTo(user_table::class, 'user_id');
+        return $this->belongsTo(user_table::class);
     }
 
     public function cart_items(){
-        return $this->hasMany(cart_items::class, 'product_id');
+        return $this->hasMany(cart_items::class);
     }
 
 
