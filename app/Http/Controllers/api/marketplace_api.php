@@ -27,7 +27,7 @@ class marketplace_api extends Controller
         if($user->user_type != 'admin') {
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-        return response(['token' =>$token]);
+        return response(['token' =>$token, 'user' => $user]);
         } else {
             return response()-> json([
                 'status' => 'suppressed',
