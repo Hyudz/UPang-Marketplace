@@ -42,29 +42,39 @@ class user_controller extends Controller
         $request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
-            'email' => 'required',
-            'password' => 'required',
-            'new_password' => 'required|confirmed',
+            'gender' => 'required',
+            'birthdate' => 'required',
+            'address' => 'required',
+            'contactNo' => 'required',
         ]);
 
-        $userProfile = user_table::find($id);
-    
-        if (!Hash::check($request->password, $userProfile->password)) {
-            return response()->json([
-                'status' => 'error',
-                'message' => 'Password does not match'
-            ]);
-        }
 
         $user->update([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
-            'email' => $request->email,
-            'password' => bcrypt($request->new_password),
-
+            'gender' => $request->gender,
+            'birthdate' => $request->birthdate,
+            'address' => $request->address,
+            'contactNo' => $request->contactNo,
         ]);
         return response()->json(['message' => 'User updated successfully']);
 
+    }
+
+    public function updateAccount(Request $request, $id){
+        $request->validate([
+            'email' => 'required|email|unique:user_table,email,'.$id,
+            'newpassword' => 'required|confirmed',
+            'newpassword_confirmation' => 'required',
+        ]);
+
+        $userProfile = user_table::find($id);
+    
+        $userProfile->update([
+            'email' => $request->email,
+            'password' => Hash::make($request->newpassword),
+        ]);
+        return response()->json(['message' => 'User account updated successfully']);
     }
 
     public function destroy($id){

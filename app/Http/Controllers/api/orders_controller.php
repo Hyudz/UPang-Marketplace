@@ -11,7 +11,6 @@ use App\Models\notifications;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use App\Models\user_table;
 
 class orders_controller extends Controller
 {
@@ -39,14 +38,9 @@ class orders_controller extends Controller
 
         $product->update([
             'availability' => 'to ship',
-            'quantity' =>  0,
+            'quantity' => $product->quantity - 1,
             'message' => $request->input('message')
 
-        ]);
-
-        $order = order_item::create([
-            'product_id' => $product->id,
-            'quantity' => 1
         ]);
 
         $request -> validate([
@@ -56,17 +50,17 @@ class orders_controller extends Controller
 
         $payment = payment::create([
             'user_id' => Auth::user()->id,
-            'order_id' => $order->id,
             'payment_method' => $payment_method,
             'payment_status' => 'to be paid'
         ]);
 
         order_history::create([
-            'user_id' => Auth::user()->id,
-            'order_id' => $order->id,
+            'buyer_id' => Auth::user()->id,
             'total_amount' => $product->price,
             'payment_id' => $payment->id,
-            'status' => 'to ship'
+            'status' => 'to ship',
+            'seller_id' => $product->user_id,
+            'product_id' => $product->id
         ]);
 
         notifications::create([
@@ -79,27 +73,35 @@ class orders_controller extends Controller
             'message' => 'You have successfully placed an order'
         ]);
 
+        if($product->quantity == 0){
+            $product->update([
+                'availability' => 'out of stock'
+            ]);
+        }
+        else {
+            $product->update([
+                'availability' => 'approved',
+            ]);
+        }
+
         return response()->json(['message' => 'Order placed']); 
     }
 
     public function orderCancel(Request $request){
         $order = order_history::find($request->order_id);
-        $orderItem = order_item::find($order->id);
-        $products = products::find($orderItem->product_id);
-    
+        $products = products::find($order->product_id);
+
         $order->update([
             'status' => 'cancelled'
         ]);
     
-        $product = products::find($products->id);
-    
-        $product->update([
+        $products->update([
             'availability' => 'approved',
-            'quantity' => $product->quantity + 1
+            'quantity' => $products->quantity + 1
         ]);
     
         notifications::create([
-            'user_id' => $product->user_id,
+            'user_id' => $products->user_id,
             'message' => 'Your product order has been cancelled'
         ]);
     
@@ -112,21 +114,16 @@ class orders_controller extends Controller
     }
 
     function orderSettled(Request $request){
-        $product = products::find($request->product_id);
-        $orderItem = order_item::where('product_id', $product->id)->latest()->first();
-        $order = order_history::where('order_id', $orderItem->id)->first();
+        $order = order_history::find($request->product_id);
+        $product = products::find($order->product_id);
 
         $order->update([
-            'status' => 'paid'
-        ]);
-    
-        $product->update([
-            'availability' => 'sold',
+            'status' => 'sold'
         ]);
 
         notifications::create([
             'user_id' => $product->user_id,
-            'message' => 'Your product order has been settled'
+            'message' => 'Your product order has settled'
         ]);
 
         notifications::create([
@@ -138,11 +135,11 @@ class orders_controller extends Controller
     }
 
     public function buyerProfile(){
-        $productDetails = DB::table('order_histories')
-        ->join('order_items', 'order_histories.order_id', '=', 'order_items.id')
-        ->join('products', 'order_items.product_id', '=', 'products.id')
-        ->where('order_histories.user_id', Auth::user()->id)
-        ->select('products.*', 'order_histories.status', 'order_histories.id')
+        $orderHistory = order_history::where('buyer_id', Auth::user()->id)->first();
+        $productDetails = products::join('order_histories', 'products.id', '=', 'order_histories.product_id')
+        ->join('user_table', 'order_histories.seller_id', '=', 'user_table.id')
+        ->where('products.id', $orderHistory->product_id)
+        ->select('products.*', 'order_histories.status', 'order_histories.id as order_id' , 'user_table.first_name as seller_name', 'user_table.last_name as seller_lastname')
         ->get();
 
         return response()->json($productDetails);
@@ -150,6 +147,12 @@ class orders_controller extends Controller
 
     public function sellerProfile(){
         $products = products::where('user_id', Auth::user()->id)->get();
-        return response()->json($products);
+        $orderHistory = order_history::where('seller_id', Auth::user()->id)->first();
+        $productDetails = products::join('order_histories', 'products.id', '=', 'order_histories.product_id')
+        ->join('user_table', 'order_histories.buyer_id', '=', 'user_table.id')
+        ->where('products.id', $orderHistory->product_id)
+        ->select('products.*', 'order_histories.status', 'order_histories.id as order_id' , 'user_table.first_name as buyer_name', 'user_table.last_name as buyer_lastname')
+        ->get();
+        return response()->json(['productDetails' =>$productDetails, 'products' => $products]);
     }
 }

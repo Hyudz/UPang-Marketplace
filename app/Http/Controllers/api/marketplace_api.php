@@ -27,12 +27,7 @@ class marketplace_api extends Controller
         if($user->user_type != 'admin') {
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return response($response);
+        return response(['token' =>$token]);
         } else {
             return response()-> json([
                 'status' => 'suppressed',
@@ -50,7 +45,9 @@ class marketplace_api extends Controller
             'password' => 'required|string|confirmed',
             'user_type' => 'required|string',
             'gender' => 'required|string',
-            'birthday' => "required|date",
+            'birthdate' => "required|date",
+            'address' => 'required|string',
+            'contactNo' => 'required|string'
         ]);
 
             $user = user_table::create([
@@ -60,16 +57,13 @@ class marketplace_api extends Controller
                 'password' => bcrypt($fields['password']),
                 'user_type' => $fields['user_type'],
                 'gender' => $fields['gender'],
-                'birthday' => $fields['birthday'],
+                'birthdate' => $fields['birthdate'],
+                'address' => $fields['address'],
+                'contactNo' => $fields['contactNo']
             ]);
 
         $token = $user->createToken('myapptoken')->plainTextToken;
-        $response = [
-            'user' => $user,
-            'token' => $token
-        ];
-
-        return response($response, 201);
+        return response(['token' =>$token]);
     }
 
     public function logout(Request $request){
