@@ -146,18 +146,17 @@ class orders_controller extends Controller
     }
 
     public function sellerProfile(){
-        $products = products::where('user_id', Auth::user()->id)->get();
         $orderHistory = order_history::where('seller_id', Auth::user()->id)->first();
         $productDetails = products::join('order_histories', 'products.id', '=', 'order_histories.product_id')
         ->join('user_table', 'order_histories.buyer_id', '=', 'user_table.id')
         ->where('products.id', $orderHistory->product_id)
         ->select('products.*', 'order_histories.status', 'order_histories.id as order_id' , 'user_table.first_name as buyer_name', 'user_table.last_name as buyer_lastname')
         ->get();
-        return response()->json(['productDetails' =>$productDetails]);
+        return response()->json($productDetails);
     }
 
     public function sellerProducts(){
         $products = products::where('user_id', Auth::user()->id)->get();
-        return response()->json(['products' =>$products]);
+        return response()->json($products);
     }
 }
