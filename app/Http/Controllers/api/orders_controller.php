@@ -153,6 +153,11 @@ class orders_controller extends Controller
         ->where('products.id', $orderHistory->product_id)
         ->select('products.*', 'order_histories.status', 'order_histories.id as order_id' , 'user_table.first_name as buyer_name', 'user_table.last_name as buyer_lastname')
         ->get();
-        return response()->json(['productDetails' =>$productDetails, 'products' => $products]);
+        return response()->json(['productDetails' =>$productDetails]);
+    }
+
+    public function sellerProducts(){
+        $products = products::where('user_id', Auth::user()->id)->get();
+        return response()->json(['products' =>$products]);
     }
 }

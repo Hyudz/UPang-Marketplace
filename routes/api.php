@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:sanctum'], function(){
     Route::post("/orderSettled", [orders_controller::class, 'orderSettled']);
     Route::get("/buyerProfile", [orders_controller::class, 'buyerProfile']);
     Route::get("/sellerProfile", [orders_controller::class, 'sellerProfile']);
+    Route::get("/sellerProducts", [products_controller::class, 'sellerProducts']);
     Route::delete("/deleteProduct/{id}",[products_controller::class,'destroy']);
     Route::put("/updateProduct/{id}",[products_controller::class,'update']);
     Route::put("/updateProfile/{id}",[user_controller::class,'update']);
